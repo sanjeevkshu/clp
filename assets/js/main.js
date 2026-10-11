@@ -1,5 +1,106 @@
-document.addEventListener('DOMContentLoaded',()=>{const toggle=document.querySelector('.nav-toggle');const nav=document.querySelector('#site-nav');if(toggle&&nav){toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));nav.classList.toggle('is-open',!open);});}
-const tabs=[...document.querySelectorAll('.topic-tab')];const cards=[...document.querySelectorAll('.learning-card')];const status=document.querySelector('#filter-status');tabs.forEach(tab=>tab.addEventListener('click',()=>{const filter=tab.dataset.filter;tabs.forEach(t=>{const active=t===tab;t.classList.toggle('is-active',active);t.setAttribute('aria-pressed',String(active));});let shown=0;cards.forEach(card=>{const visible=filter==='all'||card.dataset.topic===filter;card.hidden=!visible;if(visible)shown++;});if(status)status.textContent=filter==='all'?'Showing all '+shown+' learning paths.':'Showing '+shown+' '+tab.textContent.trim().toLowerCase()+' learning path'+(shown===1?'':'s')+'.';}));
-const revealEls=document.querySelectorAll('.reveal');if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target);}}),{threshold:.12});revealEls.forEach(el=>observer.observe(el));}else revealEls.forEach(el=>el.classList.add('is-visible'));
-const form=document.querySelector('#topic-form');if(form){form.addEventListener('submit',event=>{event.preventDefault();const topic=document.querySelector('#topic').value.trim();const interest=document.querySelector('#interest').value;const subject=encodeURIComponent('CLP topic suggestion');const body=encodeURIComponent('Hello CLP,\n\nI would like CLP to explore:\n'+topic+'\n\nMy learning interest: '+interest+'\n');document.querySelector('#form-status').textContent='Your email app will open with the suggestion prepared. No data is sent to CLP by this page.';window.location.href='mailto:?subject='+subject+'&body='+body;});}});
-document.addEventListener('DOMContentLoaded',()=>{const section=document.querySelector('#home-latest');if(!section)return;const tabs=[...section.querySelectorAll('[data-home-filter]')];const cards=[...section.querySelectorAll('[data-home-topic]')];const status=section.querySelector('#home-filter-status');if(!tabs.length||!cards.length)return;const applyFilter=(filter,activeTab)=>{tabs.forEach(tab=>{const active=tab===activeTab;tab.classList.toggle('is-active',active);tab.setAttribute('aria-pressed',String(active));});let count=0;cards.forEach(card=>{const visible=filter==='all'||card.dataset.homeTopic===filter;card.hidden=!visible;card.style.display=visible?'':'none';card.setAttribute('aria-hidden',String(!visible));if(visible)count++;});if(status){const label=activeTab?activeTab.textContent.trim():'All';status.textContent=filter==='all'?'Showing all '+count+' learning resources.':'Showing '+count+' '+label+' resource'+(count===1?'':'s')+'.';}};tabs.forEach(tab=>tab.addEventListener('click',()=>applyFilter(tab.dataset.homeFilter,tab)));applyFilter('all',tabs.find(tab=>tab.dataset.homeFilter==='all')||tabs[0]);});
+document.addEventListener('DOMContentLoaded', () => {
+  // Shared responsive navigation: one source of truth for the button and menu state.
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('#site-nav');
+  const closeMenu = () => {
+    if (!toggle || !nav) return;
+    toggle.setAttribute('aria-expanded', 'false');
+    nav.classList.remove('is-open');
+  };
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      nav.classList.toggle('is-open', !open);
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeMenu();
+    });
+    document.addEventListener('click', event => {
+      if (!nav.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+    });
+  }
+
+  // Learning-page topic filters.
+  const tabs = [...document.querySelectorAll('.topic-tab')];
+  const cards = [...document.querySelectorAll('.learning-card')];
+  const status = document.querySelector('#filter-status');
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    const filter = tab.dataset.filter;
+    tabs.forEach(item => {
+      const active = item === tab;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    let shown = 0;
+    cards.forEach(card => {
+      const visible = filter === 'all' || card.dataset.topic === filter;
+      card.hidden = !visible;
+      if (visible) shown++;
+    });
+    if (status) status.textContent = filter === 'all'
+      ? 'Showing all ' + shown + ' learning paths.'
+      : 'Showing ' + shown + ' ' + tab.textContent.trim().toLowerCase() + ' learning path' + (shown === 1 ? '' : 's') + '.';
+  }));
+
+  // Reveal content when it enters the viewport, with a safe fallback.
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    }), { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // Community topic form prepares an email; it does not transmit data itself.
+  const form = document.querySelector('#topic-form');
+  if (form) {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const topic = document.querySelector('#topic')?.value.trim() || '';
+      const interest = document.querySelector('#interest')?.value || '';
+      const subject = encodeURIComponent('CLP topic suggestion');
+      const body = encodeURIComponent('Hello CLP,\n\nI would like CLP to explore:\n' + topic + '\n\nMy learning interest: ' + interest + '\n');
+      const statusEl = document.querySelector('#form-status');
+      if (statusEl) statusEl.textContent = 'Your email app will open with the suggestion prepared. No data is sent to CLP by this page.';
+      window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+    });
+  }
+
+  // Homepage featured-resource filters.
+  const section = document.querySelector('#home-latest');
+  if (section) {
+    const homeTabs = [...section.querySelectorAll('[data-home-filter]')];
+    const homeCards = [...section.querySelectorAll('[data-home-topic]')];
+    const homeStatus = section.querySelector('#home-filter-status');
+    const applyFilter = (filter, activeTab) => {
+      homeTabs.forEach(tab => {
+        const active = tab === activeTab;
+        tab.classList.toggle('is-active', active);
+        tab.setAttribute('aria-pressed', String(active));
+      });
+      let count = 0;
+      homeCards.forEach(card => {
+        const visible = filter === 'all' || card.dataset.homeTopic === filter;
+        card.hidden = !visible;
+        card.style.display = visible ? '' : 'none';
+        card.setAttribute('aria-hidden', String(!visible));
+        if (visible) count++;
+      });
+      if (homeStatus) {
+        const label = activeTab ? activeTab.textContent.trim() : 'All';
+        homeStatus.textContent = filter === 'all'
+          ? 'Showing all ' + count + ' learning resources.'
+          : 'Showing ' + count + ' ' + label + ' resource' + (count === 1 ? '' : 's') + '.';
+      }
+    };
+    homeTabs.forEach(tab => tab.addEventListener('click', () => applyFilter(tab.dataset.homeFilter, tab)));
+    applyFilter('all', homeTabs.find(tab => tab.dataset.homeFilter === 'all') || homeTabs[0]);
+  }
+});
