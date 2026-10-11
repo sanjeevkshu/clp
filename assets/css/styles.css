@@ -724,3 +724,56 @@ body.home-page main .home-path-card:hover>.home-card-image{animation-play-state:
   body.home-page main .home-hero-image,
   body.home-page main .home-path-card>.home-card-image{animation:none!important;transform:none!important;will-change:auto}
 }
+
+
+/* CLP homepage-only final mobile corrections: full portrait canvas, no header frame. */
+body.home-page>.site-header{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+@media(max-width:900px) and (orientation:portrait){
+  body.home-page main .home-hero{
+    height:100vh;
+    height:100svh;
+    min-height:100vh;
+    min-height:100svh;
+    padding:96px 22px 28px;
+    margin:0;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+  }
+  body.home-page main .home-hero-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    min-height:100%;
+    object-fit:cover;
+    object-position:58% center;
+  }
+  body.home-page main .home-hero-copy{
+    width:100%;
+    max-width:none;
+    flex:0 1 auto;
+  }
+  body.home-page main .home-mantra{font-size:.72rem;margin:0 0 10px}
+  body.home-page main .home-eyebrow{font-size:.62rem;line-height:1.4;margin:0 0 10px;letter-spacing:.12em}
+  body.home-page main .home-hero h1{
+    font-size:clamp(2.45rem,10.4vw,3.6rem);
+    line-height:.97;
+    letter-spacing:-.055em;
+    margin:0 0 14px;
+  }
+  body.home-page main .home-lede{font-size:.92rem;line-height:1.5;margin:0;max-width:34rem}
+  body.home-page main .home-actions{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin:18px 0 0}
+  body.home-page main .home-button{font-size:.76rem;line-height:1.25;padding:11px 14px;max-width:100%}
+}
+@media(max-width:380px) and (orientation:portrait){
+  body.home-page main .home-hero{padding:88px 18px 22px}
+  body.home-page main .home-hero h1{font-size:clamp(2.25rem,10vw,2.7rem)}
+  body.home-page main .home-lede{font-size:.87rem}
+  body.home-page main .home-actions{margin-top:14px}
+  body.home-page main .home-button{font-size:.72rem;padding:10px 12px}
+}
