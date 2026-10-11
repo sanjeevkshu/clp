@@ -54,9 +54,7 @@
   </script>
 </head>
 <body>
-  {% unless page.url == '/' %}
-  {% include header.html %}
-  {% endunless %}
+    {% include header.html %}
   <main id="main-content">{{ content }}</main>
   {% include footer.html %}
   <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
