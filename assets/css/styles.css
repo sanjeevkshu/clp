@@ -631,3 +631,62 @@ body:has(main .home-hero) .home-path-card>.home-card-image{animation:clp-card-dr
   body:has(main .home-hero) .home-hero-image,
   body:has(main .home-hero) .home-path-card>.home-card-image{animation:none!important;transform:none!important;will-change:auto}
 }
+
+
+/* Explicit homepage hook: avoid relying on :has() for viewport layout or motion. */
+body.home-page{background:#031321;color:#f6fbff}
+body.home-page>.site-header{
+  display:flex!important;position:absolute!important;inset:0 0 auto!important;z-index:100!important;
+  width:100%;max-width:none;min-height:82px;margin:0;padding:12px clamp(18px,4vw,64px);
+  align-items:center;justify-content:space-between;gap:20px;color:#fff;
+  background:linear-gradient(180deg,rgba(3,16,32,.9),rgba(3,16,32,.14));
+  border-bottom:1px solid rgba(135,226,255,.18)
+}
+body.home-page>.site-header .brand img{display:block;width:58px;height:58px;max-height:none;object-fit:contain}
+body.home-page>.site-header .site-nav{display:flex;align-items:center;gap:clamp(10px,1.7vw,22px);background:transparent;border:0;padding:0}
+body.home-page>.site-header .site-nav a{color:#f2fbff;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+body.home-page>.site-header .site-nav a:hover{color:#27e1f4}
+body.home-page>.site-header .nav-toggle{display:none;color:#fff;background:rgba(5,24,44,.9);border:1px solid rgba(135,226,255,.6);cursor:pointer}
+body.home-page main{margin:0;padding:0}
+body.home-page main .home-hero{
+  position:relative;z-index:1;isolation:isolate;overflow:hidden;
+  width:100%;max-width:none;min-height:100vh;min-height:100svh;height:100vh;height:100svh;
+  margin:0;padding:clamp(140px,18vh,190px) clamp(24px,7vw,108px) clamp(54px,8vh,90px);
+  border-radius:0;display:flex;align-items:center;color:#fff;background:#06172b
+}
+body.home-page main .home-hero-image{
+  display:block;position:absolute;inset:0;width:100%;height:100%;z-index:0;
+  object-fit:cover;object-position:center 52%;pointer-events:none;
+  animation:clp-hero-drift 24s ease-in-out infinite alternate!important;
+  transform-origin:58% 48%;will-change:transform
+}
+body.home-page main .home-hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none}
+body.home-page main .home-hero-copy{position:relative;z-index:2;max-width:min(680px,58vw)}
+body.home-page main .home-hero-note{z-index:2}
+body.home-page main .home-path-card>.home-card-image{
+  animation:clp-card-drift 18s ease-in-out infinite alternate!important;
+  transform-origin:center;will-change:transform
+}
+body.home-page main .home-path-card:hover>.home-card-image{animation-play-state:paused!important;transform:scale(1.08);filter:saturate(1.1) brightness(1.05)}
+@keyframes clp-hero-drift{
+  0%{transform:scale(1.02) translate3d(0,0,0)}
+  100%{transform:scale(1.10) translate3d(-.8%,.45%,0)}
+}
+@keyframes clp-card-drift{
+  0%{transform:scale(1.025) translate3d(0,0,0)}
+  100%{transform:scale(1.075) translate3d(-.5%,.3%,0)}
+}
+@media(max-width:900px){
+  body.home-page>.site-header{padding:10px 18px;min-height:68px}
+  body.home-page>.site-header .nav-toggle{display:block;position:relative;z-index:102}
+  body.home-page>.site-header .site-nav{display:none;position:absolute;top:calc(100% + 8px);right:16px;width:min(300px,calc(100vw - 32px));padding:14px;flex-direction:column;align-items:stretch;gap:5px;border:1px solid rgba(98,222,247,.3);border-radius:16px;background:rgba(4,21,39,.98);box-shadow:0 18px 48px rgba(0,0,0,.32);backdrop-filter:blur(16px)}
+  body.home-page>.site-header .site-nav.is-open{display:flex!important}
+  body.home-page>.site-header .site-nav a{padding:9px 10px}
+  body.home-page main .home-hero{height:100vh;height:100svh;min-height:100vh;min-height:100svh;padding:112px 22px 42px}
+  body.home-page main .home-hero-copy{max-width:100%;width:100%}
+}
+@media(min-width:901px){body.home-page>.site-header .nav-toggle{display:none}}
+@media(prefers-reduced-motion:reduce){
+  body.home-page main .home-hero-image,
+  body.home-page main .home-path-card>.home-card-image{animation:none!important;transform:none!important;will-change:auto}
+}
