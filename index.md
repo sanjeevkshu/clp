@@ -4,7 +4,7 @@ description: "Explore ideas, build practical skills, and turn knowledge into pro
 permalink: /
 ---
 <section class="home-hero" aria-labelledby="home-title">
-  <div class="home-hero-image" role="img" aria-label="A traveler looks across a mountain lake at sunrise"></div>
+  <img class="home-hero-image" src="{{ '/assets/images/clp-home-hero.png' | relative_url }}" alt="A traveler looks across a mountain lake at sunrise" fetchpriority="high">
   <div class="home-hero-shade"></div>
   <div class="home-hero-copy">
     <p class="home-mantra">LEARN <i>·</i> APPLY <i>·</i> EVOLVE</p>
@@ -23,15 +23,19 @@ permalink: /
 <section class="home-pathways" id="home-pathways" aria-labelledby="pathways-title">
   <div class="home-path-grid">
     <a class="home-path-card path-decodes" href="{{ '/learn/' | relative_url }}">
+      <img class="home-card-image" src="{{ '/assets/images/card-learn.jpg' | relative_url }}" alt="CLP Decodes learning pathway" loading="lazy">
       <span class="home-path-icon">♧</span><h2>CLP Decodes</h2><p>Understand new ideas in simple Hinglish.</p><span class="home-card-cta">Explore <b>→</b></span>
     </a>
     <a class="home-path-card path-masterclass" href="{{ '/learn/' | relative_url }}">
+      <img class="home-card-image" src="{{ '/assets/images/card-apply.jpg' | relative_url }}" alt="CLP Masterclass learning pathway" loading="lazy">
       <span class="home-path-icon path-violet">⌁</span><h2>CLP Masterclass</h2><p>Build practical skills step by step.</p><span class="home-card-cta">Start Learning <b>→</b></span>
     </a>
     <a class="home-path-card path-perspectives" href="{{ '/learn/' | relative_url }}">
+      <img class="home-card-image" src="{{ '/assets/images/card-evolve.jpg' | relative_url }}" alt="CLP Perspectives learning pathway" loading="lazy">
       <span class="home-path-icon">♧</span><h2>CLP Perspectives</h2><p>Explore different viewpoints.</p><span class="home-card-cta">See Insights <b>→</b></span>
     </a>
     <a class="home-path-card path-lab" href="{{ '/learn/' | relative_url }}">
+      <img class="home-card-image" src="{{ '/assets/images/card-community.jpg' | relative_url }}" alt="CLP Evolution Lab learning pathway" loading="lazy">
       <span class="home-path-icon path-violet">↗</span><h2>CLP Evolution Lab</h2><p>Learn by doing with challenges.</p><span class="home-card-cta">Join a Challenge <b>→</b></span>
     </a>
   </div>
@@ -50,10 +54,10 @@ permalink: /
     <a class="home-text-link" href="{{ '/learn/' | relative_url }}">View all learning <span>→</span></a>
   </div>
   <div class="home-video-grid" id="home-video-grid">
-    <a class="home-video-card video-ai" data-home-topic="ai" href="{{ '/learn/' | relative_url }}"><span class="home-video-type">AI &amp; DATA</span><span class="home-play">▶</span><span class="home-video-copy"><strong>AI Agents: Chatbot Se Aage Kya?</strong><small>Explore the topic →</small></span></a>
-    <a class="home-video-card video-plan" data-home-topic="career" href="{{ '/learn/' | relative_url }}"><span class="home-video-type">CAREER GROWTH</span><span class="home-play">▶</span><span class="home-video-copy"><strong>Your 30-Day AI-Ready Plan</strong><small>Build your next step →</small></span></a>
-    <a class="home-video-card video-data" data-home-topic="work" href="{{ '/learn/' | relative_url }}"><span class="home-video-type">FUTURE OF WORK</span><span class="home-play">▶</span><span class="home-video-copy"><strong>AI, Data Aur Digital Transformation</strong><small>Explore the topic →</small></span></a>
-    <a class="home-video-card video-habits" data-home-topic="habits" href="{{ '/learn/' | relative_url }}"><span class="home-video-type">LEARNING HABITS</span><span class="home-play">▶</span><span class="home-video-copy"><strong>Learning Habit Kaise Banayein?</strong><small>Make progress daily →</small></span></a>
+    <a class="home-video-card video-ai" data-home-topic="ai" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-ai.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">AI &amp; DATA</span><span class="home-play">▶</span><span class="home-video-copy"><strong>AI Agents: Chatbot Se Aage Kya?</strong><small>Explore the topic →</small></span></a>
+    <a class="home-video-card video-plan" data-home-topic="career" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-plan.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">CAREER GROWTH</span><span class="home-play">▶</span><span class="home-video-copy"><strong>Your 30-Day AI-Ready Plan</strong><small>Build your next step →</small></span></a>
+    <a class="home-video-card video-data" data-home-topic="work" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-data.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">FUTURE OF WORK</span><span class="home-play">▶</span><span class="home-video-copy"><strong>AI, Data Aur Digital Transformation</strong><small>Explore the topic →</small></span></a>
+    <a class="home-video-card video-habits" data-home-topic="habits" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-habits.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">LEARNING HABITS</span><span class="home-play">▶</span><span class="home-video-copy"><strong>Learning Habit Kaise Banayein?</strong><small>Make progress daily →</small></span></a>
   </div>
   <p class="home-filter-status" id="home-filter-status" aria-live="polite">Showing all 4 learning resources.</p>
 </section>
