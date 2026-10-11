@@ -12,7 +12,7 @@ permalink: /
     <h1 id="home-title">The world evolves.<br><em>So should we.</em></h1>
     <p class="home-lede">Ideas, skills and experiences to help you learn continuously and turn knowledge into meaningful progress.</p>
     <div class="home-actions">
-      <a class="home-button home-button-primary" href="#home-latest"><span class="home-button-play">▶</span> Watch Latest Video <b>→</b></a>
+      <a class="home-button home-button-primary" href="#home-latest"><span class="home-button-play">↗</span> Explore Featured Learning <b>→</b></a>
       <a class="home-button home-button-secondary" href="#home-pathways">Explore Learning Paths <b>→</b></a>
     </div>
   </div>
@@ -42,7 +42,7 @@ permalink: /
 
 <section class="home-latest" id="home-latest" aria-labelledby="latest-title">
   <div class="home-section-head">
-    <div><p class="home-eyebrow home-eyebrow-dark">FEATURED LEARNING</p><h2 id="latest-title">Latest from CLP</h2></div>
+    <div><p class="home-eyebrow home-eyebrow-dark">FEATURED LEARNING</p><h2 id="latest-title">Explore CLP Learning</h2></div>
     <div class="home-topic-tabs" role="group" aria-label="Filter learning topics">
       <button class="is-active" type="button" data-home-filter="all" aria-pressed="true">All</button>
       <button type="button" data-home-filter="ai" aria-pressed="false">AI &amp; Data</button>
@@ -53,7 +53,7 @@ permalink: /
     <a class="home-text-link" href="{{ '/learn/' | relative_url }}">View all learning <span>→</span></a>
   </div>
   <div class="home-video-grid" id="home-video-grid">
-    <a class="home-video-card video-ai" data-home-topic="ai" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-ai.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">AI &amp; DATA</span><span class="home-play">▶</span><span class="home-video-copy"><strong>AI Agents: Chatbot Se Aage Kya?</strong><small>Explore the topic →</small></span></a>
+    <a class="home-video-card video-ai" data-home-topic="ai" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-ai.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">AI &amp; DATA</span><span class="home-play" aria-hidden="true">↗</span><span class="home-video-copy"><strong>AI Agents: Chatbot Se Aage Kya?</strong><small>Explore the topic →</small></span></a>
     <a class="home-video-card video-plan" data-home-topic="career" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-plan.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">CAREER GROWTH</span><span class="home-play">▶</span><span class="home-video-copy"><strong>Your 30-Day AI-Ready Plan</strong><small>Build your next step →</small></span></a>
     <a class="home-video-card video-data" data-home-topic="work" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-data.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">FUTURE OF WORK</span><span class="home-play">▶</span><span class="home-video-copy"><strong>AI, Data Aur Digital Transformation</strong><small>Explore the topic →</small></span></a>
     <a class="home-video-card video-habits" data-home-topic="habits" href="{{ '/learn/' | relative_url }}"><img class="home-video-image" src="{{ '/assets/images/card-habits.svg' | relative_url }}" alt="" aria-hidden="true" loading="lazy"><span class="home-video-type">LEARNING HABITS</span><span class="home-play">▶</span><span class="home-video-copy"><strong>Learning Habit Kaise Banayein?</strong><small>Make progress daily →</small></span></a>
