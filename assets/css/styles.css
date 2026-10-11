@@ -24,7 +24,7 @@
 .learning-art{background-size:cover;background-position:center}
 .art-ai{background-image:linear-gradient(0deg,#06132999,#06132912),url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1000&q=85')}
 .art-future{background-image:linear-gradient(0deg,#061329aa,#06132910),url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=85')}
-.art-habits{background-image:linear-gradient(0deg,#061329aa,#06132910),url('https://images.unsplash.com/photo-149975 ever0320107-5fefb8b8f?auto=format&fit=crop&w=1000&q=85')}
+.art-habits{background-image:linear-gradient(0deg,#061329aa,#06132910),url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1000&q=85')}
 .learning-art:before{background:linear-gradient(0deg,#06132955,transparent 70%);border:0;width:auto;height:auto;inset:0;border-radius:0;box-shadow:none;transform:none}
 .learning-art:after{border-color:#9befff45}
 @media(max-width:700px){.hero-art{border-radius:20px}.series-card{min-height:250px}}
