@@ -895,3 +895,17 @@ body.home-page #home-latest .home-filter-status{margin-top:12px;color:#8297aa;fo
   body.home-page #home-latest .home-video-copy{gap:18px;padding:18px}
   body.home-page #home-latest .home-video-copy h3{font-size:1.05rem}
 }
+
+
+/* Homepage-only learning card summaries: concise expectation-setting notes below each title. */
+body.home-page #home-latest .home-video-copy{justify-content:flex-start;gap:12px}
+body.home-page #home-latest .home-video-copy h3{flex:0 0 auto}
+body.home-page #home-latest .home-video-note{margin:0;color:#a9bdce;font-size:.84rem;line-height:1.55;font-weight:450;max-width:34ch}
+body.home-page #home-latest .home-video-cta{margin-top:auto}
+@media(max-width:700px){
+  body.home-page #home-latest .home-video-copy{gap:10px}
+  body.home-page #home-latest .home-video-note{font-size:.78rem;line-height:1.5}
+}
+@media(max-width:420px){
+  body.home-page #home-latest .home-video-note{font-size:.84rem;max-width:42ch}
+}
