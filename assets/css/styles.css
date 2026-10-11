@@ -777,3 +777,14 @@ body.home-page>.site-header{
   body.home-page main .home-actions{margin-top:14px}
   body.home-page main .home-button{font-size:.72rem;padding:10px 12px}
 }
+
+/* Homepage-only: remove the translucent header wash over the hero photograph. */
+body.home-page>.site-header{
+  background:transparent!important;
+  background-image:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
