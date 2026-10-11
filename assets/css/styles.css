@@ -150,7 +150,7 @@ body:has(.home-hero) .site-header{max-width:none;padding:15px clamp(18px,4vw,60p
 body:has(.home-hero) .site-nav a{color:#edf8ff}
 body:has(.home-hero) .site-nav a:hover{color:#24e2f5}
 .home-hero{position:relative;isolation:isolate;min-height:455px;max-width:1600px;margin:0 auto 18px;padding:38px clamp(24px,4vw,62px) 34px;display:flex;align-items:center;overflow:hidden;color:#fff;background:#06172b}
-.home-hero-image{position:absolute;inset:0;z-index:0;background:url('../images/clp-home-hero.jpg') center 52%/cover no-repeat}
+.home-hero-image{position:absolute;inset:0;z-index:0;background-image:url('../images/clp-home-hero.png');background-position:center 52%;background-size:cover;background-repeat:no-repeat}
 .home-hero-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#031020f5 0%,#031020cf 35%,#03102055 65%,#03102008 100%),linear-gradient(0deg,#03102099,transparent 35%)}
 .home-hero-copy{max-width:570px;position:relative;z-index:2}
 .home-mantra{font-size:.62rem;letter-spacing:.32em;color:#e5f5ff;margin:0 0 20px;font-weight:850}
