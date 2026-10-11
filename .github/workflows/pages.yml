@@ -28,6 +28,20 @@ jobs:
           bundler-cache: true
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+      - name: Validate homepage and interaction assets
+        run: |
+          node --check assets/js/main.js
+          test -f _site/index.html
+          test -f _site/assets/js/main.js
+          test -f _site/assets/css/styles.css
+          test -f _site/assets/images/clp-mark.svg
+          test -f _site/assets/images/clp-home-hero.png
+          grep -q 'id="site-nav"' _site/index.html
+          grep -q 'id="home-latest"' _site/index.html
+          grep -q 'id="home-pathways"' _site/index.html
+          grep -q 'clp-hero-drift' _site/assets/css/styles.css
+          grep -q 'data-home-filter' _site/index.html
+          echo "Homepage markup, assets, JavaScript syntax, filters and photo-motion hooks validated."
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
