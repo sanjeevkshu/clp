@@ -17,7 +17,6 @@ permalink: /
     </div>
   </div>
   <div class="home-hero-note"><span class="note-rule"></span><span>CURIOSITY<br>SKILLS<br>PERSPECTIVE<br>ACTION<br>PROGRESS<br>A BRIGHTER YOU</span></div>
-  <a class="home-story-link" href="#home-latest"><span class="home-story-play">▶</span><span>Watch the<br>CLP Story</span></a>
 </section>
 
 <section class="home-pathways" id="home-pathways" aria-labelledby="pathways-title">
