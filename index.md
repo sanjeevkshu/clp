@@ -19,7 +19,7 @@ permalink: /
   <div class="home-hero-note"><span class="note-rule"></span><span>CURIOSITY<br>SKILLS<br>PERSPECTIVE<br>ACTION<br>PROGRESS<br>A BRIGHTER YOU</span></div>
 </section>
 
-<section class="home-pathways" id="home-pathways" aria-labelledby="pathways-title">
+<section class="home-pathways" id="home-pathways" aria-label="CLP learning pathways">
   <div class="home-path-grid">
     <a class="home-path-card path-decodes" href="{{ '/learn/' | relative_url }}">
       <img class="home-card-image" src="{{ '/assets/images/card-learn.jpg' | relative_url }}" alt="CLP Decodes learning pathway" loading="lazy">
