@@ -790,41 +790,98 @@ body.home-page>.site-header{
 }
 
 
-/* Homepage-only learning cards: quiet, image-led and free of repeated category chips. */
-body.home-page #home-latest .home-video-grid{gap:16px}
+/* Reusable CLP learning-resource card pattern: split media/content, independent CTA. */
+body.home-page #home-latest .home-video-grid{gap:18px}
 body.home-page #home-latest .home-video-card{
-  min-height:190px;
-  padding:18px;
-  border:0;
-  border-radius:12px;
+  display:grid;
+  grid-template-columns:minmax(180px,42%) minmax(0,1fr);
+  align-items:stretch;
+  min-height:230px;
+  padding:0;
+  overflow:hidden;
+  border:1px solid rgba(134,190,220,.16);
+  border-radius:14px;
   box-shadow:none;
   background:#071a2d;
+  position:relative;
+  text-align:left;
 }
-body.home-page #home-latest .home-video-card:before{
-  background:linear-gradient(180deg,rgba(3,14,29,.02) 15%,rgba(3,14,29,.16) 42%,rgba(3,14,29,.88) 100%);
-}
+body.home-page #home-latest .home-video-card:before{display:none}
 body.home-page #home-latest .home-video-card:hover{
   transform:translateY(-2px);
-  border-color:transparent;
-  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  border-color:rgba(32,215,244,.3);
+  box-shadow:0 10px 28px rgba(0,0,0,.18);
 }
-body.home-page #home-latest .home-video-type{display:none!important}
-body.home-page #home-latest .home-video-copy{gap:7px;margin:0;max-width:100%}
-body.home-page #home-latest .home-video-copy strong{
-  font-size:clamp(.95rem,1.25vw,1.12rem);
+body.home-page #home-latest .home-video-card .home-video-image{
+  display:block;
+  position:relative;
+  inset:auto;
+  width:100%;
+  height:100%;
+  min-height:230px;
+  object-fit:cover;
+  align-self:stretch;
+  transform:none;
+  border-radius:0;
+}
+body.home-page #home-latest .home-video-copy{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:18px;
+  min-width:0;
+  margin:0;
+  max-width:none;
+  padding:clamp(20px,2.6vw,34px);
+}
+body.home-page #home-latest .home-video-copy h3{
+  margin:0;
+  color:#f5fbff;
+  font-size:clamp(1.05rem,1.65vw,1.42rem);
   line-height:1.25;
-  letter-spacing:-.02em;
+  letter-spacing:-.025em;
   font-weight:750;
 }
-body.home-page #home-latest .home-video-copy small{
-  font-size:.68rem;
-  letter-spacing:0;
-  font-weight:700;
+body.home-page #home-latest .home-video-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  min-height:40px;
+  padding:9px 15px;
+  border:1px solid rgba(32,215,244,.65);
+  border-radius:999px;
   color:#9beaf8;
+  background:transparent;
+  font-size:.78rem;
+  line-height:1.2;
+  font-weight:750;
+  text-decoration:none;
+  transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease;
 }
-body.home-page #home-latest .home-filter-status{margin-top:10px;color:#8297aa;font-size:.7rem}
+body.home-page #home-latest .home-video-cta:hover{
+  color:#041329;
+  background:#20d7f4;
+  border-color:#20d7f4;
+  transform:translateY(-1px);
+}
+body.home-page #home-latest .home-video-cta:focus-visible{
+  outline:2px solid #fff;
+  outline-offset:3px;
+}
+body.home-page #home-latest .home-filter-status{margin-top:12px;color:#8297aa;font-size:.7rem}
 @media(max-width:680px){
-  body.home-page #home-latest .home-video-grid{gap:10px}
-  body.home-page #home-latest .home-video-card{min-height:148px;padding:16px;border-radius:10px}
-  body.home-page #home-latest .home-video-copy strong{font-size:1rem}
+  body.home-page #home-latest .home-video-grid{gap:12px}
+  body.home-page #home-latest .home-video-card{grid-template-columns:38% minmax(0,1fr);min-height:184px;border-radius:11px}
+  body.home-page #home-latest .home-video-card .home-video-image{min-height:184px}
+  body.home-page #home-latest .home-video-copy{gap:13px;padding:16px 14px}
+  body.home-page #home-latest .home-video-copy h3{font-size:1rem;line-height:1.28}
+  body.home-page #home-latest .home-video-cta{min-height:36px;padding:8px 11px;font-size:.72rem;gap:7px}
+}
+@media(max-width:390px){
+  body.home-page #home-latest .home-video-card{grid-template-columns:34% minmax(0,1fr);min-height:174px}
+  body.home-page #home-latest .home-video-card .home-video-image{min-height:174px}
+  body.home-page #home-latest .home-video-copy{padding:13px 11px;gap:11px}
+  body.home-page #home-latest .home-video-copy h3{font-size:.93rem}
 }
