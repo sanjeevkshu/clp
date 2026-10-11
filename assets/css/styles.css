@@ -132,3 +132,13 @@
 @media(prefers-reduced-motion:reduce){.home-path-card,.home-video-card,.home-button,.home-ai-orb{animation:none!important;transition:none!important}
 
 }
+
+/* Hotfix: render image layers above card and hero backgrounds */
+.home-hero{isolation:isolate;background:#06172b}
+.home-hero-image{z-index:0;pointer-events:none}
+.home-hero-shade{z-index:1;pointer-events:none}
+.home-hero-copy,.home-hero-note,.home-scroll{z-index:2}
+.home-path-card{isolation:isolate;background:#061a30}
+.home-path-card:after,.home-video-card:after{z-index:0}
+.home-path-card:before,.home-video-card:before{z-index:1;pointer-events:none}
+.home-path-card>* ,.home-video-card>*{position:relative;z-index:2}
