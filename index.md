@@ -4,7 +4,6 @@ description: "Explore ideas, build practical skills, and turn knowledge into pro
 permalink: /
 ---
 <section class="home-hero" aria-labelledby="home-title">
-  <header class="site-header home-overlay-header"><a class="brand" href="{{ '/' | relative_url }}" aria-label="CLP home"><img src="{{ '/assets/images/clp-logo.svg' | relative_url }}" alt="CLP" width="190" height="55"></a><button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" class="site-nav" aria-label="Main navigation"><a href="{{ '/' | relative_url }}">Home</a><a href="{{ '/learn/' | relative_url }}">Learn</a><a href="{{ '/about/' | relative_url }}">About CLP</a><a href="{{ '/community/' | relative_url }}">Community</a><a href="{{ '/contact/' | relative_url }}">Contact</a><a class="button button-small" href="{{ '/community/' | relative_url }}">Join the journey</a></nav></header>
   <img class="home-hero-image" src="{{ '/assets/images/clp-home-hero.png' | relative_url }}" alt="A traveler looks across a mountain lake at sunrise" fetchpriority="high">
   <div class="home-hero-shade"></div>
   <div class="home-hero-copy">
