@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#0B1F3B">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}?v=20261011-home-integrity-v4">
+  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}?v=20261011-home-viewport-motion-v5">
   <meta property="og:site_name" content="CLP — Continuous Learning &amp; Progressive Evolution">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{% if page.url == '/' %}CLP — Learn. Apply. Evolve.{% else %}{{ page.title | escape }} | CLP{% endif %}">
@@ -53,7 +53,7 @@
   }
   </script>
 </head>
-<body>
+<body class="{% if page.url == '/' %}home-page{% endif %}">
     {% include header.html %}
   <main id="main-content">{{ content }}</main>
   {% include footer.html %}
