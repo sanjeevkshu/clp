@@ -217,3 +217,19 @@ body:has(.home-hero) .site-nav a:hover{color:#24e2f5}
 .home-path-card>.home-card-image,.home-video-card>.home-video-image{position:absolute;z-index:0}
 .home-path-card:hover>.home-card-image,.home-video-card:hover>.home-video-image{transform:scale(1.055)}
 @media(max-width:700px){.home-hero-image{object-position:58% center}}
+
+
+/* Homepage card readability and filter visibility fixes */
+.home-video-card[hidden]{display:none!important}
+.home-path-card:before,.home-video-card:before{
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(
+    180deg,
+    rgba(3,16,32,.28) 0%,
+    rgba(3,16,32,.38) 35%,
+    rgba(3,16,32,.86) 100%
+  );
+}
+.home-path-card>.home-card-image,.home-video-card>.home-video-image{z-index:0}
+.home-path-card>*:not(.home-card-image),.home-video-card>*:not(.home-video-image){z-index:2}
