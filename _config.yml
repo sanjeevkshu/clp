@@ -1,0 +1,14 @@
+title: "CLP | Continuous Learning & Progressive Evolution"
+description: "Ideas, skills and experiences to help you learn continuously and turn knowledge into progress."
+url: "https://sanjeevkshu.github.io"
+baseurl: "/clp"
+lang: "en"
+markdown: kramdown
+permalink: pretty
+exclude: [README.md, Gemfile, Gemfile.lock, docs, video, vendor]
+plugins: []
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
