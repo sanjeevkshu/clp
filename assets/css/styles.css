@@ -291,3 +291,93 @@ body:has(.home-hero) .site-header{max-width:none;width:100%;padding-left:clamp(2
   .home-hero h1{font-size:clamp(3rem,5.4vw,5rem);margin-bottom:16px}
   .home-actions{margin-top:18px;margin-bottom:10px}
 }
+
+
+/* Homepage-only immersive viewport: the brand header overlays the photograph. */
+body:has(.home-hero) .site-header{
+  position:absolute;
+  inset:0 0 auto;
+  width:100%;
+  max-width:none;
+  min-height:82px;
+  padding:14px clamp(18px,4vw,64px);
+  background:linear-gradient(180deg,rgba(3,16,32,.82),rgba(3,16,32,.22));
+  border-bottom:1px solid rgba(135,226,255,.14);
+  z-index:30;
+}
+body:has(.home-hero) .brand img{width:190px;height:auto;max-height:55px}
+body:has(.home-hero) .home-hero{
+  width:100%;
+  max-width:none;
+  min-height:100vh;
+  min-height:100svh;
+  margin:0;
+  padding:clamp(118px,16vh,170px) clamp(24px,7vw,108px) clamp(54px,8vh,90px);
+  border-radius:0;
+  display:flex;
+  align-items:center;
+}
+body:has(.home-hero) .home-hero-image{
+  animation:clp-hero-drift 28s ease-in-out infinite alternate;
+  transform-origin:58% 48%;
+  will-change:transform;
+}
+body:has(.home-hero) .home-hero-shade{
+  background:
+    linear-gradient(90deg,rgba(3,15,32,.90) 0%,rgba(3,15,32,.72) 32%,rgba(3,15,32,.22) 67%,rgba(3,15,32,.04) 100%),
+    linear-gradient(0deg,rgba(3,15,32,.42) 0%,transparent 42%,rgba(3,15,32,.38) 100%);
+}
+body:has(.home-hero) .home-hero-copy{max-width:min(720px,61vw)}
+body:has(.home-hero) .home-hero h1{font-size:clamp(3.5rem,7.1vw,7.2rem)}
+body:has(.home-hero) .home-hero-note{right:clamp(28px,5vw,76px);top:54%;transform:translateY(-50%)}
+body:has(.home-hero) .home-path-card,
+body:has(.home-hero) .home-video-card{overflow:hidden}
+body:has(.home-hero) .home-card-image,
+body:has(.home-hero) .home-video-image{
+  transform:scale(1.015);
+  transition:transform 900ms cubic-bezier(.2,.8,.2,1),filter 900ms ease;
+}
+body:has(.home-hero) .home-path-card:hover .home-card-image,
+body:has(.home-hero) .home-video-card:hover .home-video-image{
+  transform:scale(1.09);
+  filter:saturate(1.12) brightness(1.06);
+}
+body:has(.home-hero) .home-video-copy{margin-left:0}
+body:has(.home-hero) .home-play{display:none!important}
+body:has(.home-hero) .home-video-card{padding:14px}
+body:has(.home-hero) .home-video-type{z-index:2}
+body:has(.home-hero) .home-video-copy{z-index:2;max-width:100%}
+@keyframes clp-hero-drift{
+  from{transform:scale(1.015) translate3d(0,0,0)}
+  to{transform:scale(1.09) translate3d(-.8%,.35%,0)}
+}
+@media(max-width:1050px){
+  body:has(.home-hero) .home-hero{padding:120px 5vw 64px}
+  body:has(.home-hero) .home-hero-copy{max-width:75vw}
+  body:has(.home-hero) .home-hero-note{right:4%;top:auto;bottom:34px;transform:none}
+}
+@media(max-width:700px){
+  body:has(.home-hero) .site-header{
+    min-height:68px;
+    padding:10px 16px;
+    background:linear-gradient(180deg,rgba(3,16,32,.92),rgba(3,16,32,.3));
+  }
+  body:has(.home-hero) .brand img{width:148px;max-height:44px}
+  body:has(.home-hero) .home-hero{
+    min-height:100vh;
+    min-height:100svh;
+    padding:104px 22px 42px;
+    margin:0 0 24px;
+    align-items:center;
+  }
+  body:has(.home-hero) .home-hero-image{object-position:58% center}
+  body:has(.home-hero) .home-hero-copy{max-width:100%;width:100%}
+  body:has(.home-hero) .home-hero h1{font-size:clamp(3rem,12.4vw,4.6rem)}
+  body:has(.home-hero) .home-hero-note{display:none}
+  body:has(.home-hero) .site-nav{background:rgba(4,21,39,.97);border:1px solid rgba(98,222,247,.2);backdrop-filter:blur(16px)}
+}
+@media(prefers-reduced-motion:reduce){
+  body:has(.home-hero) .home-hero-image{animation:none;transform:none}
+  body:has(.home-hero) .home-card-image,
+  body:has(.home-hero) .home-video-image{transition:none}
+}
