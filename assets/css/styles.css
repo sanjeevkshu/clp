@@ -1014,3 +1014,18 @@ html[data-theme="light"] .consent-label{color:#334d64}
 .consent-label input{margin-top:.45em;min-width:18px;min-height:18px;accent-color:#087fa6}
 @media(max-width:850px){.theme-toggle{width:100%;justify-content:flex-start;border-radius:12px;padding:11px 13px}.site-nav{align-items:stretch}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* Dark theme defaults for inner pages and shared content surfaces. */
+html[data-theme="dark"] body{background:#061329;color:#edf7ff}
+html[data-theme="dark"] .section{color:#edf7ff}
+html[data-theme="dark"] .section-subtitle,html[data-theme="dark"] .intro-grid>p{color:#c1d4e4}
+html[data-theme="dark"] .content-card,html[data-theme="dark"] .loop-grid article,html[data-theme="dark"] .learning-card{background:#0a1f35;color:#edf7ff;border-color:#294c66}
+html[data-theme="dark"] .content-card p,html[data-theme="dark"] .loop-grid p,html[data-theme="dark"] .learning-card-copy p{color:#c1d4e4}
+html[data-theme="dark"] .notice{background:#102b45;color:#d8e9f5}
+html[data-theme="dark"] .text-link,html[data-theme="dark"] .learning-card-copy a{color:#66e4f5}
+html[data-theme="dark"] .topic-tab{background:#0a1f35;color:#d8e9f5;border-color:#45647c}
+html[data-theme="dark"] .topic-tab.is-active{background:#20d7f4;color:#061329;border-color:#20d7f4}
+html[data-theme="dark"] .signup-card input[type="email"],html[data-theme="dark"] .signup-card textarea,html[data-theme="dark"] .signup-card select{background:#07182a;color:#f2f8ff;border-color:#52718a}
+html[data-theme="dark"] .signup-card input::placeholder,html[data-theme="dark"] .signup-card textarea::placeholder{color:#a9bfd0}
+html[data-theme="dark"] .home-pathways,html[data-theme="dark"] .home-latest{color:#edf7ff}
