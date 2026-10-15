@@ -6,16 +6,13 @@ on:
     types: [completed]
 
 permissions:
-  actions: read
   contents: read
-
 
 jobs:
   prepare:
     if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository }}
     runs-on: ubuntu-latest
     permissions:
-      actions: read
       contents: read
     steps:
       - name: Checkout current production source from master
@@ -23,6 +20,12 @@ jobs:
         with:
           ref: master
           path: production-source
+
+      - name: Checkout the exact pull-request source revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          path: preview-source
 
       - name: Setup Pages
         id: pages
@@ -37,42 +40,28 @@ jobs:
           bundler-cache: true
           working-directory: production-source
 
-      - name: Download the pull-request build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: ./pr-artifact
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          run-id: ${{ github.event.workflow_run.id }}
-
-      - name: Validate preview files from pull-request artifact
-        env:
-          BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
-        run: |
-          slug="$(printf '%s' "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-|-$//g')"
-          test -f "pr-artifact/previews/$slug/index.html"
-          echo "Validated PR preview files at /previews/$slug/."
-
       - name: Build fresh production site from current master
         working-directory: production-source
         run: |
           bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site" --baseurl "${{ steps.pages.outputs.base_path }}"
 
-      - name: Add only the pull-request preview to the fresh production site
+      - name: Build preview from the exact pull-request revision
+        working-directory: production-source
         env:
           BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
         run: |
           slug="$(printf '%s' "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-|-$//g')"
-          mkdir -p "_site/previews/$slug"
-          cp -a "pr-artifact/previews/$slug/." "_site/previews/$slug/"
-          test -f _site/index.html
-          test -f _site/assets/js/main.js
-          test -f _site/assets/css/styles.css
-          test -f "_site/previews/$slug/index.html"
-          grep -q 'id="site-nav"' _site/index.html
-          grep -q 'id="home-pathways"' _site/index.html
-          echo "Validated fresh production site plus PR preview: /previews/$slug/"
+          bundle exec jekyll build --source "$GITHUB_WORKSPACE/preview-source" --destination "$GITHUB_WORKSPACE/_preview_site" --baseurl "${{ steps.pages.outputs.base_path }}/previews/$slug"
+          mkdir -p "$GITHUB_WORKSPACE/_site/previews/$slug"
+          cp -a "$GITHUB_WORKSPACE/_preview_site/." "$GITHUB_WORKSPACE/_site/previews/$slug/"
+          printf 'User-agent: *\nDisallow: /\n' > "$GITHUB_WORKSPACE/_site/previews/$slug/robots.txt"
+          test -f "$GITHUB_WORKSPACE/_site/index.html"
+          test -f "$GITHUB_WORKSPACE/_site/assets/js/main.js"
+          test -f "$GITHUB_WORKSPACE/_site/assets/css/styles.css"
+          test -f "$GITHUB_WORKSPACE/_site/previews/$slug/index.html"
+          grep -q 'id="site-nav"' "$GITHUB_WORKSPACE/_site/index.html"
+          grep -q 'id="home-pathways"' "$GITHUB_WORKSPACE/_site/index.html"
+          echo "Validated fresh production site plus preview from exact PR revision: /previews/$slug/"
 
       - name: Upload validated combined site for Pages
         uses: actions/upload-pages-artifact@v3
@@ -92,7 +81,6 @@ jobs:
     permissions:
       pages: write
       id-token: write
-      actions: read
       contents: read
       issues: write
       pull-requests: write
@@ -135,8 +123,8 @@ jobs:
               return;
             }
 
-            const body = marker + '\n**GitHub Pages branch preview:** ' + previewUrl +
-              '\n\nBuilt from branch `' + branch + '`. Production files are rebuilt from current master; only the preview files come from the pull-request artifact.';
+            const body = marker + '\\n**GitHub Pages branch preview:** ' + previewUrl +
+              '\\n\\nBuilt from exact pull-request revision `' + process.env.GITHUB_SHA + '`. Production files are rebuilt from current master.';
             const issue_number = pr.number;
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner, repo, issue_number, per_page: 100
