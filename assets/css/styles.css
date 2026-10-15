@@ -1317,3 +1317,18 @@ html[data-theme="light"] .page-hero>p:last-child{color:#f3f8ff;text-shadow:0 1px
 html[data-theme="dark"] .page-hero::after{background:linear-gradient(90deg,rgba(3,15,32,.86) 0%,rgba(3,15,32,.72) 36%,rgba(3,15,32,.42) 68%,rgba(3,15,32,.18) 100%),linear-gradient(0deg,rgba(3,15,32,.28),rgba(3,15,32,.08) 60%,rgba(3,15,32,.24))}
 body.home-page main .home-hero-shade{background:linear-gradient(90deg,rgba(3,15,32,.86) 0%,rgba(3,15,32,.69) 38%,rgba(3,15,32,.30) 72%,rgba(3,15,32,.12) 100%),linear-gradient(0deg,rgba(3,15,32,.42),rgba(3,15,32,.08) 70%,rgba(3,15,32,.30))}
 html[data-theme="light"] body.home-page main .home-hero-shade{background:linear-gradient(90deg,rgba(3,15,32,.86) 0%,rgba(3,15,32,.69) 38%,rgba(3,15,32,.30) 72%,rgba(3,15,32,.12) 100%),linear-gradient(0deg,rgba(3,15,32,.42),rgba(3,15,32,.08) 70%,rgba(3,15,32,.30))}
+
+
+/* Homepage uses a higher-specificity overlay header; enforce the same responsive controls there. */
+@media(max-width:900px){
+  body.home-page>.site-header>.header-controls{display:flex!important;align-items:center;gap:8px}
+  body.home-page>.site-header>.header-controls .theme-toggle{display:inline-grid!important;position:relative!important;align-self:center!important;z-index:103!important}
+  body.home-page>.site-header>.header-controls .nav-toggle{display:block!important;position:relative!important;z-index:103!important}
+  body.home-page>.site-header>.nav-toggle{display:none!important}
+  body.home-page>.site-header>.site-nav{display:none!important;position:absolute!important;top:calc(100% + 8px)!important;right:16px!important;left:auto!important;width:min(320px,calc(100vw - 32px))!important;max-width:calc(100vw - 32px)!important;padding:14px!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;border:1px solid rgba(98,222,247,.3)!important;border-radius:16px!important;background:rgba(4,21,39,.98)!important;box-shadow:0 18px 48px rgba(0,0,0,.32)!important;backdrop-filter:blur(16px)}
+  body.home-page>.site-header>.site-nav.is-open{display:flex!important}
+}
+@media(min-width:901px){
+  body.home-page>.site-header>.header-controls .nav-toggle{display:none!important}
+  body.home-page>.site-header>.site-nav{display:flex!important;position:static!important;width:auto!important;background:transparent!important;border:0!important;padding:0!important;box-shadow:none!important;backdrop-filter:none!important}
+}
