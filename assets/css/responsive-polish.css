@@ -1,0 +1,77 @@
+/* CLP responsive polish: theme-aware inner-page heroes, ordered header controls,
+   fluid Join the Journey CTA, and defensive learning-card hover pseudo-elements. */
+
+/* Light theme: pale left-side blend for dark copy; retain the photo on the right. */
+html[data-theme="light"] .page-hero {
+  background-color: #f5faff;
+  color: #10243e;
+}
+html[data-theme="light"] .page-hero::after {
+  background:
+    linear-gradient(90deg,
+      rgba(245,250,255,.98) 0%,
+      rgba(245,250,255,.91) 34%,
+      rgba(245,250,255,.67) 57%,
+      rgba(245,250,255,.20) 82%,
+      rgba(245,250,255,.06) 100%),
+    linear-gradient(0deg, rgba(245,250,255,.22), rgba(245,250,255,.02) 65%, rgba(245,250,255,.12));
+}
+html[data-theme="light"] .page-hero > * { text-shadow: none; }
+html[data-theme="light"] .page-hero .eyebrow { color: #00647b; text-shadow: none; }
+html[data-theme="light"] .page-hero h1,
+html[data-theme="light"] .page-hero h1 span { color: #10243e; }
+html[data-theme="light"] .page-hero h1 span {
+  background: linear-gradient(90deg, #00647b, #5140a8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+html[data-theme="light"] .page-hero > p:last-child { color: #18364f; text-shadow: none; }
+
+/* Desktop order: logo, navigation, then theme control at the extreme right. */
+@media (min-width: 901px) {
+  .site-header > .brand { order: 0; flex: 0 0 auto; }
+  .site-header > .site-nav { order: 1; margin-left: auto; }
+  .site-header > .header-controls { order: 2; margin-left: 0; }
+  .site-header > .header-controls .nav-toggle { display: none !important; }
+  .site-header > .header-controls .theme-toggle { margin-left: 2px; }
+}
+
+/* Fluid CTA sizing with a comfortable touch target in the collapsed mobile menu. */
+.site-header > .site-nav .button-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  line-height: 1.2;
+  min-height: 40px;
+  padding: clamp(8px, .7vw, 11px) clamp(10px, 1.15vw, 16px);
+  font-size: clamp(.78rem, .88vw, .92rem);
+}
+@media (max-width: 900px) {
+  .site-header > .site-nav .button-small {
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 14px;
+    font-size: .9rem;
+  }
+}
+
+/* Prevent decorative pseudo-elements from becoming a blue hover circle on cards. */
+body.home-page .home-path-card::after,
+body.home-page .home-path-card:hover::after,
+body.home-page .home-path-card:focus-visible::after,
+body.home-page .home-video-card::after,
+body.home-page .home-video-card:hover::after,
+body.home-page .home-video-card:focus-visible::after {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  pointer-events: none !important;
+}
