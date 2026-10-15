@@ -1160,3 +1160,61 @@ body.home-page #home-latest .home-video-cta{margin-top:auto}
 .page-hero::before{z-index:0}
 .page-hero::after{z-index:1}
 .page-hero>*{z-index:2}
+
+
+/* CLP refinement pass: tighter vertical rhythm, contextual learning banners, and visible brand contrast. */
+.home-hero{min-height:clamp(500px,66vh,680px);padding:clamp(42px,6vw,76px) clamp(22px,5.5vw,82px);display:flex;align-items:center}
+.home-hero-copy{width:min(100%,610px);padding:0;margin-block:0}
+.home-mantra{margin:0 0 13px}.home-eyebrow{margin:0 0 12px}
+.home-hero h1{margin:0 0 18px;line-height:1.02}.home-lede{margin:0;max-width:540px}
+.home-actions{margin:22px 0 0;gap:12px}
+.home-path-grid{align-items:stretch;gap:18px}
+.home-path-card{min-height:270px;padding:20px;gap:0}
+.home-path-icon{flex:0 0 auto;margin-bottom:clamp(24px,4vw,54px)}
+.home-path-card h2{margin:0 0 8px;line-height:1.15;font-size:clamp(1.08rem,1.5vw,1.28rem)}
+.home-path-card p{margin:0 0 15px;line-height:1.5;max-width:28ch}
+.home-card-cta{margin-top:auto;padding-top:4px}
+.home-video-grid{align-items:stretch}.home-video-card{min-height:300px}
+.home-video-copy{padding:20px 20px 22px}
+.home-video-copy h3{line-height:1.25;margin:0 0 10px}
+.home-video-note{line-height:1.55;margin:0 0 14px}.home-video-cta{margin-top:auto}
+@media(max-width:1000px){.home-path-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-hero-note{right:3%;font-size:.7rem}}
+@media(max-width:650px){
+ .home-hero{min-height:0;padding:56px 22px 48px;margin-bottom:30px}
+ .home-hero-copy{max-width:100%}
+ .home-hero h1{font-size:clamp(2.6rem,11vw,4.2rem);line-height:1.02;margin-bottom:16px}
+ .home-mantra{font-size:.62rem;letter-spacing:.12em}
+ .home-actions{margin-top:20px;align-items:stretch}
+ .home-button{justify-content:center;padding:12px 15px}
+ .home-hero-note{display:none}
+ .home-path-grid{grid-template-columns:1fr;gap:14px}
+ .home-path-card{min-height:230px;padding:19px}
+ .home-path-icon{margin-bottom:28px}
+ .home-video-grid{grid-template-columns:1fr}.home-video-card{min-height:270px}
+}
+/* Inner-page image heroes keep all existing copy over a controlled contrast overlay. */
+.page-hero{position:relative;isolation:isolate;overflow:hidden;background-color:#061329;background-size:cover;background-position:center 48%;padding:clamp(44px,6vw,70px) max(24px,calc((100% - 1064px)/2)) clamp(48px,6vw,74px)}
+.page-hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,15,32,.94) 0%,rgba(3,15,32,.82) 54%,rgba(3,15,32,.52) 100%),linear-gradient(0deg,rgba(3,15,32,.38),rgba(3,15,32,.12))}
+.page-hero>*{position:relative}
+.page-hero-learn{background-image:url('../images/card-learn.jpg')}
+.page-hero-about{background-image:url('../images/card-evolve.jpg')}
+.page-hero-community{background-image:url('../images/card-community.jpg')}
+.page-hero-contact{background-image:url('../images/card-apply.jpg')}
+.page-hero h1{margin:0 0 18px;line-height:1.04}.page-hero .eyebrow{margin:0 0 13px}
+.page-hero>p:last-child{margin:0;line-height:1.65;max-width:700px}
+html[data-theme="light"] .page-hero{color:#fff}
+html[data-theme="light"] .page-hero h1 span{background:linear-gradient(90deg,#68eaff,#d5d0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-theme="light"] .page-hero>p:last-child{color:#f0f7ff}
+.site-footer .footer-brand{display:flex;align-items:center;gap:14px;min-width:0}
+.site-footer .footer-brand img{display:block;flex:0 0 auto;width:58px;height:58px;filter:none}
+.site-footer .footer-brand p{margin:0;color:#006b91;font-weight:850;letter-spacing:.12em;line-height:1.5}
+html[data-theme="dark"] .site-footer .footer-brand p{color:#68d8ff}
+html[data-theme="light"] .site-footer .footer-brand p{color:#075b7a}
+.site-footer{row-gap:18px}
+.quick-link-theme{width:42px;height:42px;min-width:42px;padding:0;display:inline-grid;place-items:center;border:1px solid #6a9ab4;border-radius:50%;background:#08213b;color:#f2fbff;font-size:1.2rem;line-height:1;cursor:pointer}
+.quick-link-theme:hover{background:#103452}
+html[data-theme="light"] .quick-link-theme{background:#fff;color:#10243e;border-color:#58758b}
+html[data-theme="light"] .quick-link-theme:hover{background:#eaf5fb}
+.quick-link-theme:focus-visible{outline:3px solid #ffbf47;outline-offset:4px}
+@media(max-width:850px){.quick-link-theme{width:44px;height:44px;min-width:44px;justify-self:start}.site-nav .quick-link-theme{align-self:flex-start}}
+@media(max-width:520px){.site-footer{grid-template-columns:1fr;padding:30px 22px}.site-footer small{grid-column:auto}.site-footer .footer-brand p{font-size:.7rem;letter-spacing:.08em}}
