@@ -139,7 +139,6 @@
 .home-hero-shade{z-index:1;pointer-events:none}
 .home-hero-copy,.home-hero-note,.home-scroll{z-index:2}
 .home-path-card{isolation:isolate;background:#061a30}
-.home-path-card:after,
 .home-path-card:before,.home-video-card:before{z-index:1;pointer-events:none}
 .home-path-card>* ,.home-video-card>*{position:relative;z-index:2}
 
@@ -172,8 +171,6 @@ body:has(.home-hero) .site-nav a:hover{color:#24e2f5}
 .home-pathways,.home-latest{max-width:1500px;margin:0 auto;padding:0 clamp(18px,3.7vw,58px) 26px}
 .home-path-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
 .home-path-card{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;min-height:205px;overflow:hidden;border-radius:13px;padding:17px 17px 15px;text-decoration:none;color:white;background:#061a30;border:1px solid #1a5e7c;transition:transform .28s,border-color .28s,box-shadow .28s}
-.home-path-card:after,
-
 .home-path-card:before,.home-video-card:before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#03102012 0%,#03102024 30%,#031020e8 100%);pointer-events:none}
 .home-path-card>* ,.home-video-card>*{position:relative;z-index:2}
 .home-path-card:hover,.home-video-card:hover{transform:translateY(-3px);border-color:#36e1f4;box-shadow:0 12px 30px #0003}
@@ -917,3 +914,10 @@ body.home-page #home-latest .home-video-card::before{content:none!important;disp
 
 /* Correct fix: the pathway-card hover pseudo-element was receiving icon-circle styling. */
 body.home-page .home-path-card:hover::after{content:none!important;display:none!important;background:none!important;box-shadow:none!important}
+
+
+/* Definitive hover-circle fix: decorative pseudo-elements must never become icon badges. */
+body.home-page .home-path-card:hover::after,
+body.home-page .home-path-card:focus-visible::after,
+body.home-page .home-video-card:hover::after,
+body.home-page .home-video-card:focus-visible::after{content:none!important;display:none!important;width:0!important;height:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;filter:none!important}
