@@ -41,10 +41,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: github-pages
-          path: ./pr-artifact
+          path: ./downloaded-artifact
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Extract the GitHub Pages artifact
+        run: |
+          test -f downloaded-artifact/artifact.tar
+          mkdir -p pr-artifact
+          tar -xf downloaded-artifact/artifact.tar -C pr-artifact
 
       - name: Validate preview files from pull-request artifact
         env:
