@@ -7,19 +7,23 @@
   <meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}">
   <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}">
   <meta name="theme-color" content="#0B1F3B">
-  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}?v=20261012-home-card-notes-v12">
+  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}?v=20261015-seo-logo-hoverfix-v13">
   <meta property="og:site_name" content="CLP — Continuous Learning &amp; Progressive Evolution">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{% if page.url == '/' %}CLP — Learn. Apply. Evolve.{% else %}{{ page.title | escape }} | CLP{% endif %}">
   <meta property="og:description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}">
   <meta property="og:url" content="{{ page.url | replace: 'index.html', '' | absolute_url }}">
   <meta property="og:image" content="{{ '/assets/images/clp-card-atlas.jpg' | absolute_url }}">
+  <meta property="og:image:alt" content="CLP — Continuous Learning &amp; Progressive Evolution">
+  <meta property="og:locale" content="en_IN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{% if page.url == '/' %}CLP — Learn. Apply. Evolve.{% else %}{{ page.title | escape }} | CLP{% endif %}">
   <meta name="twitter:description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}">
   <meta name="twitter:image" content="{{ '/assets/images/clp-card-atlas.jpg' | absolute_url }}">
+  <meta name="twitter:image:alt" content="CLP — Continuous Learning &amp; Progressive Evolution">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
