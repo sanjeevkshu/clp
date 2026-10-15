@@ -31,6 +31,6 @@ permalink: /video/launch-video/
       <h2 id="production-title">03 / Production &amp; accessibility notes</h2>
       <ul><li>Keep captions readable, high contrast and limited to one or two short lines.</li><li>Use verified examples; avoid suggesting that all AI agents behave alike.</li><li>Use original or properly licensed visuals and music.</li><li>Keep voice-over clear above music and avoid rapid flashing or tiny text.</li><li>Video status: script and storyboard only; no published video is embedded yet.</li></ul>
     </section>
-    <div class="episode-actions"><a href="{{ '/learn/' | relative_url }}">← Back to Learn</a><a class="secondary" href="{{ '/' | relative_url }}">CLP home</a></div>
+    <div class="episode-actions"><a href="{{ '/learn/' | relative_url }}">← Back to Learn</a></div>
   </div>
 </article>
