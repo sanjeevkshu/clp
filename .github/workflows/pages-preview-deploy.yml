@@ -101,8 +101,8 @@ jobs:
               return;
             }
 
-            const body = marker + '\\n**GitHub Pages branch preview:** ' + previewUrl +
-              '\\n\\nBuilt from branch `' + branch + '`. The deployed artifact includes the production site from the default branch plus the preview files.';
+            const body = marker + '\n**GitHub Pages branch preview:** ' + previewUrl +
+              '\n\nBuilt from branch \`' + branch + '\`. The deployed artifact includes the production site from the default branch plus the preview files.';
             const issue_number = pr.number;
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner, repo, issue_number, per_page: 100
