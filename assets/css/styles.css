@@ -1155,3 +1155,8 @@ body.home-page #home-latest .home-video-cta{margin-top:auto}
 @media(max-width:420px){
   body.home-page .home-path-card{min-height:225px}
 }
+
+/* Keep the page-hero image and its overlay above the hero background, below content. */
+.page-hero::before{z-index:0}
+.page-hero::after{z-index:1}
+.page-hero>*{z-index:2}
