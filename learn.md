@@ -10,15 +10,15 @@ permalink: /learn/
   <div class="learn-resource-grid">
     <article class="learn-resource-card">
       <img class="learn-resource-art" src="{{ '/assets/images/clp-agent-workflow.svg' | relative_url }}" alt="Illustration of an AI agent connecting a goal, tools, and human review" loading="lazy">
-      <div class="learn-resource-copy"><p class="card-kicker">CLP DECODES · EXPLAINER</p><h3>AI Agents: Chatbot Se Aage Kya?</h3><p>Understand how agent-style AI workflows differ from chatbots, where tools and planning help, and why human oversight still matters.</p><a class="home-video-cta" href="{{ '/learn/ai-agents/' | relative_url }}">Read the explainer <span aria-hidden="true">→</span></a></div>
+      <div class="learn-resource-copy"><p class="card-kicker">CLP DECODES · EXPLAINER</p><h3>AI Agents: Chatbot Se Aage Kya?</h3><p>Understand how agent-style AI workflows differ from chatbots, where tools and planning help, and why human oversight still matters.</p><a class="learn-card-button" href="{{ '/learn/ai-agents/' | relative_url }}">Read the explainer <span aria-hidden="true">↗</span></a></div>
     </article>
     <article class="learn-resource-card">
       <img class="learn-resource-art" src="{{ '/assets/images/clp-30-day-plan.svg' | relative_url }}" alt="Illustration of a 30-day learning roadmap with learn, practise, apply, and reflect stages" loading="lazy">
-      <div class="learn-resource-copy"><p class="card-kicker">CLP MASTERCLASS · PRACTICAL GUIDE</p><h3>Build a 30-Day AI Learning Plan</h3><p>A manageable roadmap to build AI fluency through focused learning, deliberate practice, one real-world application, and reflection.</p><a class="home-video-cta" href="{{ '/learn/30-day-ai-plan/' | relative_url }}">Explore the plan <span aria-hidden="true">→</span></a></div>
+      <div class="learn-resource-copy"><p class="card-kicker">CLP MASTERCLASS · PRACTICAL GUIDE</p><h3>Build a 30-Day AI Learning Plan</h3><p>A manageable roadmap to build AI fluency through focused learning, deliberate practice, one real-world application, and reflection.</p><a class="learn-card-button" href="{{ '/learn/30-day-ai-plan/' | relative_url }}">Explore the plan <span aria-hidden="true">↗</span></a></div>
     </article>
     <article class="learn-resource-card">
       <img class="learn-resource-art" src="{{ '/assets/images/clp-seven-day-challenge.svg' | relative_url }}" alt="Illustration of a seven-day productivity challenge with small daily milestones" loading="lazy">
-      <div class="learn-resource-copy"><p class="card-kicker">CLP EVOLUTION LAB · HANDS-ON CHALLENGE</p><h3>Seven-Day AI Productivity Challenge</h3><p>Test one low-risk AI-assisted workflow, check the quality of its output, and reflect on what genuinely improved.</p><a class="home-video-cta" href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Start the challenge <span aria-hidden="true">→</span></a></div>
+      <div class="learn-resource-copy"><p class="card-kicker">CLP EVOLUTION LAB · HANDS-ON CHALLENGE</p><h3>Seven-Day AI Productivity Challenge</h3><p>Test one low-risk AI-assisted workflow, check the quality of its output, and reflect on what genuinely improved.</p><a class="learn-card-button" href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Start the challenge <span aria-hidden="true">↗</span></a></div>
     </article>
   </div>
 </section>
