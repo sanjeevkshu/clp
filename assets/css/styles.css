@@ -177,7 +177,6 @@ body:has(.home-hero) .site-nav a:hover{color:#24e2f5}
 .home-path-card:before,.home-video-card:before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#03102012 0%,#03102024 30%,#031020e8 100%);pointer-events:none}
 .home-path-card>* ,.home-video-card>*{position:relative;z-index:2}
 .home-path-card:hover,.home-video-card:hover{transform:translateY(-3px);border-color:#36e1f4;box-shadow:0 12px 30px #0003}
-.home-path-card:hover:after,
 .home-path-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#27d8f1;color:#04213a;font-size:1.25rem;font-weight:900;box-shadow:0 4px 20px #041a2b55;margin-bottom:auto}
 .home-path-icon.path-violet{background:#9475ff;color:#180e3c}
 .home-path-card h2{font-size:1.15rem;line-height:1.15;margin:14px 0 5px;letter-spacing:-.025em}
@@ -914,3 +913,7 @@ body.home-page #home-latest .home-video-cta{margin-top:auto}
 /* Bug fix: suppress inherited decorative circles on the four homepage learning cards. */
 body.home-page #home-latest .home-video-card::after{content:none!important;display:none!important;border:0!important;box-shadow:none!important;background:none!important;pointer-events:none!important}
 body.home-page #home-latest .home-video-card::before{content:none!important;display:none!important}
+
+
+/* Correct fix: the pathway-card hover pseudo-element was receiving icon-circle styling. */
+body.home-page .home-path-card:hover::after{content:none!important;display:none!important;background:none!important;box-shadow:none!important}
