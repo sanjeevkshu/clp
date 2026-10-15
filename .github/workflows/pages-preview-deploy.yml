@@ -98,6 +98,7 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
           HEAD_OWNER: ${{ github.event.workflow_run.head_repository.owner.login }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         with:
           script: |
@@ -124,7 +125,7 @@ jobs:
             }
 
             const body = marker + '\\n**GitHub Pages branch preview:** ' + previewUrl +
-              '\\n\\nBuilt from exact pull-request revision `' + process.env.GITHUB_SHA + '`. Production files are rebuilt from current master.';
+              '\\n\\nBuilt from exact pull-request revision `' + process.env.HEAD_SHA + '`. Production files are rebuilt from current master.';
             const issue_number = pr.number;
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner, repo, issue_number, per_page: 100
