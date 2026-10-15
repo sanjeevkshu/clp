@@ -88,7 +88,8 @@ jobs:
               return;
             }
 
-            const previewUrl = pageUrl.replace(/\\/?$/, '/') + 'previews/' + slug + '/';
+            const baseUrl = pageUrl.endsWith('/') ? pageUrl : pageUrl + '/';
+            const previewUrl = baseUrl + 'previews/' + slug + '/';
             const { owner, repo } = context.repo;
             const headOwner = process.env.HEAD_OWNER || owner;
             const prs = await github.paginate(github.rest.pulls.list, {
