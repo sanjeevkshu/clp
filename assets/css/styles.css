@@ -921,3 +921,41 @@ body.home-page .home-path-card:hover::after,
 body.home-page .home-path-card:focus-visible::after,
 body.home-page .home-video-card:hover::after,
 body.home-page .home-video-card:focus-visible::after{content:none!important;display:none!important;width:0!important;height:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;filter:none!important}
+
+
+/* CLP video-script pages: editorial layout, clear hierarchy and readable production details. */
+.video-episode{background:#06172b;color:#edf7ff}
+.video-episode .episode-hero{padding:clamp(34px,6vw,76px) clamp(20px,5vw,72px);background:radial-gradient(ellipse at 80% 10%,#124b70 0,transparent 44%),linear-gradient(125deg,#061329,#0b2948);border-bottom:1px solid #2b6884}
+.video-episode .episode-shell{max-width:1080px;margin:auto;padding:34px 22px 76px}
+.video-episode .episode-kicker{color:#49e2f4;font-size:.72rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.video-episode h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;letter-spacing:-.045em;max-width:900px;margin:12px 0 18px}
+.video-episode .episode-intro{font-size:1.1rem;color:#c9dceb;max-width:760px}
+.video-episode .episode-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.video-episode .episode-meta span{border:1px solid #4acfe65c;background:#08213b;padding:7px 12px;border-radius:99px;color:#c7f7ff;font-size:.78rem}
+.video-episode .episode-callout{margin:24px 0;padding:18px 20px;border:1px solid #29cde74d;border-left:4px solid #20d7f4;border-radius:12px;background:#0a233a;color:#d7e9f5}
+.video-episode .episode-section{margin:28px 0;padding:clamp(20px,3.5vw,34px);background:#0a1f35;border:1px solid #24516b;border-radius:18px;box-shadow:0 12px 35px #00000014}
+.video-episode .episode-section h2{font-size:clamp(1.35rem,3vw,2rem);margin:0 0 18px;color:#f5fbff}
+.video-episode .script-beat{display:grid;grid-template-columns:105px 1fr;gap:20px;padding:20px 0;border-top:1px solid #29465d}
+.video-episode .script-beat:first-of-type{border-top:0;padding-top:0}
+.video-episode .script-time{font-size:.77rem;letter-spacing:.06em;font-weight:900;color:#50e2f3}
+.video-episode .script-beat h3{margin:0 0 9px;font-size:1.08rem;color:#fff}
+.video-episode .script-beat p{margin:0;color:#cbdbea;line-height:1.8}
+.video-episode .episode-section li{color:#cbdbea;margin:.55em 0}
+.video-episode .episode-section a{color:#68e7f6}
+.video-episode .episode-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:18px 0}
+.video-episode .episode-steps span{padding:14px 10px;text-align:center;border:1px solid #2b6680;background:#0b2942;border-radius:10px;color:#bff6ff;font-size:.8rem;font-weight:800}
+.video-episode .episode-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.video-episode .episode-actions a{display:inline-flex;padding:12px 17px;border-radius:99px;text-decoration:none;font-weight:850;background:#20d7f4;color:#06172b}
+.video-episode .episode-actions a.secondary{background:transparent;color:#bff6ff;border:1px solid #54dff1}
+@media(max-width:650px){.video-episode .script-beat{grid-template-columns:1fr;gap:7px}.video-episode .episode-steps{grid-template-columns:1fr 1fr}.video-episode .episode-steps span:last-child{grid-column:1/-1}}
+
+/* Designed 404 experience */
+.not-found-page{background:#061329;color:#f2f8ff}
+.not-found{min-height:70vh;display:grid;place-items:center;padding:54px 22px;background:radial-gradient(ellipse at 50% 20%,#0e4b70 0,transparent 50%),linear-gradient(145deg,#061329,#08233d)}
+.not-found-card{max-width:760px;text-align:center;padding:clamp(28px,6vw,62px);border:1px solid #48d6ee4a;border-radius:28px;background:#061a30d9;box-shadow:0 25px 80px #0004}
+.not-found-code{font-size:clamp(5rem,18vw,10rem);font-weight:950;line-height:.9;letter-spacing:-.08em;margin:0;background:linear-gradient(90deg,#20d7f4,#a99aff);color:transparent;background-clip:text;-webkit-background-clip:text}
+.not-found h1{font-size:clamp(1.8rem,4vw,3rem);margin:20px 0 10px;letter-spacing:-.04em}
+.not-found p{color:#c9dceb;max-width:540px;margin:0 auto 22px}
+.not-found .not-found-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.not-found .not-found-actions a{padding:12px 18px;border-radius:99px;text-decoration:none;font-weight:850;background:#20d7f4;color:#061329}
+.not-found .not-found-actions a.secondary{background:transparent;border:1px solid #57dff2;color:#c7f7ff}
