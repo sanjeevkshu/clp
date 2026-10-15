@@ -46,25 +46,38 @@ jobs:
       - name: Deploy preview artifact to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 120000
+          error_count: 3
+          reporting_interval: 5000
       - name: Publish preview link on pull request
         uses: actions/github-script@v7
         env:
           BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
+          HEAD_OWNER: ${{ github.event.workflow_run.head_repository.owner.login }}
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         with:
           script: |
             const marker = '<!-- clp-github-pages-preview -->';
             const branch = process.env.BRANCH_NAME || '';
             const slug = branch.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            const previewUrl = process.env.PAGE_URL.replace(/\/?$/, '/') + 'previews/' + slug + '/';
-            const prs = context.payload.workflow_run.pull_requests || [];
+            const pageUrl = process.env.PAGE_URL;
+            if (!pageUrl) {
+              core.setFailed('GitHub Pages did not return a deployment URL.');
+              return;
+            }
+            const previewUrl = pageUrl.replace(/\/?$/, '/') + 'previews/' + slug + '/';
+            const { owner, repo } = context.repo;
+            const headOwner = process.env.HEAD_OWNER || owner;
+            const prs = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: 'open', head: `${headOwner}:${branch}`, per_page: 100
+            });
             const pr = prs[0];
             if (!pr || !pr.number) {
-              core.setFailed('The completed preview run did not include a pull-request number; refusing to post a potentially incorrect link.');
+              core.setFailed(`Could not find an open pull request for branch ${headOwner}:${branch}; refusing to post a potentially incorrect link.`);
               return;
             }
             const body = marker + '\n**GitHub Pages branch preview:** ' + previewUrl + '\n\nBuilt from branch `' + branch + '`. The production homepage content remains sourced from the default branch.';
-            const { owner, repo } = context.repo;
             const issue_number = pr.number;
             const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number, per_page: 100 });
             const existing = comments.find(comment => comment.body && comment.body.includes(marker));
