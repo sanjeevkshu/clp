@@ -1,13 +1,116 @@
-name: Disable shared GitHub Pages preview deployment
+name: Deploy CLP pull-request preview to GitHub Pages
 
-# Preview deployments were using the same GitHub Pages environment as production.
-# Keep this workflow inert until previews can be hosted without replacing the live site.
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy CLP website and GitHub Pages PR preview"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  disabled:
+  build-artifact:
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository }}
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
     steps:
-      - name: Explain why preview deployment is disabled
-        run: echo "Preview deployment is disabled to protect the production GitHub Pages site."
+      - name: Download the pull-request build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ./_site
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Validate complete production site and preview
+        env:
+          BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          slug="$(printf '%s' "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-|-$//g')"
+          test -f _site/index.html
+          test -f _site/assets/js/main.js
+          test -f _site/assets/css/styles.css
+          test -f "_site/previews/$slug/index.html"
+          grep -q 'id="site-nav"' _site/index.html
+          grep -q 'id="home-pathways"' _site/index.html
+          echo "Validated production homepage and preview path: /previews/$slug/"
+
+      - name: Repackage the validated complete site for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-artifact
+    permissions:
+      pages: write
+      id-token: write
+      actions: read
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Deploy the validated complete site
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 120000
+          error_count: 3
+          reporting_interval: 5000
+
+      - name: Publish preview link on the matching pull request
+        uses: actions/github-script@v7
+        env:
+          BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
+          HEAD_OWNER: ${{ github.event.workflow_run.head_repository.owner.login }}
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        with:
+          script: |
+            const marker = '<!-- clp-github-pages-preview -->';
+            const branch = process.env.BRANCH_NAME || '';
+            const slug = branch.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            const pageUrl = process.env.PAGE_URL;
+            if (!pageUrl) {
+              core.setFailed('GitHub Pages did not return a deployment URL.');
+              return;
+            }
+
+            const previewUrl = pageUrl.replace(/\\/?$/, '/') + 'previews/' + slug + '/';
+            const { owner, repo } = context.repo;
+            const headOwner = process.env.HEAD_OWNER || owner;
+            const prs = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: 'open', head: `${headOwner}:${branch}`, per_page: 100
+            });
+            const pr = prs[0];
+            if (!pr || !pr.number) {
+              core.setFailed(`Could not find an open pull request for branch ${headOwner}:${branch}; refusing to post a potentially incorrect preview link.`);
+              return;
+            }
+
+            const body = marker + '\\n**GitHub Pages branch preview:** ' + previewUrl +
+              '\\n\\nBuilt from branch `' + branch + '`. The deployed artifact includes the production site from the default branch plus the preview files.';
+            const issue_number = pr.number;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner, repo, issue_number, per_page: 100
+            });
+            const existing = comments.find(comment => comment.body && comment.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner, repo, comment_id: existing.id, body
+              });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
