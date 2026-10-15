@@ -4,9 +4,13 @@ description: "A practical guide to chatbots versus AI agents, tool use, workflow
 permalink: /learn/ai-agents/
 ---
 <article class="prose learning-article">
-  <p class="card-kicker">CLP DECODES · AI MADE PRACTICAL</p>
-  <h1>AI Agents: Chatbot Se Aage Kya?</h1>
-  <p class="article-lede">A chatbot usually responds to a prompt. An agent-style system may work toward a goal across multiple steps, using tools and checking results within defined permissions. The important question is not whether something is called an agent, but what it can actually do—and how it is supervised.</p>
+  <header class="learning-article-hero">
+    <img class="learning-article-art" src="{{ '/assets/images/clp-agent-workflow.svg' | relative_url }}" alt="AI agent workflow connecting a goal, tools, and human review" fetchpriority="high">
+    <div class="learning-article-intro"><p class="card-kicker">CLP DECODES · AI MADE PRACTICAL</p>
+      <h1>AI Agents: Chatbot Se Aage Kya?</h1>
+      <p class="article-lede">A chatbot usually responds to a prompt. An agent-style system may work toward a goal across multiple steps, using tools and checking results within defined permissions. The important question is not whether something is called an agent, but what it can actually do—and how it is supervised.</p>
+    </div>
+  </header>
   <p><a class="text-link" href="{{ '/learn/' | relative_url }}">← Back to the CLP learning library</a></p>
   <h2>Chatbot aur AI agent mein kya difference hai?</h2>
   <p>A typical chatbot interaction is conversational: you ask a question, and the model produces a response. An agent-style workflow can add a loop: interpret a goal, break it into steps, use approved tools, inspect the results, and decide what to do next. Products vary, and many combine both patterns.</p>
