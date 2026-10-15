@@ -1328,3 +1328,24 @@ html[data-theme="light"] body.home-page main .home-hero-shade{background:linear-
   body.home-page>.site-header>.header-controls .nav-toggle{display:none!important}
   body.home-page>.site-header>.site-nav{display:flex!important;position:static!important;width:auto!important;background:transparent!important;border:0!important;padding:0!important;box-shadow:none!important;backdrop-filter:none!important}
 }
+
+
+/* Learn page FAQ: accessible native accordion, styled to match CLP cards. */
+.clp-faq-section{padding-top:18px}
+.clp-faq{max-width:900px;margin-inline:auto}
+.clp-faq>h2{margin:0 0 24px}
+.clp-faq-list{display:grid;gap:12px}
+.clp-faq-item{border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#fff,#f1f8fd);overflow:hidden;box-shadow:0 8px 24px rgba(6,35,62,.045);transition:border-color .2s,box-shadow .2s}
+.clp-faq-item[open]{border-color:#80dff0;box-shadow:0 12px 28px rgba(6,35,62,.08)}
+.clp-faq-item summary{position:relative;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:19px 22px;cursor:pointer;list-style:none;font-weight:800;color:#10243e;line-height:1.45}
+.clp-faq-item summary::-webkit-details-marker{display:none}
+.clp-faq-item summary::after{content:'+';display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:#e2f9ff;color:#006c8b;font-size:1.25rem;font-weight:600;transition:transform .2s,background .2s}
+.clp-faq-item[open] summary::after{content:'−';background:#d3f5fb}
+.clp-faq-item summary:focus-visible{outline:3px solid #00a7e9;outline-offset:-4px;border-radius:12px}
+.clp-faq-answer{padding:0 22px 18px;color:var(--muted)}
+.clp-faq-answer p{margin:0;max-width:74ch}
+html[data-theme="dark"] .clp-faq-item{background:linear-gradient(145deg,#0b2440,#081a30);border-color:#24445f}
+html[data-theme="dark"] .clp-faq-item summary{color:#f2f8ff}
+html[data-theme="dark"] .clp-faq-item summary::after{background:#103c53;color:#8ceeff}
+html[data-theme="dark"] .clp-faq-answer{color:#c0d1e2}
+@media(max-width:600px){.clp-faq-item summary{padding:16px;gap:12px}.clp-faq-answer{padding:0 16px 16px}}
