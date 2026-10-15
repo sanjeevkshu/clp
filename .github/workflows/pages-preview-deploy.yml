@@ -9,9 +9,6 @@ permissions:
   actions: read
   contents: read
 
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
   prepare:
@@ -83,6 +80,9 @@ jobs:
           path: ./_site
 
   deploy:
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository }}
     environment:
       name: github-pages
