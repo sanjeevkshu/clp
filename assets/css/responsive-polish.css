@@ -322,3 +322,35 @@ html[data-theme="light"] .site-footer > small {
   .site-footer > div:nth-child(2) > p:last-child { gap: 12px 18px; }
   .site-footer > small { grid-column: auto; margin-top: 0; }
 }
+
+
+/* Tablet/mobile: keep the theme switch easy to tap, but remove the heavy
+   circular button backdrop. Desktop appearance remains unchanged. */
+@media (max-width: 900px) {
+  .site-header > .header-controls .theme-toggle {
+    background: transparent !important;
+    background-image: none !important;
+    border: 1px solid transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    color: inherit;
+  }
+  .site-header > .header-controls .theme-toggle:hover,
+  .site-header > .header-controls .theme-toggle:active {
+    background: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+  .site-header > .header-controls .theme-toggle:focus-visible {
+    outline: 2px solid #20d7f4 !important;
+    outline-offset: 2px;
+    border-radius: 3px !important;
+  }
+  html[data-theme="light"] .site-header > .header-controls .theme-toggle {
+    color: #10243e !important;
+  }
+  html[data-theme="dark"] .site-header > .header-controls .theme-toggle {
+    color: #f2fbff !important;
+  }
+}
