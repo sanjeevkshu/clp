@@ -1307,7 +1307,7 @@ html[data-theme="light"] .site-header>.header-controls .nav-toggle{background:#f
 .page-hero h1 span{background:linear-gradient(90deg,#65eaff,#d0c9ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .page-hero>p:last-child{color:#f3f8ff}
 .page-hero-learn::before{background-image:url('../images/clp-home-hero.png');background-position:center 50%}
-.page-hero-about::before{background-image:url('../images/card-evolve.jpg');background-position:center 48%}
+.page-hero-about::before{background-image:url('../images/clp-home-hero.jpg');background-position:center 48%}
 .page-hero-community::before{background-image:url('../images/card-community.jpg');background-position:center 44%}
 .page-hero-contact::before{background-image:url('../images/card-apply.jpg');background-position:center 52%}
 html[data-theme="light"] .page-hero,html[data-theme="light"] .page-hero h1{background-color:#06172b;color:#fff}
