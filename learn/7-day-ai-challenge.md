@@ -4,9 +4,13 @@ description: "A safe, practical seven-day experiment to test whether AI can impr
 permalink: /learn/7-day-ai-challenge/
 ---
 <article class="prose learning-article">
-  <p class="card-kicker">CLP EVOLUTION LAB · LEARN BY DOING</p>
-  <h1>Seven-Day AI Productivity Challenge</h1>
-  <p class="article-lede">Choose one low-risk, repeatable task and test whether AI assistance makes it better. This is a self-guided challenge; no registration is required. Keep sensitive data out of unapproved tools and verify outputs before using them.</p>
+  <header class="learning-article-hero">
+    <img class="learning-article-art" src="{{ '/assets/images/clp-seven-day-challenge.svg' | relative_url }}" alt="Seven-day AI productivity challenge with small daily milestones" fetchpriority="high">
+    <div class="learning-article-intro"><p class="card-kicker">CLP EVOLUTION LAB · LEARN BY DOING</p>
+      <h1>Seven-Day AI Productivity Challenge</h1>
+      <p class="article-lede">Choose one low-risk, repeatable task and test whether AI assistance makes it better. This is a self-guided challenge; no registration is required. Keep sensitive data out of unapproved tools and verify outputs before using them.</p>
+    </div>
+  </header>
   <p><a class="text-link" href="{{ '/learn/' | relative_url }}">← Back to the CLP learning library</a></p>
   <h2>Choose your challenge</h2>
   <p>Pick a task that happens regularly and has an easy-to-check result, such as structuring public research, outlining a presentation, organising non-sensitive notes, or drafting a checklist. Avoid high-stakes decisions and tasks involving confidential or personal data.</p>
