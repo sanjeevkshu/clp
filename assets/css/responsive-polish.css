@@ -354,3 +354,105 @@ html[data-theme="light"] .site-footer > small {
     color: #f2fbff !important;
   }
 }
+
+
+/* Follow-up responsive audit: keep the shared footer in normal document flow on
+   compact viewports, regardless of homepage hero sizing or inherited animations. */
+.site-footer,
+body.home-page > .site-footer {
+  display: grid !important;
+  position: relative !important;
+  inset: auto !important;
+  float: none !important;
+  clear: both;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0;
+  overflow: visible !important;
+  clip: auto !important;
+  pointer-events: auto !important;
+}
+@media (max-width: 900px) {
+  .site-header > .header-controls .nav-toggle {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    padding: 0 !important;
+    display: inline-grid !important;
+    place-items: center;
+    border-radius: 12px;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+    color: inherit !important;
+    line-height: 1;
+  }
+  .site-header > .header-controls .nav-toggle:hover {
+    background: rgba(32, 215, 244, .10) !important;
+    border-color: rgba(32, 215, 244, .35) !important;
+  }
+  .site-header > .header-controls .nav-toggle:focus-visible {
+    outline: 2px solid #20d7f4 !important;
+    outline-offset: 3px;
+  }
+  html[data-theme="light"] .site-header > .header-controls .nav-toggle {
+    color: #10243e !important;
+  }
+  html[data-theme="dark"] .site-header > .header-controls .nav-toggle {
+    color: #f2fbff !important;
+  }
+  .hamburger-icon {
+    width: 22px;
+    height: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  .hamburger-icon > span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform .18s ease, opacity .18s ease;
+  }
+  .site-header > .header-controls .nav-toggle[aria-expanded="true"] .hamburger-icon > span:first-child {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .site-header > .header-controls .nav-toggle[aria-expanded="true"] .hamburger-icon > span:nth-child(2) {
+    opacity: 0;
+  }
+  .site-header > .header-controls .nav-toggle[aria-expanded="true"] .hamburger-icon > span:last-child {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+@media (max-width: 900px) {
+  .site-footer,
+  body.home-page > .site-footer {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    padding: 32px 22px 22px !important;
+    margin: 0 !important;
+  }
+  .site-footer .footer-brand,
+  .site-footer > div:nth-child(2),
+  .site-footer > small {
+    display: block !important;
+    grid-column: auto !important;
+    min-width: 0;
+  }
+  .site-footer .footer-brand {
+    display: flex !important;
+    align-items: center;
+  }
+  .site-footer > div:nth-child(2) > p:last-child {
+    display: flex !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hamburger-icon > span { transition: none !important; }
+}
