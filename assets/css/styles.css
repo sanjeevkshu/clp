@@ -909,3 +909,8 @@ body.home-page #home-latest .home-video-cta{margin-top:auto}
 @media(max-width:420px){
   body.home-page #home-latest .home-video-note{font-size:.84rem;max-width:42ch}
 }
+
+
+/* Bug fix: suppress inherited decorative circles on the four homepage learning cards. */
+body.home-page #home-latest .home-video-card::after{content:none!important;display:none!important;border:0!important;box-shadow:none!important;background:none!important;pointer-events:none!important}
+body.home-page #home-latest .home-video-card::before{content:none!important;display:none!important}
