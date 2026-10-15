@@ -1,4 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Accessible theme switch: saved preference wins; otherwise follow system preference.
+  const themeToggle = document.querySelector('#theme-toggle');
+  const root = document.documentElement;
+  const savedTheme = (() => { try { return localStorage.getItem('clp-theme'); } catch (_) { return null; } })();
+  const preferredTheme = savedTheme || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  const applyTheme = theme => {
+    root.dataset.theme = theme;
+    if (themeToggle) {
+      const light = theme === 'light';
+      themeToggle.setAttribute('aria-pressed', String(light));
+      themeToggle.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
+      const label = themeToggle.querySelector('.theme-toggle-label');
+      const icon = themeToggle.querySelector('.theme-toggle-icon');
+      if (label) label.textContent = light ? 'Dark theme' : 'Light theme';
+      if (icon) icon.textContent = light ? '☾' : '☼';
+    }
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#f5faff' : '#061329';
+  };
+  applyTheme(preferredTheme);
+  if (themeToggle) themeToggle.addEventListener('click', () => {
+    const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+    applyTheme(next);
+    try { localStorage.setItem('clp-theme', next); } catch (_) { /* Theme still works for this visit. */ }
+  });
+
+  // Join request: opens a user-controlled email draft; no email is stored or silently transmitted.
+  const joinForm = document.querySelector('#join-form');
+  if (joinForm) joinForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const email = document.querySelector('#join-email')?.value.trim() || '';
+    const consent = document.querySelector('#join-consent');
+    if (!email || !consent?.checked) return;
+    const subject = encodeURIComponent('Join the CLP learning community');
+    const body = encodeURIComponent('Hello CLP,\n\nI would like to join the CLP learning community and receive occasional updates.\n\nMy email address: ' + email + '\n\nI consent to CLP receiving this email as my request to join.\n');
+    const statusEl = document.querySelector('#join-status');
+    if (statusEl) statusEl.textContent = 'Opening your email app with your request addressed to clpvriksha@gmail.com. Please review and send it there.';
+    window.location.href = 'mailto:clpvriksha@gmail.com?subject=' + subject + '&body=' + body;
+  });
   // Shared responsive navigation: one source of truth for the button and menu state.
   const toggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('#site-nav');
