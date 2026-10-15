@@ -14,36 +14,70 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-artifact:
+  prepare:
     if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository }}
     runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
     steps:
+      - name: Checkout current production source from master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          path: production-source
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          working-directory: production-source
+
       - name: Download the pull-request build artifact
         uses: actions/download-artifact@v4
         with:
           name: github-pages
-          path: ./_site
+          path: ./pr-artifact
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
 
-      - name: Validate complete production site and preview
+      - name: Validate preview files from pull-request artifact
         env:
           BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
         run: |
           slug="$(printf '%s' "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-|-$//g')"
+          test -f "pr-artifact/previews/$slug/index.html"
+          echo "Validated PR preview files at /previews/$slug/."
+
+      - name: Build fresh production site from current master
+        working-directory: production-source
+        run: |
+          bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site" --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      - name: Add only the pull-request preview to the fresh production site
+        env:
+          BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          slug="$(printf '%s' "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-|-$//g')"
+          mkdir -p "_site/previews/$slug"
+          cp -a "pr-artifact/previews/$slug/." "_site/previews/$slug/"
           test -f _site/index.html
           test -f _site/assets/js/main.js
           test -f _site/assets/css/styles.css
           test -f "_site/previews/$slug/index.html"
           grep -q 'id="site-nav"' _site/index.html
           grep -q 'id="home-pathways"' _site/index.html
-          echo "Validated production homepage and preview path: /previews/$slug/"
+          echo "Validated fresh production site plus PR preview: /previews/$slug/"
 
-      - name: Repackage the validated complete site for Pages
+      - name: Upload validated combined site for Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
@@ -54,7 +88,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build-artifact
+    needs: prepare
     permissions:
       pages: write
       id-token: write
@@ -63,7 +97,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - name: Deploy the validated complete site
+      - name: Deploy the validated current production site plus preview
         id: deployment
         uses: actions/deploy-pages@v4
         with:
@@ -97,12 +131,12 @@ jobs:
             });
             const pr = prs[0];
             if (!pr || !pr.number) {
-              core.setFailed(`Could not find an open pull request for branch ${headOwner}:${branch}; refusing to post a potentially incorrect preview link.`);
+              core.setFailed(`Could not find an open pull request for branch ${headOwner}:${branch}; refusing to post an incorrect preview link.`);
               return;
             }
 
             const body = marker + '\n**GitHub Pages branch preview:** ' + previewUrl +
-              '\n\nBuilt from branch \`' + branch + '\`. The deployed artifact includes the production site from the default branch plus the preview files.';
+              '\n\nBuilt from branch `' + branch + '`. Production files are rebuilt from current master; only the preview files come from the pull-request artifact.';
             const issue_number = pr.number;
             const comments = await github.paginate(github.rest.issues.listComments, {
               owner, repo, issue_number, per_page: 100
