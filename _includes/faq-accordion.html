@@ -1,0 +1,20 @@
+{% comment %}
+Reusable, data-driven FAQ accordion.
+Pass an id, title, items array, and optional kicker:
+{% include faq-accordion.html id="page-faq" title="Common questions" items=page.faq_items %}
+Keep questions and answers in page front matter; keep shared markup and presentation here.
+{% endcomment %}
+<section class="section clp-faq-section" aria-labelledby="{{ include.id }}-title">
+  <div class="prose clp-faq">
+    {% if include.kicker %}<p class="card-kicker">{{ include.kicker | escape }}</p>{% endif %}
+    <h2 id="{{ include.id }}-title">{{ include.title | default: "Common questions" | escape }}</h2>
+    <div class="clp-faq-list">
+      {% for item in include.items %}
+      <details class="clp-faq-item">
+        <summary>{{ item.question | escape }}</summary>
+        <div class="clp-faq-answer">{{ item.answer | markdownify }}</div>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
