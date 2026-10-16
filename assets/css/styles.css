@@ -1388,3 +1388,13 @@ html[data-theme="dark"] .learn-resource-copy>p:not(.card-kicker){color:#c0d1e2}
 .learning-article>p:first-of-type{margin-top:0}
 @media(max-width:680px){.learn-resource-copy{padding:18px}.learn-card-button{width:100%}.learning-article{padding:0 16px 54px}.learning-article-hero{grid-template-columns:1fr;gap:18px;margin:8px 0 28px;padding:16px;border-radius:20px}.learning-article-art{aspect-ratio:16/9;max-height:220px;padding:8px}.learning-article-intro h1{font-size:clamp(1.9rem,8vw,2.6rem)}}
 @media(prefers-reduced-motion:reduce){.learn-resource-card,.learn-card-button{transition:none}}
+
+/* Shared authoring component: prominent next-step links on learning articles */
+.article-cta-section{margin:34px 0 0;padding:24px;border:1px solid #cfe5f2;border-radius:20px;background:linear-gradient(135deg,#fff,#f0faff)}
+.article-cta-section h2{margin:0 0 16px;font-size:clamp(1.25rem,2.8vw,1.65rem);line-height:1.2}
+.article-cta-group{display:flex;flex-wrap:wrap;gap:12px}
+.content-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:10px 16px;border-radius:999px;background:var(--ocean);border:1px solid var(--ocean);color:#fff;text-decoration:none;font-weight:800;line-height:1.2;transition:transform .2s var(--ease),background .2s,border-color .2s}
+.content-button:hover,.content-button:focus-visible{background:#0b4770;border-color:#0b4770;color:#fff;transform:translateY(-2px)}
+.content-button span{font-size:1.1em;line-height:1}
+@media(max-width:680px){.article-cta-section{padding:18px}.article-cta-group{flex-direction:column}.content-button{width:100%;text-align:center}}
+@media(prefers-reduced-motion:reduce){.content-button{transition:none}}
