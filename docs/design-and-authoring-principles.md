@@ -16,7 +16,8 @@ These rules apply to **every new page, article, landing page, and future content
 - On learning-library cards, use the existing `learn-card-button` component.
 - In article endings and other content sections, use the shared `content-button` component inside an `article-cta-group` (or the equivalent established shared CTA container).
 - Use clear action labels (for example, “Start the challenge” or “Build a 30-Day AI Learning Plan”) and preserve the accessible link destination. Decorative arrows/icons should be hidden from assistive technology with `aria-hidden="true"`.
-- Keep ordinary inline references, citations, and “back to library” navigation as text links. Do not turn every link into a button; reserve buttons for meaningful primary/secondary actions.
+- Use a clear secondary button for prominent “Back to CLP Learn Library” navigation on learning articles, so it is easy to find and tap.
+- Keep ordinary inline references and citations as text links. Do not turn every link into a button; reserve buttons for meaningful primary/secondary actions.
 
 ## 3. Use shared components instead of one-off styling
 
@@ -42,7 +43,7 @@ These rules apply to **every new page, article, landing page, and future content
 ## New-page release checklist
 
 - [ ] Images are configured in content/front matter, not hardcoded as CSS page imagery.
-- [ ] Prominent actions use the established button component; ordinary inline links remain text links.
+- [ ] Prominent actions and the “Back to CLP Learn Library” navigation use established button components; ordinary inline references remain text links.
 - [ ] Shared styles are reused; no unnecessary inline CSS or duplicate components.
 - [ ] Mobile portrait, landscape, keyboard focus, contrast, and image rendering are checked.
 - [ ] Front matter, internal links, alt text, and metadata are checked.
