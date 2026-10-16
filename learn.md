@@ -30,6 +30,14 @@ faq_items:
       <img class="learn-resource-art" src="{{ '/assets/images/clp-seven-day-challenge.svg' | relative_url }}" alt="Illustration of a seven-day productivity challenge with small daily milestones" loading="lazy">
       <div class="learn-resource-copy"><p class="card-kicker">CLP EVOLUTION LAB · HANDS-ON CHALLENGE</p><h3>Seven-Day AI Productivity Challenge</h3><p>Test one low-risk AI-assisted workflow, check the quality of its output, and reflect on what genuinely improved.</p><a class="learn-card-button" href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Start the challenge <span aria-hidden="true">↗</span></a></div>
     </article>
+    <article class="learn-resource-card">
+      <img class="learn-resource-art" src="{{ '/assets/images/card-habits.svg' | relative_url }}" alt="Illustration representing small, repeatable learning habits" loading="lazy">
+      <div class="learn-resource-copy"><p class="card-kicker">CLP EVOLUTION LAB · LEARN HOW TO LEARN</p><h3>Learning Habit Kaise Banayein?</h3><p>Build a small, repeatable learning loop with active recall, practical application, and weekly reflection.</p><a class="learn-card-button" href="{{ '/learn/build-a-learning-habit/' | relative_url }}">Build your learning habit <span aria-hidden="true">↗</span></a></div>
+    </article>
+    <article class="learn-resource-card">
+      <img class="learn-resource-art" src="{{ '/assets/images/card-data.svg' | relative_url }}" alt="Illustration representing data, patterns, and decision-making" loading="lazy">
+      <div class="learn-resource-copy"><p class="card-kicker">CLP DECODES · DATA FOR EVERYDAY DECISIONS</p><h3>Data Literacy: Turn Data into Better Decisions</h3><p>Learn to ask better questions, check data quality and context, and explain what the evidence really supports.</p><a class="learn-card-button" href="{{ '/learn/data-literacy-for-decisions/' | relative_url }}">Explore data literacy <span aria-hidden="true">↗</span></a></div>
+    </article>
   </div>
 </section>
 
