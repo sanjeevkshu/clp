@@ -1,13 +1,15 @@
 ---
 layout: null
 permalink: /sitemap.xml
+sitemap: false
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>{{ '/' | absolute_url }}</loc></url>
-  <url><loc>{{ '/learn/' | absolute_url }}</loc></url>
-  <url><loc>{{ '/about/' | absolute_url }}</loc></url>
-  <url><loc>{{ '/community/' | absolute_url }}</loc></url>
-  <url><loc>{{ '/contact/' | absolute_url }}</loc></url>
-  <url><loc>{{ '/video/launch-video/' | absolute_url }}</loc></url>
+{% assign indexable_pages = site.pages | sort: "url" %}
+{% for sitemap_page in indexable_pages %}
+  {% assign last_character = sitemap_page.url | slice: -1, 1 %}
+  {% if sitemap_page.sitemap != false and (sitemap_page.url == "/" or last_character == "/") %}
+  <url><loc>{{ sitemap_page.url | absolute_url | xml_escape }}</loc></url>
+  {% endif %}
+{% endfor %}
 </urlset>
