@@ -11,7 +11,7 @@ permalink: /learn/30-day-ai-plan/
       <p class="article-lede">You do not need to learn every AI tool in a month. Build a useful foundation, practise a few repeatable techniques, apply them to one real task, and review what worked. Aim for 20–30 focused minutes on most days.</p>
     </div>
   </header>
-  <p><a class="text-link" href="{{ '/learn/' | relative_url }}">← Back to the CLP learning library</a></p>
+  <p class="article-library-nav"><a class="content-button content-button-secondary" href="{{ '/learn/' | relative_url }}"><span aria-hidden="true">←</span> Back to CLP Learn Library</a></p>
   <h2>Before day one: choose your outcome</h2>
   <p>Pick one area where AI could help—for example, research, writing, analysis, planning, or learning a new subject. Write a simple baseline: how you do the task today, how long it takes, and what a good result looks like. Do not use confidential information in tools that are not approved for it.</p>
   <h2>Week 1 — Understand the foundations (Days 1–7)</h2>
