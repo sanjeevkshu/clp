@@ -2,6 +2,16 @@
 title: "Build a 30-Day AI Learning Plan"
 description: "A practical four-week roadmap to build AI fluency through focused learning, hands-on practice, and real-world application."
 permalink: /learn/30-day-ai-plan/
+faq_items:
+  - question: "Do I need a technical background?"
+    answer: >-
+      No. Start with a task you understand. Technical depth can come later if it helps your goal.
+  - question: "What if I miss a day?"
+    answer: >-
+      Continue the next day. Consistency matters more than an unbroken streak; repeat a session if you need more practice.
+  - question: "How do I know the plan worked?"
+    answer: >-
+      Compare the final workflow with your baseline using quality, time, errors, and usefulness—not just how impressive the AI response looked.
 ---
 <article class="prose learning-article">
   <header class="learning-article-hero">
@@ -25,10 +35,8 @@ permalink: /learn/30-day-ai-plan/
   <ul><li><strong>Days 22–24:</strong> improve instructions and add quality checks.</li><li><strong>Days 25–26:</strong> document a reusable workflow or checklist.</li><li><strong>Days 27–28:</strong> test it on a different example to see whether it generalises.</li><li><strong>Day 29:</strong> identify risks, privacy boundaries, and cases where AI should not be used.</li><li><strong>Day 30:</strong> review your baseline and choose the next learning goal.</li></ul>
   <h2>Track progress without overcomplicating it</h2>
   <p>Use a simple weekly scorecard: practice sessions completed, output quality, time spent, errors caught, and confidence in verifying results. The goal is not to maximise AI use; it is to improve the task responsibly.</p>
-  <h2>Common questions</h2>
-  <h3>Do I need a technical background?</h3><p>No. Start with a task you understand. Technical depth can come later if it helps your goal.</p>
-  <h3>What if I miss a day?</h3><p>Continue the next day. Consistency matters more than an unbroken streak; repeat a session if you need more practice.</p>
-  <h3>How do I know the plan worked?</h3><p>Compare the final workflow with your baseline using quality, time, errors, and usefulness—not just how impressive the AI response looked.</p>
+
+{% include faq-accordion.html id="ai-plan-faq" title="Common questions" items=page.faq_items %}
   <section class="article-cta-section" aria-labelledby="article-cta-title">
     <h2 id="article-cta-title">Continue learning</h2>
     <div class="article-cta-group">
