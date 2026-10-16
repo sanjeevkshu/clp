@@ -2,6 +2,16 @@
 title: "AI Agents: Chatbot Se Aage Kya?"
 description: "A practical guide to chatbots versus AI agents, tool use, workflows, limitations, and human oversight."
 permalink: /learn/ai-agents/
+faq_items:
+  - question: "Are AI agents always autonomous?"
+    answer: >-
+      No. Autonomy varies by product, configuration, available tools, and permissions. Some systems ask for approval at each important step.
+  - question: "Can an AI agent make mistakes?"
+    answer: >-
+      Yes. It can misunderstand goals, use weak evidence, or misjudge whether a task is complete. Verification and bounded permissions are essential.
+  - question: "What is a good first use case?"
+    answer: >-
+      Try a repeatable, low-risk task such as organising public research or summarising non-sensitive notes, with source checks before relying on the result.
 ---
 <article class="prose learning-article">
   <header class="learning-article-hero">
@@ -24,10 +34,8 @@ permalink: /learn/ai-agents/
   <ol><li>Choose a repetitive, low-risk task.</li><li>Write down the steps and the expected output.</li><li>Identify which steps AI can assist with and what evidence must be checked.</li><li>Run one trial and compare the result with your usual method.</li><li>Record time saved, errors found, and what still required human judgement.</li></ol>
   <h2>Key takeaway</h2>
   <p>AI agents are best understood as workflows that may plan and act across steps using tools and permissions. Start small, measure the outcome, and keep a person accountable for checking important results.</p>
-  <h2>Common questions</h2>
-  <h3>Are AI agents always autonomous?</h3><p>No. Autonomy varies by product, configuration, available tools, and permissions. Some systems ask for approval at each important step.</p>
-  <h3>Can an AI agent make mistakes?</h3><p>Yes. It can misunderstand goals, use weak evidence, or misjudge whether a task is complete. Verification and bounded permissions are essential.</p>
-  <h3>What is a good first use case?</h3><p>Try a repeatable, low-risk task such as organising public research or summarising non-sensitive notes, with source checks before relying on the result.</p>
+
+{% include faq-accordion.html id="ai-agents-faq" title="Common questions" items=page.faq_items %}
   <section class="article-cta-section" aria-labelledby="article-cta-title">
     <h2 id="article-cta-title">Continue learning</h2>
     <div class="article-cta-group">
