@@ -29,5 +29,11 @@ permalink: /learn/30-day-ai-plan/
   <h3>Do I need a technical background?</h3><p>No. Start with a task you understand. Technical depth can come later if it helps your goal.</p>
   <h3>What if I miss a day?</h3><p>Continue the next day. Consistency matters more than an unbroken streak; repeat a session if you need more practice.</p>
   <h3>How do I know the plan worked?</h3><p>Compare the final workflow with your baseline using quality, time, errors, and usefulness—not just how impressive the AI response looked.</p>
-  <p><strong>Continue learning:</strong> Read <a href="{{ '/learn/ai-agents/' | relative_url }}">AI Agents: Chatbot Se Aage Kya?</a> or apply your skills in the <a href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Seven-Day AI Productivity Challenge</a>.</p>
+  <section class="article-cta-section" aria-labelledby="article-cta-title">
+    <h2 id="article-cta-title">Continue learning</h2>
+    <div class="article-cta-group">
+      <a class="content-button" href="{{ '/learn/ai-agents/' | relative_url }}">Explore AI Agents <span aria-hidden="true">↗</span></a>
+      <a class="content-button" href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Try the Seven-Day Challenge <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </article>
