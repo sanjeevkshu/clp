@@ -28,5 +28,11 @@ permalink: /learn/ai-agents/
   <h3>Are AI agents always autonomous?</h3><p>No. Autonomy varies by product, configuration, available tools, and permissions. Some systems ask for approval at each important step.</p>
   <h3>Can an AI agent make mistakes?</h3><p>Yes. It can misunderstand goals, use weak evidence, or misjudge whether a task is complete. Verification and bounded permissions are essential.</p>
   <h3>What is a good first use case?</h3><p>Try a repeatable, low-risk task such as organising public research or summarising non-sensitive notes, with source checks before relying on the result.</p>
-  <p><strong>Continue learning:</strong> <a href="{{ '/learn/30-day-ai-plan/' | relative_url }}">Build a 30-Day AI Learning Plan</a> or try the <a href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Seven-Day AI Productivity Challenge</a>.</p>
+  <section class="article-cta-section" aria-labelledby="article-cta-title">
+    <h2 id="article-cta-title">Continue learning</h2>
+    <div class="article-cta-group">
+      <a class="content-button" href="{{ '/learn/30-day-ai-plan/' | relative_url }}">Build a 30-Day AI Learning Plan <span aria-hidden="true">↗</span></a>
+      <a class="content-button" href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Try the Seven-Day Challenge <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </article>
