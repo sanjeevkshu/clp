@@ -11,7 +11,7 @@ permalink: /learn/7-day-ai-challenge/
       <p class="article-lede">Choose one low-risk, repeatable task and test whether AI assistance makes it better. This is a self-guided challenge; no registration is required. Keep sensitive data out of unapproved tools and verify outputs before using them.</p>
     </div>
   </header>
-  <p><a class="text-link" href="{{ '/learn/' | relative_url }}">← Back to the CLP learning library</a></p>
+  <p class="article-library-nav"><a class="content-button content-button-secondary" href="{{ '/learn/' | relative_url }}"><span aria-hidden="true">←</span> Back to CLP Learn Library</a></p>
   <h2>Choose your challenge</h2>
   <p>Pick a task that happens regularly and has an easy-to-check result, such as structuring public research, outlining a presentation, organising non-sensitive notes, or drafting a checklist. Avoid high-stakes decisions and tasks involving confidential or personal data.</p>
   <h2>Your seven-day path</h2>
