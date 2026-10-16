@@ -70,3 +70,19 @@ Optional `kicker` is supported. The section `id` must be unique on the page. All
 - Do not fabricate testimonials, community participation, video publication, subscriptions, backend form submission, or analytics.
 - If a form opens the visitor's email app instead of submitting to a server, state that clearly.
 - New content patterns should be documented and added to the QA checklist.
+
+
+## Information architecture and series balance
+CLP is a continuous-learning destination, not an AI-only publication. Keep the four editorial series distinct and useful:
+- **CLP Decodes:** plain-language explanations of concepts, including data literacy and emerging technology.
+- **CLP Masterclass:** structured, step-by-step practical learning plans and skills.
+- **CLP Perspectives:** implications, trade-offs, and considered viewpoints about work, technology, and change.
+- **CLP Evolution Lab:** small experiments, learning habits, and reflective challenges that turn ideas into practice.
+
+A new article should serve a clear learner need, add a distinct destination, and link to a relevant next step. Avoid publishing several near-duplicate AI explainers simply to increase page count. The learning library should balance technology fluency with transferable capabilities such as learning how to learn, data-informed decisions, critical thinking, and responsible application.
+
+The current expansion adds:
+- **Learning Habit Kaise Banayein?** — Evolution Lab; practical learning loop, active recall, cues, and reflection.
+- **Data Literacy: Turn Data into Better Decisions** — Decodes; asking useful questions, checking context and data quality, interpreting patterns, and communicating uncertainty.
+
+For every new page, verify that it is linked from the Learn library, has a unique title/description/canonical URL, uses the shared FAQ accordion, includes relevant internal links, and appears in generated sitemap output. The SEO validation workflow's required-route list should be updated when the project intentionally adds or removes core learning routes; sitemap generation itself should remain automatic for eligible pages.
