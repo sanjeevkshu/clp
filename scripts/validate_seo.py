@@ -100,7 +100,11 @@ if sitemap_file.exists():
     required_routes = ("/", "/learn/", "/learn/ai-agents/", "/learn/30-day-ai-plan/", "/learn/7-day-ai-challenge/")
     for route in required_routes:
         normalized = route.rstrip("/") or "/"
-        if not any(path == normalized or path.endswith(normalized) for path in paths):
+        if normalized == "/":
+            present = any(path == "/" or path.count("/") <= 1 for path in paths)
+        else:
+            present = any(path == normalized or path.endswith(normalized) for path in paths)
+        if not present:
             fail(f"Sitemap missing required route: {route}")
     if any("/previews/" in url for url in urls):
         fail("Sitemap must not include pull-request preview URLs")
