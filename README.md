@@ -11,7 +11,7 @@ CLP is a brand-led learning initiative helping curious minds understand change, 
 - Violet accent: `#8B5CF6`
 - Soft white: `#F8FAFC`
 
-The approved CLP logo should remain the source of truth. This first repository version uses a clean vector approximation until the approved original logo file is added.
+The current Kalpavriksha logo and CLP identity are maintained in the repository's shared digital assets. Do not replace the approved circular emblem or green tree without an explicit brand decision.
 
 ## Website
 - Homepage: `index.md`
@@ -22,11 +22,16 @@ The approved CLP logo should remain the source of truth. This first repository v
 - Brand system and publishing instructions: `docs/`
 - Launch video script and storyboard: `video/`
 
-## GitHub Pages deployment
-1. Open **Settings → Pages** and set the source to **GitHub Actions**.
-2. The workflow in `.github/workflows/pages.yml` builds the Jekyll site and deploys it.
-3. For GitHub Free, a public repository is generally required for GitHub Pages. This repository is currently private; change visibility to public or confirm an eligible plan before expecting a public Pages deployment.
-4. Check **Actions** for the build status and **Settings → Pages** for the published URL.
+## GitHub Pages deployment and preview
+The `.github/workflows/pages.yml` workflow builds the production site from the default branch and publishes a branch-specific preview for pull requests. Production remains unchanged until a PR is reviewed and merged. Review the preview generated for the exact current PR head SHA; an older preview is not sufficient evidence.
+
+## Automated SEO / GEO / AIO readiness checks
+The `.github/workflows/seo-validation.yml` workflow builds the Jekyll site and validates rendered page metadata, canonical URLs, JSON-LD, robots directives, sitemap coverage, and crawl configuration on pull requests and pushes. The checks are guardrails, not a guarantee of search indexing or AI citation. Live browser verification and Google Search Console checks remain part of launch QA.
+
+The sitemap is generated from eligible site pages, so new learning articles are included automatically unless explicitly excluded with `sitemap: false`. The sitemap URL in `robots.txt` is generated from the Jekyll site configuration rather than hard-coded.
+
+## Domain
+The selected launch domain is **clpvriksha.com**. Domain activation, DNS changes, the production `url` / `baseurl` change, and the GitHub Pages custom-domain setting are deliberately gated until the SEO validation workflow passes and the production site, current PR preview, and live rendering have been verified. Do not add a `CNAME` file or change production canonical URLs before that gate is cleared.
 
 ## Agentic engineering handbook
 
@@ -35,5 +40,5 @@ The model-neutral project contract, architecture and design standards, content p
 ## Content workflow
 Edit Markdown files directly in GitHub. Keep page front matter intact. See [`docs/content-management.md`](docs/content-management.md).
 
-## Launch status
-Source scaffold is ready for initial deployment. Before public launch, verify the approved logo asset, channel URL, domain, signup destination, and actual rendered video are connected.
+## Release readiness
+A successful build is necessary but not sufficient. Before custom-domain activation, verify the current PR preview, mobile portrait and landscape layouts, logo and homepage hover behavior, FAQ accordions, page-specific metadata, sitemap and robots output, JSON-LD validity, and live Search Console URL inspection. Record the exact commit and deployment URL in the PR.
