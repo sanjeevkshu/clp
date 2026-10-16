@@ -3,6 +3,7 @@
 **Purpose:** preserve the knowledge acquired while building CLP so future work can continue across AI models, coding agents, IDEs, and human contributors without depending on chat history or a particular vendor.
 
 ## Start here
+- [Agentic operating specification](agentic-spec.md) — lifecycle, risk model, skill routing, and completion evidence.
 - [Root operating contract](../../AGENTS.md) — mandatory guardrails and workflow.
 - [Project context and current baseline](project-context.md)
 - [Architecture and runtime](architecture.md)
