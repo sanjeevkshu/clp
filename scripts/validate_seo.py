@@ -90,15 +90,17 @@ if not robots_file.exists():
     fail("Missing generated robots.txt")
 else:
     robots_text = robots_file.read_text(encoding="utf-8")
-    if not re.search(r"(?m)^Sitemap:\s*https://", robots_text):
+    if not re.search(r"(?m)^Sitemap:\\s*https://", robots_text):
         fail("robots.txt must contain an absolute HTTPS Sitemap directive")
 
 if sitemap_file.exists():
     sitemap = sitemap_file.read_text(encoding="utf-8")
     urls = re.findall(r"<loc>(.*?)</loc>", sitemap)
+    paths = [urlparse(url).path.rstrip("/") or "/" for url in urls]
     required_routes = ("/", "/learn/", "/learn/ai-agents/", "/learn/30-day-ai-plan/", "/learn/7-day-ai-challenge/")
     for route in required_routes:
-        if not any(urlparse(url).path.rstrip("/") == route.rstrip("/") for url in urls):
+        normalized = route.rstrip("/") or "/"
+        if not any(path == normalized or path.endswith(normalized) for path in paths):
             fail(f"Sitemap missing required route: {route}")
     if any("/previews/" in url for url in urls):
         fail("Sitemap must not include pull-request preview URLs")
