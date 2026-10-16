@@ -40,11 +40,19 @@ These rules apply to **every new page, article, landing page, and future content
 - Check internal links, image paths, page metadata, and the rendered page after deployment.
 - Do not claim a page is verified until the relevant build and live/preview checks have actually passed.
 
+## 6. Common Questions always use the shared accordion
+
+- Every Common Questions, FAQ, or equivalent question-and-answer section must render as an accordion, wherever it appears on the site—landing pages, learning articles, and future content.
+- Use the shared `_includes/faq-accordion.html` component. Do not recreate FAQ markup or one-off styles on individual pages.
+- Keep page-specific questions and answers in that page's `faq_items` front matter; pass them to the include with a unique section id and the appropriate title/kicker.
+- The component uses native `<details>` and `<summary>` elements for keyboard-accessible, no-JavaScript disclosure behavior, and the shared `.clp-faq-*` styles for consistent responsive and dark-theme presentation.
+- Preserve readable answer content, semantic heading order, visible keyboard focus, and unique IDs when reusing the component.
+
 ## New-page release checklist
 
 - [ ] Images are configured in content/front matter, not hardcoded as CSS page imagery.
 - [ ] Prominent actions and the “Back to CLP Learn Library” navigation use established button components; ordinary inline references remain text links.
-- [ ] Shared styles are reused; no unnecessary inline CSS or duplicate components.
+- [ ] Shared styles and includes are reused; all Common Questions/FAQ sections use `faq-accordion.html` with page-specific `faq_items`; no duplicate components.
 - [ ] Mobile portrait, landscape, keyboard focus, contrast, and image rendering are checked.
 - [ ] Front matter, internal links, alt text, and metadata are checked.
 - [ ] The preview is reviewed before merge; after merge, verify the production deployment and share its link.
