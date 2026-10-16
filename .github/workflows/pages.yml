@@ -52,6 +52,8 @@ jobs:
           echo "slug=$slug" >> "$GITHUB_OUTPUT"
       - name: Build production site from master
         working-directory: production-source
+        env:
+          JEKYLL_ENV: production
         run: |
           bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site" --baseurl "${{ steps.pages.outputs.base_path }}"
       - name: Validate production site
@@ -71,13 +73,16 @@ jobs:
       - name: Build pull request preview
         if: github.event_name == 'pull_request'
         working-directory: production-source
+        env:
+          JEKYLL_ENV: preview
         run: |
           bundle exec jekyll build --source "$GITHUB_WORKSPACE/preview-source" --destination "$GITHUB_WORKSPACE/_preview_site" --baseurl "${{ steps.pages.outputs.base_path }}/previews/${{ steps.preview.outputs.slug }}"
           mkdir -p "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}"
           cp -a "$GITHUB_WORKSPACE/_preview_site/." "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/"
           printf 'User-agent: *\nDisallow: /\n' > "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/robots.txt"
           test -f "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/index.html"
-          echo "Built feature branch preview at /previews/${{ steps.preview.outputs.slug }}/."
+          grep -q 'name="robots" content="noindex,nofollow"' "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/index.html"
+          echo "Built and checked noindex-protected feature branch preview at /previews/${{ steps.preview.outputs.slug }}/."
       - name: Upload combined production and preview site
         uses: actions/upload-pages-artifact@v3
         with:
