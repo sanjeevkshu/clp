@@ -1398,3 +1398,9 @@ html[data-theme="dark"] .learn-resource-copy>p:not(.card-kicker){color:#c0d1e2}
 .content-button span{font-size:1.1em;line-height:1}
 @media(max-width:680px){.article-cta-section{padding:18px}.article-cta-group{flex-direction:column}.content-button{width:100%;text-align:center}}
 @media(prefers-reduced-motion:reduce){.content-button{transition:none}}
+
+/* Secondary button for returning from a learning article to the library */
+.article-library-nav{margin:0 0 24px}
+.content-button-secondary{background:#fff;color:var(--ocean);border-color:#a8c8dc}
+.content-button-secondary:hover,.content-button-secondary:focus-visible{background:#eaf6fc;border-color:var(--ocean);color:#073b60}
+.article-library-nav .content-button{margin:0}
