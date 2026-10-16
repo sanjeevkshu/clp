@@ -90,7 +90,7 @@ if not robots_file.exists():
     fail("Missing generated robots.txt")
 else:
     robots_text = robots_file.read_text(encoding="utf-8")
-    if not re.search(r"(?m)^Sitemap:\\s*https://", robots_text):
+    if not re.search(r"(?m)^Sitemap:\s*https://", robots_text):
         fail("robots.txt must contain an absolute HTTPS Sitemap directive")
 
 if sitemap_file.exists():
