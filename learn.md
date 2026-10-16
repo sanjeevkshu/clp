@@ -2,6 +2,16 @@
 title: "Learn with CLP"
 description: "Practical learning resources, explainers and experiments to help you understand ideas, apply skills and evolve."
 permalink: /learn/
+faq_items:
+  - question: "What is CLP?"
+    answer: >-
+      CLP stands for Continuous Learning & Progressive Evolution. It is a learning brand built around a simple loop: understand an idea, apply it to a real task, and reflect on what to improve.
+  - question: "What topics does CLP cover?"
+    answer: >-
+      CLP explores AI and emerging technology, digital business and data, the future of work, practical skills, and learning habits through four series: Decodes, Masterclass, Perspectives, and Evolution Lab.
+  - question: "How can I start learning with CLP?"
+    answer: >-
+      Start with a topic that matters to your work or life. Explore a guide, try one practical action, and reflect on what changed. You can also share a topic suggestion through the Community page.
 ---
 <section class="page-hero page-hero-learn" style="--page-hero-image:url('{{ '/assets/images/card-learn.jpg' | relative_url }}')"><p class="eyebrow">THE CLP LEARNING LIBRARY</p><h1>Learn something.<br><span>Put it into practice.</span></h1><p>Short explainers, practical frameworks and experiments for a world that keeps changing.</p></section>
 
@@ -23,14 +33,5 @@ permalink: /learn/
   </div>
 </section>
 
-<section class="section clp-faq-section" aria-labelledby="clp-faq-title">
-  <div class="prose clp-faq">
-    <p class="card-kicker">A GOOD PLACE TO BEGIN</p>
-    <h2 id="clp-faq-title">Learning with CLP: common questions</h2>
-    <div class="clp-faq-list">
-      <details class="clp-faq-item"><summary>What is CLP?</summary><div class="clp-faq-answer"><p>CLP stands for Continuous Learning &amp; Progressive Evolution. It is a learning brand built around a simple loop: understand an idea, apply it to a real task, and reflect on what to improve.</p></div></details>
-      <details class="clp-faq-item"><summary>What topics does CLP cover?</summary><div class="clp-faq-answer"><p>CLP explores AI and emerging technology, digital business and data, the future of work, practical skills, and learning habits through four series: Decodes, Masterclass, Perspectives, and Evolution Lab.</p></div></details>
-      <details class="clp-faq-item"><summary>How can I start learning with CLP?</summary><div class="clp-faq-answer"><p>Start with a topic that matters to your work or life. Explore a guide, try one practical action, and reflect on what changed. You can also share a topic suggestion through the Community page.</p></div></details>
-    </div>
-  </div>
-</section>
+
+{% include faq-accordion.html id="clp-learning-faq" title="Learning with CLP: common questions" kicker="A GOOD PLACE TO BEGIN" items=page.faq_items %}
