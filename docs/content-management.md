@@ -14,3 +14,17 @@ The site is managed in GitHub. Pages are written in Markdown with YAML front mat
 - Check keyboard navigation, mobile layout, links, contrast and page metadata.
 - Configure real email/contact and newsletter handling before collecting subscriber data.
 - Add YouTube channel and episode URLs only after they exist.
+
+## Design and authoring standards
+
+Apply the [CLP design and authoring principles](design-and-authoring-principles.md) to every new page and article. In particular, configure images in page content and use the established button component for prominent calls to action.
+
+## FAQ and Common Questions
+
+All question-and-answer sections must use the shared accordion, no matter which page they appear on. Put the page-specific questions and answers in YAML front matter under `faq_items`, then render them with the reusable include:
+
+```liquid
+{% raw %}{% include faq-accordion.html id="unique-page-faq" title="Common questions" items=page.faq_items %}{% endraw %}
+```
+
+Use a unique `id` for each FAQ section. Optional `kicker` text can be passed when a section needs a short label. The include supplies consistent semantic markup and styling; do not duplicate FAQ HTML or add page-specific accordion CSS.

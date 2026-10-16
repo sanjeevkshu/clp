@@ -2,6 +2,16 @@
 title: "Build a 30-Day AI Learning Plan"
 description: "A practical four-week roadmap to build AI fluency through focused learning, hands-on practice, and real-world application."
 permalink: /learn/30-day-ai-plan/
+faq_items:
+  - question: "Do I need a technical background?"
+    answer: >-
+      No. Start with a task you understand. Technical depth can come later if it helps your goal.
+  - question: "What if I miss a day?"
+    answer: >-
+      Continue the next day. Consistency matters more than an unbroken streak; repeat a session if you need more practice.
+  - question: "How do I know the plan worked?"
+    answer: >-
+      Compare the final workflow with your baseline using quality, time, errors, and usefulness—not just how impressive the AI response looked.
 ---
 <article class="prose learning-article">
   <header class="learning-article-hero">
@@ -11,7 +21,7 @@ permalink: /learn/30-day-ai-plan/
       <p class="article-lede">You do not need to learn every AI tool in a month. Build a useful foundation, practise a few repeatable techniques, apply them to one real task, and review what worked. Aim for 20–30 focused minutes on most days.</p>
     </div>
   </header>
-  <p><a class="text-link" href="{{ '/learn/' | relative_url }}">← Back to the CLP learning library</a></p>
+  <p class="article-library-nav"><a class="content-button content-button-secondary" href="{{ '/learn/' | relative_url }}"><span aria-hidden="true">←</span> Back to CLP Learn Library</a></p>
   <h2>Before day one: choose your outcome</h2>
   <p>Pick one area where AI could help—for example, research, writing, analysis, planning, or learning a new subject. Write a simple baseline: how you do the task today, how long it takes, and what a good result looks like. Do not use confidential information in tools that are not approved for it.</p>
   <h2>Week 1 — Understand the foundations (Days 1–7)</h2>
@@ -25,9 +35,13 @@ permalink: /learn/30-day-ai-plan/
   <ul><li><strong>Days 22–24:</strong> improve instructions and add quality checks.</li><li><strong>Days 25–26:</strong> document a reusable workflow or checklist.</li><li><strong>Days 27–28:</strong> test it on a different example to see whether it generalises.</li><li><strong>Day 29:</strong> identify risks, privacy boundaries, and cases where AI should not be used.</li><li><strong>Day 30:</strong> review your baseline and choose the next learning goal.</li></ul>
   <h2>Track progress without overcomplicating it</h2>
   <p>Use a simple weekly scorecard: practice sessions completed, output quality, time spent, errors caught, and confidence in verifying results. The goal is not to maximise AI use; it is to improve the task responsibly.</p>
-  <h2>Common questions</h2>
-  <h3>Do I need a technical background?</h3><p>No. Start with a task you understand. Technical depth can come later if it helps your goal.</p>
-  <h3>What if I miss a day?</h3><p>Continue the next day. Consistency matters more than an unbroken streak; repeat a session if you need more practice.</p>
-  <h3>How do I know the plan worked?</h3><p>Compare the final workflow with your baseline using quality, time, errors, and usefulness—not just how impressive the AI response looked.</p>
-  <p><strong>Continue learning:</strong> Read <a href="{{ '/learn/ai-agents/' | relative_url }}">AI Agents: Chatbot Se Aage Kya?</a> or apply your skills in the <a href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Seven-Day AI Productivity Challenge</a>.</p>
+
+{% include faq-accordion.html id="ai-plan-faq" title="Common questions" items=page.faq_items %}
+  <section class="article-cta-section" aria-labelledby="article-cta-title">
+    <h2 id="article-cta-title">Continue learning</h2>
+    <div class="article-cta-group">
+      <a class="content-button" href="{{ '/learn/ai-agents/' | relative_url }}">Explore AI Agents <span aria-hidden="true">↗</span></a>
+      <a class="content-button" href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Try the Seven-Day Challenge <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </article>

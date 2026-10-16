@@ -5,7 +5,7 @@ baseurl: "/clp"
 lang: "en"
 markdown: kramdown
 permalink: pretty
-exclude: [README.md, Gemfile, Gemfile.lock, docs, vendor]
+exclude: [README.md, AGENTS.md, Gemfile, Gemfile.lock, docs, skills, vendor]
 plugins: []
 defaults:
   - scope:

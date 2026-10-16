@@ -2,6 +2,16 @@
 title: "AI Agents: Chatbot Se Aage Kya?"
 description: "A practical guide to chatbots versus AI agents, tool use, workflows, limitations, and human oversight."
 permalink: /learn/ai-agents/
+faq_items:
+  - question: "Are AI agents always autonomous?"
+    answer: >-
+      No. Autonomy varies by product, configuration, available tools, and permissions. Some systems ask for approval at each important step.
+  - question: "Can an AI agent make mistakes?"
+    answer: >-
+      Yes. It can misunderstand goals, use weak evidence, or misjudge whether a task is complete. Verification and bounded permissions are essential.
+  - question: "What is a good first use case?"
+    answer: >-
+      Try a repeatable, low-risk task such as organising public research or summarising non-sensitive notes, with source checks before relying on the result.
 ---
 <article class="prose learning-article">
   <header class="learning-article-hero">
@@ -11,7 +21,7 @@ permalink: /learn/ai-agents/
       <p class="article-lede">A chatbot usually responds to a prompt. An agent-style system may work toward a goal across multiple steps, using tools and checking results within defined permissions. The important question is not whether something is called an agent, but what it can actually do—and how it is supervised.</p>
     </div>
   </header>
-  <p><a class="text-link" href="{{ '/learn/' | relative_url }}">← Back to the CLP learning library</a></p>
+  <p class="article-library-nav"><a class="content-button content-button-secondary" href="{{ '/learn/' | relative_url }}"><span aria-hidden="true">←</span> Back to CLP Learn Library</a></p>
   <h2>Chatbot aur AI agent mein kya difference hai?</h2>
   <p>A typical chatbot interaction is conversational: you ask a question, and the model produces a response. An agent-style workflow can add a loop: interpret a goal, break it into steps, use approved tools, inspect the results, and decide what to do next. Products vary, and many combine both patterns.</p>
   <ul><li><strong>Chatbot pattern:</strong> explain a concept, draft a message, or answer a question from the information provided.</li><li><strong>Agent-style pattern:</strong> gather information from permitted sources, organise it, draft a result, check it against criteria, and return it for review.</li></ul>
@@ -24,9 +34,13 @@ permalink: /learn/ai-agents/
   <ol><li>Choose a repetitive, low-risk task.</li><li>Write down the steps and the expected output.</li><li>Identify which steps AI can assist with and what evidence must be checked.</li><li>Run one trial and compare the result with your usual method.</li><li>Record time saved, errors found, and what still required human judgement.</li></ol>
   <h2>Key takeaway</h2>
   <p>AI agents are best understood as workflows that may plan and act across steps using tools and permissions. Start small, measure the outcome, and keep a person accountable for checking important results.</p>
-  <h2>Common questions</h2>
-  <h3>Are AI agents always autonomous?</h3><p>No. Autonomy varies by product, configuration, available tools, and permissions. Some systems ask for approval at each important step.</p>
-  <h3>Can an AI agent make mistakes?</h3><p>Yes. It can misunderstand goals, use weak evidence, or misjudge whether a task is complete. Verification and bounded permissions are essential.</p>
-  <h3>What is a good first use case?</h3><p>Try a repeatable, low-risk task such as organising public research or summarising non-sensitive notes, with source checks before relying on the result.</p>
-  <p><strong>Continue learning:</strong> <a href="{{ '/learn/30-day-ai-plan/' | relative_url }}">Build a 30-Day AI Learning Plan</a> or try the <a href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Seven-Day AI Productivity Challenge</a>.</p>
+
+{% include faq-accordion.html id="ai-agents-faq" title="Common questions" items=page.faq_items %}
+  <section class="article-cta-section" aria-labelledby="article-cta-title">
+    <h2 id="article-cta-title">Continue learning</h2>
+    <div class="article-cta-group">
+      <a class="content-button" href="{{ '/learn/30-day-ai-plan/' | relative_url }}">Build a 30-Day AI Learning Plan <span aria-hidden="true">↗</span></a>
+      <a class="content-button" href="{{ '/learn/7-day-ai-challenge/' | relative_url }}">Try the Seven-Day Challenge <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </article>

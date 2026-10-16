@@ -2,6 +2,16 @@
 title: "Seven-Day AI Productivity Challenge"
 description: "A safe, practical seven-day experiment to test whether AI can improve one repeatable task."
 permalink: /learn/7-day-ai-challenge/
+faq_items:
+  - question: "Do I need to complete all seven days in a row?"
+    answer: >-
+      No. Use the sequence at a pace that suits you, and record what you learn at each stage.
+  - question: "Does the challenge require a paid tool?"
+    answer: >-
+      No specific product is required. Use an AI tool available to you and follow its terms and your organisation's policies.
+  - question: "What should I share at the end?"
+    answer: >-
+      Share the task category, your baseline, what changed, what you verified, and whether you would reuse the workflow. Do not share confidential inputs or outputs.
 ---
 <article class="prose learning-article">
   <header class="learning-article-hero">
@@ -11,7 +21,7 @@ permalink: /learn/7-day-ai-challenge/
       <p class="article-lede">Choose one low-risk, repeatable task and test whether AI assistance makes it better. This is a self-guided challenge; no registration is required. Keep sensitive data out of unapproved tools and verify outputs before using them.</p>
     </div>
   </header>
-  <p><a class="text-link" href="{{ '/learn/' | relative_url }}">← Back to the CLP learning library</a></p>
+  <p class="article-library-nav"><a class="content-button content-button-secondary" href="{{ '/learn/' | relative_url }}"><span aria-hidden="true">←</span> Back to CLP Learn Library</a></p>
   <h2>Choose your challenge</h2>
   <p>Pick a task that happens regularly and has an easy-to-check result, such as structuring public research, outlining a presentation, organising non-sensitive notes, or drafting a checklist. Avoid high-stakes decisions and tasks involving confidential or personal data.</p>
   <h2>Your seven-day path</h2>
@@ -22,9 +32,13 @@ permalink: /learn/7-day-ai-challenge/
   <ul><li>Use tools approved for the information you enter.</li><li>Do not treat confident wording as proof of accuracy.</li><li>Verify material facts with reliable sources or the original records.</li><li>Keep a human responsible for the final decision and any external action.</li><li>Stop if the workflow exposes sensitive information or creates unacceptable risk.</li></ul>
   <h2>What counts as success?</h2>
   <p>Success could mean less time, clearer output, fewer repetitive steps, or better consistency. It is also a useful result to discover that AI does not help with this task. Keep only the workflow that demonstrates value and remains safe.</p>
-  <h2>Common questions</h2>
-  <h3>Do I need to complete all seven days in a row?</h3><p>No. Use the sequence at a pace that suits you, and record what you learn at each stage.</p>
-  <h3>Does the challenge require a paid tool?</h3><p>No specific product is required. Use an AI tool available to you and follow its terms and your organisation's policies.</p>
-  <h3>What should I share at the end?</h3><p>Share the task category, your baseline, what changed, what you verified, and whether you would reuse the workflow. Do not share confidential inputs or outputs.</p>
-  <p><strong>Continue learning:</strong> Build your foundation with <a href="{{ '/learn/ai-agents/' | relative_url }}">AI Agents: Chatbot Se Aage Kya?</a> and follow the <a href="{{ '/learn/30-day-ai-plan/' | relative_url }}">30-Day AI Learning Plan</a>.</p>
+
+{% include faq-accordion.html id="ai-challenge-faq" title="Common questions" items=page.faq_items %}
+  <section class="article-cta-section" aria-labelledby="article-cta-title">
+    <h2 id="article-cta-title">Continue learning</h2>
+    <div class="article-cta-group">
+      <a class="content-button" href="{{ '/learn/ai-agents/' | relative_url }}">Explore AI Agents <span aria-hidden="true">↗</span></a>
+      <a class="content-button" href="{{ '/learn/30-day-ai-plan/' | relative_url }}">Build a 30-Day AI Learning Plan <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </article>

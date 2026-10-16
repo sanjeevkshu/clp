@@ -1,0 +1,39 @@
+name: CLP SEO and AI-readiness guardrails
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup Ruby and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - name: Build production-mode site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --destination _site
+      - name: Validate production SEO output
+        run: python3 scripts/validate_seo.py _site production
+      - name: Build preview-mode site
+        env:
+          JEKYLL_ENV: preview
+        run: bundle exec jekyll build --destination _preview_site
+      - name: Validate preview indexing protection
+        run: python3 scripts/validate_seo.py _preview_site preview

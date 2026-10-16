@@ -1,4 +1,9 @@
+---
+layout: null
+permalink: /robots.txt
+sitemap: false
+---
 User-agent: *
 Allow: /
 
-Sitemap: https://sanjeevkshu.github.io/clp/sitemap.xml
+Sitemap: {{ '/sitemap.xml' | absolute_url }}
