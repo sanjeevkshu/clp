@@ -14,3 +14,7 @@ The site is managed in GitHub. Pages are written in Markdown with YAML front mat
 - Check keyboard navigation, mobile layout, links, contrast and page metadata.
 - Configure real email/contact and newsletter handling before collecting subscriber data.
 - Add YouTube channel and episode URLs only after they exist.
+
+## Design and authoring standards
+
+Apply the [CLP design and authoring principles](design-and-authoring-principles.md) to every new page and article. In particular, configure images in page content and use the established button component for prominent calls to action.
