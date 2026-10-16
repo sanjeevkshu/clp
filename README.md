@@ -28,6 +28,10 @@ The approved CLP logo should remain the source of truth. This first repository v
 3. For GitHub Free, a public repository is generally required for GitHub Pages. This repository is currently private; change visibility to public or confirm an eligible plan before expecting a public Pages deployment.
 4. Check **Actions** for the build status and **Settings → Pages** for the published URL.
 
+## Agentic engineering handbook
+
+The model-neutral project contract, architecture and design standards, content patterns, digital-asset rules, QA/release process, AI-readiness guidance, decision log, and reusable agent skills live in [`AGENTS.md`](AGENTS.md), [`docs/agentic/`](docs/agentic/), and [`skills/`](skills/). Start with the [handbook index](docs/agentic/README.md). These files are the durable source of project knowledge; do not rely on chat history alone.
+
 ## Content workflow
 Edit Markdown files directly in GitHub. Keep page front matter intact. See [`docs/content-management.md`](docs/content-management.md).
 
