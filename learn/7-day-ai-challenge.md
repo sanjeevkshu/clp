@@ -26,5 +26,11 @@ permalink: /learn/7-day-ai-challenge/
   <h3>Do I need to complete all seven days in a row?</h3><p>No. Use the sequence at a pace that suits you, and record what you learn at each stage.</p>
   <h3>Does the challenge require a paid tool?</h3><p>No specific product is required. Use an AI tool available to you and follow its terms and your organisation's policies.</p>
   <h3>What should I share at the end?</h3><p>Share the task category, your baseline, what changed, what you verified, and whether you would reuse the workflow. Do not share confidential inputs or outputs.</p>
-  <p><strong>Continue learning:</strong> Build your foundation with <a href="{{ '/learn/ai-agents/' | relative_url }}">AI Agents: Chatbot Se Aage Kya?</a> and follow the <a href="{{ '/learn/30-day-ai-plan/' | relative_url }}">30-Day AI Learning Plan</a>.</p>
+  <section class="article-cta-section" aria-labelledby="article-cta-title">
+    <h2 id="article-cta-title">Continue learning</h2>
+    <div class="article-cta-group">
+      <a class="content-button" href="{{ '/learn/ai-agents/' | relative_url }}">Explore AI Agents <span aria-hidden="true">↗</span></a>
+      <a class="content-button" href="{{ '/learn/30-day-ai-plan/' | relative_url }}">Build a 30-Day AI Learning Plan <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </article>
