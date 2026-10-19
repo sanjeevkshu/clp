@@ -106,7 +106,10 @@ jobs:
           grep -q "A new journey begins" "$preview_root/index.html"
           grep -q 'clp-launch-card' "$preview_root/index.html"
           grep -q 'Explore our launch story' "$preview_root/index.html"
-          ! grep -q 'Watch the launch film' "$preview_root/index.html"
+          if sed -n '/clp-launch-card/,/<\/section>/p' "$preview_root/index.html" | grep -q 'Watch the launch film'; then
+            echo "ERROR: Launch card contains a competing secondary CTA."
+            exit 1
+          fi
           grep -q 'data-theme="light"' "$preview_root/assets/css/editorial-media.css" || grep -q 'data-theme=\\\"light\\\"' "$preview_root/assets/css/editorial-media.css"
           grep -q 'footer-pathways' "$preview_root/index.html"
           grep -q '20261019-editorial-media-v2' "$preview_root/index.html"
