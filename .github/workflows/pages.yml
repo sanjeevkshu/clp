@@ -69,6 +69,15 @@ jobs:
           test -f _site/assets/js/main.js
           test -f _site/assets/css/styles.css
           test -f _site/assets/css/responsive-polish.css
+          test -f _site/assets/css/editorial-media.css
+          test -f _site/blog/index.html
+          test -f _site/media/index.html
+          grep -q 'href="/blog/"' _site/index.html
+          grep -q 'href="/media/"' _site/index.html
+          grep -q 'youtube-nocookie.com/embed/' production-source/_layouts/media.html
+          test -f production-source/_layouts/post.html
+          test -f production-source/docs/templates/blog-post-template.md
+          test -f production-source/docs/templates/media-item-template.md
           test -f _site/assets/images/clp-mark.svg
           test -f _site/assets/images/clp-home-hero.png
           grep -q 'id="site-nav"' _site/index.html
