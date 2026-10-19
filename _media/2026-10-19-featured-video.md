@@ -1,19 +1,27 @@
 ---
-title: "Featured YouTube Video"
-description: "Watch this CLP media feature on YouTube. The editorial summary, creator attribution and learning takeaways will be completed after the video metadata and content are verified."
-category: "CLP Media"
-creator: "Verify original creator before publication"
+title: "CLP Vriksha — Channel Launch Film"
+description: "Marking the launch of CLP Vriksha and its YouTube channel on 19 October 2026. Discover the vision behind Learn. Apply. Evolve."
+permalink: /media/featured-video/
+date: 2026-10-19
+category: "CLP Vriksha Launch"
+creator: "CLP Vriksha"
 youtube_id: "_i6jUribYSA"
-thumbnail_alt: "Thumbnail for the featured YouTube video"
+thumbnail_alt: "Thumbnail for the CLP Vriksha channel launch film"
 ---
 
-This entry has been prepared from the YouTube URL supplied for CLP.
+## A new journey begins
 
-**Editorial completion required before publication**
-- Confirm the video's exact title and original creator.
-- Review the video and replace this note with an accurate summary.
-- Add 3–5 learning takeaways and a suggested next step for CLP learners.
-- Confirm public playback, captions/transcript availability and attribution.
-- Add the verified original publication date and duration when available.
+On 19 October 2026, CLP Vriksha launched its website and YouTube channel. This film marks the beginning of a learning journey built around a simple idea: **Learn. Apply. Evolve.**
 
-[Watch the original video on YouTube](https://www.youtube.com/watch?v=_i6jUribYSA).
+CLP Vriksha is being created as a space for curious minds and lifelong learners to explore ideas, build practical skills, apply learning in everyday life, and keep evolving as the world changes.
+
+### Explore the CLP journey
+
+- **CLP Decodes** — make emerging ideas easier to understand.
+- **CLP Masterclass** — build practical skills through guided learning.
+- **CLP Perspectives** — explore different viewpoints and possibilities.
+- **CLP Evolution Lab** — experiment, apply, reflect and grow.
+
+This is the beginning, not the finish line. Explore the [CLP launch story]({{ '/launch/' | relative_url }}) and [discover the learning pathways]({{ '/learn/' | relative_url }}).
+
+[Watch the original launch film on YouTube](https://youtu.be/_i6jUribYSA).
