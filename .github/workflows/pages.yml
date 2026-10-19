@@ -72,6 +72,9 @@ jobs:
           test -f _site/assets/css/editorial-media.css
           test -f _site/blog/index.html
           test -f _site/media/index.html
+          test -f _site/blog/contribute/index.html
+          test -f _site/media/contribute/index.html
+          grep -q 'Content-Security-Policy' _site/index.html
           grep -q 'href="/blog/"' _site/index.html
           grep -q 'href="/media/"' _site/index.html
           grep -q 'youtube-nocookie.com/embed/' production-source/_layouts/media.html
