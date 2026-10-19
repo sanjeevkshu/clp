@@ -56,3 +56,14 @@ These rules apply to **every new page, article, landing page, and future content
 - [ ] Mobile portrait, landscape, keyboard focus, contrast, and image rendering are checked.
 - [ ] Front matter, internal links, alt text, and metadata are checked.
 - [ ] The preview is reviewed before merge; after merge, verify the production deployment and share its link.
+
+
+## 7. Homepage launch card, theme parity and footer
+
+- Keep the existing homepage hero and primary navigation unchanged.
+- The homepage launch feature is a compact editorial card: teaser image, short description, clear title, and one primary CTA to the launch story. Avoid competing CTAs in this feature.
+- Set image source and alt text in page content; use shared CSS classes for layout, crop, responsive behavior, hover and focus treatment.
+- Every new card and content section must be checked in both light and dark themes. Use explicit theme-aware foreground, surface, border and accent colors; avoid hard-coded colors that reduce contrast.
+- The footer should provide clear, multi-column discovery on wide screens and stack cleanly on mobile. Keep link labels descriptive, spacing consistent, and focus indicators visible.
+- On every meaningful CSS change, update the stylesheet cache-busting version in `_layouts/default.html`.
+- Validate desktop, tablet, mobile portrait and landscape, keyboard focus, contrast, reduced motion, no horizontal overflow, and preview noindex before requesting review.
