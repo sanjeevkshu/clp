@@ -5,4 +5,4 @@ layout: default
 {% if page.image %}<figure class="editorial-article-cover"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}" itemprop="image">{% if page.image_caption %}<figcaption>{{ page.image_caption | escape }}</figcaption>{% endif %}</figure>{% endif %}
 <div class="editorial-article-body" itemprop="articleBody">{{ content }}</div>
 {% if page.tags %}<ul class="editorial-tags" aria-label="Article topics">{% for tag in page.tags %}<li>{{ tag | escape }}</li>{% endfor %}</ul>{% endif %}
-<section class="editorial-discussion" aria-labelledby="discussion-title"><h2 id="discussion-title">Continue the conversation</h2><p>Share a thoughtful response or question with the CLP community. Discussion is hosted and moderated through GitHub Discussions; a GitHub account is required.</p><a class="learn-card-button" href="https://github.com/sanjeevkshu/clp/discussions" rel="noopener noreferrer">Discuss on GitHub <span aria-hidden="true">↗</span></a></section></article>
+</article>
