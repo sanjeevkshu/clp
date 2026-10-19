@@ -57,12 +57,14 @@ jobs:
         run: |
           # On pushes, this is the custom-domain production source. On PRs, this
           # builds the current production baseline separately from the preview.
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+          if [ "$EVENT_NAME" = "pull_request" ]; then
             bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site" --baseurl "${{ steps.pages.outputs.base_path }}"
           else
             bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site"
           fi
       - name: Validate production site
+        env:
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           node --check production-source/assets/js/main.js
           test -f _site/index.html
