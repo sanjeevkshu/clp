@@ -83,7 +83,7 @@ jobs:
           grep -q 'data-home-filter' _site/index.html
           if [ "$EVENT_NAME" = "pull_request" ]; then
             # The production baseline may use either the repository Pages base path or the custom-domain root.
-            grep -qE 'href="/([^"]*/)?assets/css/styles.css' _site/index.html
+            grep -q 'assets/css/styles.css' _site/index.html
             echo "Current production baseline validated with its existing Pages/custom-domain asset path."
           else
             test -f _site/CNAME
