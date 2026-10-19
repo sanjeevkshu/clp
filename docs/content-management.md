@@ -28,7 +28,7 @@ For YouTube, set youtube_id to the video ID. For another approved hosted media i
 
 ## Comments and moderation
 
-To avoid a separate backend, article discussion links to GitHub Discussions for the repository. Participation requires a GitHub account. Repository administrators moderate discussions using GitHub's built-in controls. Before enabling this publicly, an administrator must enable Discussions in repository settings and establish community guidelines, moderation expectations and a response/removal process. Static GitHub Pages cannot securely accept, store or moderate first-party comments on its own.
+Public comments are intentionally on hold. The article template does not display a comment feature while CLP evaluates a guest-friendly hosted option. GitHub Pages is static and cannot securely accept, store or moderate first-party comments on its own. Do not add GitHub Discussions as the default public commenting path because many readers will not have GitHub accounts. Any third-party comment integration requires an explicit owner decision, privacy/moderation review, and configuration before it is enabled.
 
 ## Before launch
 - Replace the provisional vector wordmark with the approved original CLP logo file when available.
