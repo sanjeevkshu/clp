@@ -117,3 +117,23 @@ html[data-theme="dark"] .site-footer .footer-purpose .footer-launch-note { color
   .site-footer .footer-brand,
   .site-footer > small { grid-column: auto; }
 }
+
+
+/* Launch-story card: restrained editorial layout with explicit theme parity. */
+.clp-launch-card{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(22px,4vw,52px);background:var(--surface,#fff);color:var(--text,#10243e)}
+.clp-launch-card .clp-launch-film{grid-column:1;grid-row:1;aspect-ratio:16/9;border-radius:16px;box-shadow:0 12px 32px #06132920}
+.clp-launch-card .clp-launch-copy{grid-column:2;grid-row:1;align-self:center}
+.clp-launch-card .clp-launch-copy>p:not(.eyebrow){max-width:48ch}
+.clp-launch-card .clp-launch-actions{margin-top:20px}
+html[data-theme="light"] .clp-launch-card{background:linear-gradient(120deg,#f5fbff,#fff);border-color:#d8e5ee}
+html[data-theme="light"] .clp-launch-card .clp-launch-copy h2{color:#10243e}
+html[data-theme="light"] .clp-launch-card .clp-launch-copy>p:not(.eyebrow){color:#52677b}
+html[data-theme="light"] .clp-launch-card .clp-launch-copy .eyebrow{color:#087eb5}
+html[data-theme="dark"] .clp-launch-card{background:linear-gradient(120deg,#101d2d,#0b1422);border-color:#2b4056}
+html[data-theme="dark"] .clp-launch-card .clp-launch-copy h2{color:#f3f7fb}
+html[data-theme="dark"] .clp-launch-card .clp-launch-copy>p:not(.eyebrow){color:#c0cede}
+html[data-theme="dark"] .clp-launch-card .clp-launch-copy .eyebrow{color:#8bdfff}
+.clp-launch-card .learn-card-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:850}
+.clp-launch-card .clp-launch-film:focus-visible,.clp-launch-card .learn-card-button:focus-visible{outline:3px solid var(--aqua,#00a7e9);outline-offset:4px}
+@media(max-width:900px){.clp-launch-card{grid-template-columns:minmax(0,1fr)}.clp-launch-card .clp-launch-film,.clp-launch-card .clp-launch-copy{grid-column:1;grid-row:auto}.clp-launch-card .clp-launch-film{max-width:none}}
+@media(max-width:600px){.clp-launch-card{padding:26px 18px;gap:20px}.clp-launch-card .clp-launch-actions{align-items:flex-start}.clp-launch-card .learn-card-button{width:100%;box-sizing:border-box}}
