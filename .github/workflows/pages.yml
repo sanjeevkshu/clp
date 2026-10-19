@@ -79,8 +79,9 @@ jobs:
           grep -q 'clp-hero-drift' _site/assets/css/styles.css
           grep -q 'data-home-filter' _site/index.html
           if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            grep -qE 'href="/(clp/)?assets/css/styles.css' _site/index.html
-            echo "Current production baseline validated with its existing GitHub Pages base path."
+            # The production baseline may use either the repository Pages base path or the custom-domain root.
+            grep -qE 'href="/([^"]*/)?assets/css/styles.css' _site/index.html
+            echo "Current production baseline validated with its existing Pages/custom-domain asset path."
           else
             test -f _site/CNAME
             grep -q '^clpvriksha.com$' _site/CNAME
