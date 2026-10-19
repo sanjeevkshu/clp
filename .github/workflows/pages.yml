@@ -10,12 +10,15 @@ permissions:
   pages: write
   id-token: write
   pull-requests: write
+# Keep production Pages deploys serialized, but let a newer commit on the same
+# PR supersede an obsolete validation run. PR checks no longer block production.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('clp-pr-{0}', github.event.pull_request.number) || 'pages-production' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       preview_slug: ${{ steps.preview.outputs.slug }}
     steps:
@@ -130,6 +133,7 @@ jobs:
   deploy:
     # PR preview publication is handled by the trusted workflow_run workflow.
     if: github.event_name != 'pull_request'
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
