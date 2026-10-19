@@ -19,6 +19,22 @@ permalink: /
   <div class="home-hero-note"><span class="note-rule"></span><span>CURIOSITY<br>SKILLS<br>PERSPECTIVE<br>ACTION<br>PROGRESS<br>A BRIGHTER YOU</span></div>
 </section>
 
+<section class="clp-launch-feature clp-launch-card" aria-labelledby="clp-launch-title">
+  <a class="clp-launch-film" href="{{ '/launch/' | relative_url }}" aria-label="Read the CLP Vriksha launch story">
+    <img src="https://i.ytimg.com/vi/_i6jUribYSA/hqdefault.jpg" alt="CLP Vriksha launch film thumbnail" loading="lazy">
+    <span class="clp-launch-play" aria-hidden="true">▶</span>
+    <span class="clp-launch-film-label">CLP VRIKSHA · LAUNCH FILM</span>
+  </a>
+  <div class="clp-launch-copy">
+    <p class="eyebrow">OUR JOURNEY · 19 OCTOBER 2026</p>
+    <h2 id="clp-launch-title">A new journey begins.</h2>
+    <p>A shared space for curious minds to learn continuously, apply ideas, and evolve with a changing world.</p>
+    <div class="clp-launch-actions">
+      <a class="learn-card-button" href="{{ '/launch/' | relative_url }}">Explore our launch story <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
 <section class="home-pathways" id="home-pathways" aria-label="CLP learning pathways">
   <div class="home-path-grid">
     <a class="home-path-card path-decodes" href="{{ '/learn/' | relative_url }}">

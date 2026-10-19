@@ -1,0 +1,8 @@
+---
+layout: default
+---
+<article class="editorial-article" itemscope itemtype="https://schema.org/BlogPosting"><header class="editorial-article-header"><a class="editorial-back-link" href="{{ '/blog/' | relative_url }}">← Back to the CLP Blog</a>{% if page.category %}<p class="card-kicker">{{ page.category | escape }}</p>{% endif %}<h1 itemprop="headline">{{ page.title | escape }}</h1>{% if page.description %}<p class="editorial-article-deck" itemprop="description">{{ page.description | escape }}</p>{% endif %}<p class="editorial-meta">{% if page.author %}<span itemprop="author">{{ page.author | escape }}</span> · {% endif %}<time itemprop="datePublished" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>{% if page.reading_time %} · {{ page.reading_time | escape }} min read{% endif %}</p></header>
+{% if page.image %}<figure class="editorial-article-cover"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}" itemprop="image">{% if page.image_caption %}<figcaption>{{ page.image_caption | escape }}</figcaption>{% endif %}</figure>{% endif %}
+<div class="editorial-article-body" itemprop="articleBody">{{ content }}</div>
+{% if page.tags %}<ul class="editorial-tags" aria-label="Article topics">{% for tag in page.tags %}<li>{{ tag | escape }}</li>{% endfor %}</ul>{% endif %}
+</article>

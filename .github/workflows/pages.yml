@@ -10,12 +10,15 @@ permissions:
   pages: write
   id-token: write
   pull-requests: write
+# Keep production Pages deploys serialized, but let a newer commit on the same
+# PR supersede an obsolete validation run. PR checks no longer block production.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('clp-pr-{0}', github.event.pull_request.number) || 'pages-production' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       preview_slug: ${{ steps.preview.outputs.slug }}
     steps:
@@ -50,25 +53,24 @@ jobs:
         run: |
           slug="$(printf '%s' "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-|-$//g')"
           echo "slug=$slug" >> "$GITHUB_OUTPUT"
+      # PR checks validate the proposed site only. Production build and strict
+      # custom-domain checks run only for pushes to the production branch.
       - name: Build production site from source
+        if: github.event_name != 'pull_request'
         working-directory: production-source
         env:
           JEKYLL_ENV: production
         run: |
-          # On pushes, this is the custom-domain production source. On PRs, this
-          # builds the current production baseline separately from the preview.
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site" --baseurl "${{ steps.pages.outputs.base_path }}"
-          else
-            bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site"
-          fi
+          bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site"
       - name: Validate production site
+        if: github.event_name != 'pull_request'
         run: |
           node --check production-source/assets/js/main.js
           test -f _site/index.html
           test -f _site/assets/js/main.js
           test -f _site/assets/css/styles.css
           test -f _site/assets/css/responsive-polish.css
+          test -f _site/assets/css/editorial-media.css
           test -f _site/assets/images/clp-mark.svg
           test -f _site/assets/images/clp-home-hero.png
           grep -q 'id="site-nav"' _site/index.html
@@ -76,42 +78,62 @@ jobs:
           grep -q 'id="home-pathways"' _site/index.html
           grep -q 'clp-hero-drift' _site/assets/css/styles.css
           grep -q 'data-home-filter' _site/index.html
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-            grep -qE 'href="/(clp/)?assets/css/styles.css' _site/index.html
-            echo "Current production baseline validated with its existing GitHub Pages base path."
-          else
-            test -f _site/CNAME
-            grep -q '^clpvriksha.com$' _site/CNAME
-            grep -q 'href="/assets/css/styles.css' _site/index.html
-            grep -q 'href="/assets/css/responsive-polish.css' _site/index.html
-            grep -q 'src="/assets/js/main.js' _site/index.html
-            if grep -qE '(href|src)="/clp/assets/' _site/index.html; then
-              echo "ERROR: Production HTML contains old /clp asset paths."
-              exit 1
-            fi
-            echo "Custom-domain asset paths and CNAME validated."
+          test -f _site/CNAME
+          grep -q '^clpvriksha.com$' _site/CNAME
+          grep -q 'href="/assets/css/styles.css' _site/index.html
+          grep -q 'href="/assets/css/responsive-polish.css' _site/index.html
+          grep -q 'src="/assets/js/main.js' _site/index.html
+          if grep -qE '(href|src)="/clp/assets/' _site/index.html; then
+            echo "ERROR: Production HTML contains old /clp asset paths."
+            exit 1
           fi
-          echo "Production homepage, asset files, JavaScript syntax and interaction hooks validated."
-      - name: Build pull request preview
+          echo "Production homepage, assets, custom domain, JavaScript syntax and interaction hooks validated."
+      - name: Build and validate pull request preview
         if: github.event_name == 'pull_request'
         working-directory: production-source
         env:
           JEKYLL_ENV: preview
         run: |
           bundle exec jekyll build --source "$GITHUB_WORKSPACE/preview-source" --destination "$GITHUB_WORKSPACE/_preview_site" --baseurl "${{ steps.pages.outputs.base_path }}/previews/${{ steps.preview.outputs.slug }}"
-          mkdir -p "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}"
-          cp -a "$GITHUB_WORKSPACE/_preview_site/." "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/"
-          printf 'User-agent: *\nDisallow: /\n' > "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/robots.txt"
-          test -f "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/index.html"
-          grep -q 'name="robots" content="noindex,nofollow"' "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/index.html"
+          printf 'User-agent: *\nDisallow: /\n' > "$GITHUB_WORKSPACE/_preview_site/robots.txt"
+          preview_root="$GITHUB_WORKSPACE/_preview_site"
+          node --check "$GITHUB_WORKSPACE/preview-source/assets/js/main.js"
+          test -f "$preview_root/index.html"
+          grep -q 'name="robots" content="noindex,nofollow"' "$preview_root/index.html"
+          test -f "$preview_root/blog/index.html"
+          test -f "$preview_root/media/index.html"
+          test -f "$preview_root/blog/contribute/index.html"
+          test -f "$preview_root/media/contribute/index.html"
+          test -f "$preview_root/launch/index.html"
+          test -f "$preview_root/media/featured-video/index.html"
+          grep -q "A new journey begins" "$preview_root/index.html"
+          grep -q 'clp-launch-card' "$preview_root/index.html"
+          grep -q 'Explore our launch story' "$preview_root/index.html"
+          if sed -n '/clp-launch-card/,/<\/section>/p' "$preview_root/index.html" | grep -q 'Watch the launch film'; then
+            echo "ERROR: Launch card contains a competing secondary CTA."
+            exit 1
+          fi
+          grep -q 'data-theme="light"' "$preview_root/assets/css/editorial-media.css" || grep -q 'data-theme=\\\"light\\\"' "$preview_root/assets/css/editorial-media.css"
+          grep -q 'footer-pathways' "$preview_root/index.html"
+          grep -q '20261019-editorial-media-v2' "$preview_root/index.html"
+          grep -q "CLP Vriksha" "$preview_root/launch/index.html"
+          grep -q 'Content-Security-Policy' "$preview_root/index.html"
+          grep -q 'href="/previews/${{ steps.preview.outputs.slug }}/blog/"' "$preview_root/index.html"
+          grep -q 'href="/previews/${{ steps.preview.outputs.slug }}/media/"' "$preview_root/index.html"
+          grep -q 'youtube-nocookie.com/embed/' "$GITHUB_WORKSPACE/preview-source/_layouts/media.html"
+          test -f "$GITHUB_WORKSPACE/preview-source/_layouts/post.html"
+          test -f "$GITHUB_WORKSPACE/preview-source/docs/templates/blog-post-template.md"
+          test -f "$GITHUB_WORKSPACE/preview-source/docs/templates/media-item-template.md"
           echo "Built and checked noindex-protected feature branch preview at /previews/${{ steps.preview.outputs.slug }}/."
-      - name: Upload combined production and preview site
+      - name: Upload production site artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
   deploy:
-    # PR artifacts are deployed by the trusted workflow_run workflow from master.
+    # PR preview publication is handled by the trusted workflow_run workflow.
     if: github.event_name != 'pull_request'
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
