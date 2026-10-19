@@ -7,7 +7,7 @@ CLP is a Jekyll static site deployed to GitHub Pages. GoDaddy is the registrar/D
 ## What can be done in the repository
 
 - Keep canonical HTTPS URLs and the existing strict-origin-when-cross-origin referrer policy.
-- Add a carefully tested Content Security Policy using a CSP meta element only when its directives are verified against the actual site's scripts, styles, images and YouTube embeds.
+- A conservative Content Security Policy meta element is included in the current feature branch. It must be checked against all existing pages, external images and YouTube embeds in preview before production approval; a meta CSP is only a partial mitigation and does not replace response headers.
 - Use safe HTML defaults, escaped content fields, accessible embeds, and dependency/build checks.
 - Test both clpvriksha.com and www.clpvriksha.com for TLS, redirects and response headers after deployment.
 
