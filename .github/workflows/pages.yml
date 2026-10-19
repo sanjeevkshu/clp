@@ -53,6 +53,7 @@ jobs:
       - name: Build production site from source
         working-directory: production-source
         env:
+          EVENT_NAME: ${{ github.event_name }}
           JEKYLL_ENV: production
         run: |
           # On pushes, this is the custom-domain production source. On PRs, this
@@ -80,7 +81,7 @@ jobs:
           grep -q 'id="home-pathways"' _site/index.html
           grep -q 'clp-hero-drift' _site/assets/css/styles.css
           grep -q 'data-home-filter' _site/index.html
-          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+          if [ "$EVENT_NAME" = "pull_request" ]; then
             # The production baseline may use either the repository Pages base path or the custom-domain root.
             grep -qE 'href="/([^"]*/)?assets/css/styles.css' _site/index.html
             echo "Current production baseline validated with its existing Pages/custom-domain asset path."
