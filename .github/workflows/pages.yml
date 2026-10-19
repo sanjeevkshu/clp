@@ -50,6 +50,8 @@ jobs:
         run: |
           slug="$(printf '%s' "$BRANCH_NAME" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-|-$//g')"
           echo "slug=$slug" >> "$GITHUB_OUTPUT"
+      # PR checks validate the proposed site only. Production build and strict
+      # custom-domain checks run only for pushes to the production branch.
       - name: Build production site from source
         if: github.event_name != 'pull_request'
         working-directory: production-source
@@ -74,8 +76,16 @@ jobs:
           grep -q 'clp-hero-drift' _site/assets/css/styles.css
           grep -q 'data-home-filter' _site/index.html
           test -f _site/CNAME
-          grep -q '^clpvriksha.com
-      - name: Build pull request preview
+          grep -q '^clpvriksha.com$' _site/CNAME
+          grep -q 'href="/assets/css/styles.css' _site/index.html
+          grep -q 'href="/assets/css/responsive-polish.css' _site/index.html
+          grep -q 'src="/assets/js/main.js' _site/index.html
+          if grep -qE '(href|src)="/clp/assets/' _site/index.html; then
+            echo "ERROR: Production HTML contains old /clp asset paths."
+            exit 1
+          fi
+          echo "Production homepage, assets, custom domain, JavaScript syntax and interaction hooks validated."
+      - name: Build and validate pull request preview
         if: github.event_name == 'pull_request'
         working-directory: production-source
         env:
@@ -84,6 +94,7 @@ jobs:
           bundle exec jekyll build --source "$GITHUB_WORKSPACE/preview-source" --destination "$GITHUB_WORKSPACE/_preview_site" --baseurl "${{ steps.pages.outputs.base_path }}/previews/${{ steps.preview.outputs.slug }}"
           printf 'User-agent: *\nDisallow: /\n' > "$GITHUB_WORKSPACE/_preview_site/robots.txt"
           preview_root="$GITHUB_WORKSPACE/_preview_site"
+          node --check "$GITHUB_WORKSPACE/preview-source/assets/js/main.js"
           test -f "$preview_root/index.html"
           grep -q 'name="robots" content="noindex,nofollow"' "$preview_root/index.html"
           test -f "$preview_root/blog/index.html"
@@ -108,61 +119,7 @@ jobs:
         with:
           path: ./_site
   deploy:
-    # PR artifacts are deployed by the trusted workflow_run workflow from master.
-    if: github.event_name != 'pull_request'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
- _site/CNAME
-          grep -q 'href="/assets/css/styles.css' _site/index.html
-          grep -q 'href="/assets/css/responsive-polish.css' _site/index.html
-          grep -q 'src="/assets/js/main.js' _site/index.html
-          if grep -qE '(href|src)="/clp/assets/' _site/index.html; then
-            echo "ERROR: Production HTML contains old /clp asset paths."
-            exit 1
-          fi
-          echo "Production homepage, assets, custom domain, JavaScript syntax and interaction hooks validated."
-      - name: Build pull request preview
-        if: github.event_name == 'pull_request'
-        working-directory: production-source
-        env:
-          JEKYLL_ENV: preview
-        run: |
-          bundle exec jekyll build --source "$GITHUB_WORKSPACE/preview-source" --destination "$GITHUB_WORKSPACE/_preview_site" --baseurl "${{ steps.pages.outputs.base_path }}/previews/${{ steps.preview.outputs.slug }}"
-          mkdir -p "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}"
-          cp -a "$GITHUB_WORKSPACE/_preview_site/." "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/"
-          printf 'User-agent: *\nDisallow: /\n' > "$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}/robots.txt"
-          preview_root="$GITHUB_WORKSPACE/_site/previews/${{ steps.preview.outputs.slug }}"
-          test -f "$preview_root/index.html"
-          grep -q 'name="robots" content="noindex,nofollow"' "$preview_root/index.html"
-          test -f "$preview_root/blog/index.html"
-          test -f "$preview_root/media/index.html"
-          test -f "$preview_root/blog/contribute/index.html"
-          test -f "$preview_root/media/contribute/index.html"
-          test -f "$preview_root/launch/index.html"
-          test -f "$preview_root/media/featured-video/index.html"
-          grep -q "A new journey begins" "$preview_root/index.html"
-          grep -q "CLP Vriksha" "$preview_root/launch/index.html"
-          grep -q 'Content-Security-Policy' "$preview_root/index.html"
-          grep -q 'href="/previews/${{ steps.preview.outputs.slug }}/blog/"' "$preview_root/index.html"
-          grep -q 'href="/previews/${{ steps.preview.outputs.slug }}/media/"' "$preview_root/index.html"
-          grep -q 'youtube-nocookie.com/embed/' "$GITHUB_WORKSPACE/preview-source/_layouts/media.html"
-          test -f "$GITHUB_WORKSPACE/preview-source/_layouts/post.html"
-          test -f "$GITHUB_WORKSPACE/preview-source/docs/templates/blog-post-template.md"
-          test -f "$GITHUB_WORKSPACE/preview-source/docs/templates/media-item-template.md"
-          echo "Built and checked noindex-protected feature branch preview at /previews/${{ steps.preview.outputs.slug }}/."
-      - name: Upload combined production and preview site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./_site
-  deploy:
-    # PR artifacts are deployed by the trusted workflow_run workflow from master.
+    # PR preview publication is handled by the trusted workflow_run workflow.
     if: github.event_name != 'pull_request'
     environment:
       name: github-pages
