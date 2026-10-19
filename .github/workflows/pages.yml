@@ -55,21 +55,32 @@ jobs:
         env:
           JEKYLL_ENV: production
         run: |
-          bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site" --baseurl "${{ steps.pages.outputs.base_path }}"
+          # Custom-domain production is served from the domain root, not /clp.
+          bundle exec jekyll build --source "$GITHUB_WORKSPACE/production-source" --destination "$GITHUB_WORKSPACE/_site"
       - name: Validate production site
         run: |
           node --check production-source/assets/js/main.js
           test -f _site/index.html
           test -f _site/assets/js/main.js
           test -f _site/assets/css/styles.css
+          test -f _site/assets/css/responsive-polish.css
           test -f _site/assets/images/clp-mark.svg
           test -f _site/assets/images/clp-home-hero.png
+          test -f _site/CNAME
+          grep -q '^clpvriksha.com$' _site/CNAME
+          grep -q 'href="/assets/css/styles.css' _site/index.html
+          grep -q 'href="/assets/css/responsive-polish.css' _site/index.html
+          grep -q 'src="/assets/js/main.js' _site/index.html
+          if grep -qE '(href|src)="/clp/assets/' _site/index.html; then
+            echo "ERROR: Production HTML contains old /clp asset paths."
+            exit 1
+          fi
           grep -q 'id="site-nav"' _site/index.html
           grep -q 'id="home-latest"' _site/index.html
           grep -q 'id="home-pathways"' _site/index.html
           grep -q 'clp-hero-drift' _site/assets/css/styles.css
           grep -q 'data-home-filter' _site/index.html
-          echo "Production homepage, assets, JavaScript syntax and interaction hooks validated."
+          echo "Custom-domain asset paths, CNAME, JavaScript syntax and interaction hooks validated."
       - name: Build pull request preview
         if: github.event_name == 'pull_request'
         working-directory: production-source
