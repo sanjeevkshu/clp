@@ -1,0 +1,7 @@
+---
+title: "Contribute to the CLP Media Library"
+description: "How to propose a YouTube or Google-hosted media item for the CLP library."
+permalink: /media/contribute/
+---
+<section class="page-hero page-hero-learn"><p class="eyebrow">CURATE · CREDIT · SHARE</p><h1>Bring learning to life.<br><span>One useful media item at a time.</span></h1><p>CLP lists approved media and embeds the original host's player. Video files are not uploaded to this website.</p></section>
+<section class="section editorial-article-body"><h2>Before you submit</h2><ul><li>Confirm the media is publicly accessible and suitable for the CLP audience.</li><li>Use the canonical YouTube or approved Google-hosted media URL.</li><li>Provide an accurate title, summary, creator, category and duration when known.</li><li>Use a descriptive thumbnail alternative text and add a transcript or captions link when available.</li><li>Respect creator rights and do not imply CLP ownership of third-party content.</li></ul><h2>Editorial review</h2><ol><li>Prepare a media record using the <a href="https://github.com/sanjeevkshu/clp/blob/master/docs/templates/media-item-template.md" rel="noopener noreferrer">CLP media record template</a>.</li><li>Submit the record in a pull request.</li><li>The editor verifies the source, metadata, rights, accessibility and playback.</li><li>The item appears in the public gallery only after the approved pull request is merged.</li></ol><a class="learn-card-button" href="https://github.com/sanjeevkshu/clp" rel="noopener noreferrer">Open the CLP repository ↗</a></section>
