@@ -31,7 +31,7 @@
 | ARCH-008 | Use YouTube-hosted video through privacy-enhanced embeds; do not commit video files. | Avoid duplicating video hosting and bloating the repository. | Approved |
 | ARCH-009 | Public comments remain on hold. | Static GitHub Pages cannot securely implement first-party comment storage/moderation; GitHub-account requirements are unsuitable for all visitors. | On hold |
 | ARCH-010 | Email contributions are documented as a workflow, but the public email address must not be published until a monitored inbox is confirmed. | Never invent a contact address or imply that an unconfigured inbox is operational. | Pending owner input |
-| ARCH-011 | Keep Blog and Media discoverability in the footer, not primary navigation. | Add depth without crowding the main menu. | Approved |
+| ARCH-011 | Keep Blog and Media discoverability in the footer, not primary navigation. | Add depth without crowding the main menu. | Approved |\n| ARCH-012 | Present the homepage launch milestone as a compact editorial card with one primary CTA. | Reduce clutter and keep the existing hero/navigation unchanged. | Approved |\n| ARCH-013 | Use explicit light/dark theme styles and a responsive multi-column footer for editorial content. | Maintain readability, consistent discovery and responsive behavior across viewports. | Approved |
 
 ## 3. Security decisions and limits
 
