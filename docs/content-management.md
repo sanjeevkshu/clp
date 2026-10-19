@@ -36,7 +36,8 @@ Public comments are intentionally on hold. The article template does not display
 - Make the repository public or verify your plan supports Pages for a private repository.
 - Check keyboard navigation, mobile layout, links, contrast and page metadata.
 - Configure real email/contact and newsletter handling before collecting subscriber data.
-- Add YouTube channel and episode URLs only after they exist.
+- The CLP Vriksha launch video supplied on 2026-10-19 is documented at `/media/featured-video/`; the permanent launch story is at `/launch/`. Verify video facts and preview rendering before production approval.
+- Do not add a YouTube channel link until the canonical channel URL is supplied or verified.
 
 ## Design and authoring standards
 
@@ -49,3 +50,10 @@ All question-and-answer sections must use the shared accordion, no matter which 
 {% raw %}{% include faq-accordion.html id="unique-page-faq" title="Common questions" items=page.faq_items %}{% endraw %}
 
 Use a unique id for each FAQ section. Optional kicker text can be passed when a section needs a short label. The include supplies consistent semantic markup and styling; do not duplicate FAQ HTML or add page-specific accordion CSS.
+
+
+## Architecture and AI coworker continuity
+
+- Keep architecture, security, UX, editorial and release decisions in [the decision log](architecture/decision-log.md).
+- AI coworkers and coding agents must read the [AI Coworker & Agentic Readiness Handbook](AI-COWORKER-HANDBOOK.md) before making changes.
+- These documents are model-agnostic project memory. Update them when a decision, implementation contract, workflow, security posture or operating process changes. The decision log records approved constraints; the handbook describes how agents must work within them.
