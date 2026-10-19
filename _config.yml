@@ -7,7 +7,21 @@ markdown: kramdown
 permalink: pretty
 exclude: [README.md, AGENTS.md, Gemfile, Gemfile.lock, docs, skills, vendor]
 plugins: []
+collections:
+  media:
+    output: true
+    permalink: /media/:name/
 defaults:
+  - scope:
+      path: ""
+      type: media
+    values:
+      layout: media
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
   - scope:
       path: ""
     values:
