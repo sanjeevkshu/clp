@@ -114,8 +114,13 @@ jobs:
             exit 1
           fi
           grep -q 'data-theme="light"' "$preview_root/assets/css/editorial-media.css" || grep -q 'data-theme=\\\"light\\\"' "$preview_root/assets/css/editorial-media.css"
-          grep -q 'footer-pathways' "$preview_root/index.html"
-          grep -q '20261019-editorial-media-v2' "$preview_root/index.html"
+          # Validate the revised footer structure and current stylesheet cache key.
+          grep -q 'footer-navigation' "$preview_root/index.html"
+          grep -q 'Discover CLP' "$preview_root/index.html"
+          grep -q 'Resources' "$preview_root/index.html"
+          grep -q 'Our Story' "$preview_root/index.html"
+          grep -q 'About Us' "$preview_root/index.html"
+          grep -q '20261020-footer-two-column-dark-contrast-v1' "$preview_root/index.html"
           grep -q "CLP Vriksha" "$preview_root/launch/index.html"
           grep -q 'Content-Security-Policy' "$preview_root/index.html"
           grep -q 'href="/previews/${{ steps.preview.outputs.slug }}/blog/"' "$preview_root/index.html"
