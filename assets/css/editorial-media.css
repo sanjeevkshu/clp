@@ -137,3 +137,128 @@ html[data-theme="dark"] .clp-launch-card .clp-launch-copy .eyebrow{color:#8bdfff
 .clp-launch-card .clp-launch-film:focus-visible,.clp-launch-card .learn-card-button:focus-visible{outline:3px solid var(--aqua,#00a7e9);outline-offset:4px}
 @media(max-width:900px){.clp-launch-card{grid-template-columns:minmax(0,1fr)}.clp-launch-card .clp-launch-film,.clp-launch-card .clp-launch-copy{grid-column:1;grid-row:auto}.clp-launch-card .clp-launch-film{max-width:none}}
 @media(max-width:600px){.clp-launch-card{padding:26px 18px;gap:20px}.clp-launch-card .clp-launch-actions{align-items:flex-start}.clp-launch-card .learn-card-button{width:100%;box-sizing:border-box}}
+
+
+/* 2026-10: two-column footer navigation and explicit dark-theme editorial card contrast. */
+.site-footer {
+  grid-template-columns: minmax(190px, .9fr) minmax(0, 1.5fr);
+  align-items: start;
+  gap: 28px clamp(28px, 5vw, 72px);
+}
+.site-footer .footer-brand {
+  grid-column: 1;
+  align-items: center;
+}
+.site-footer .footer-navigation {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px clamp(24px, 4vw, 56px);
+  min-width: 0;
+}
+.site-footer .footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+.site-footer .footer-column-title {
+  margin: 0 0 5px;
+  font-size: .82rem;
+  line-height: 1.5;
+  font-weight: 850;
+  letter-spacing: .04em;
+}
+.site-footer > small {
+  grid-column: 1 / -1;
+}
+@media (max-width: 900px) {
+  .site-footer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    gap: 26px 30px;
+  }
+  .site-footer .footer-brand { grid-column: 1; }
+  .site-footer .footer-navigation {
+    grid-column: 2;
+    gap: 22px;
+  }
+}
+@media (max-width: 600px) {
+  .site-footer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .site-footer .footer-brand,
+  .site-footer .footer-navigation,
+  .site-footer > small { grid-column: 1; }
+  .site-footer .footer-navigation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+/* Dark mode: keep launch-pathway cards and media-library/detail surfaces legible.
+   Explicit values avoid inherited light-theme text colors leaking into dark cards. */
+html[data-theme="dark"] .clp-launch-pillars {
+  background: #0b1625;
+  color: #f2f6fb;
+}
+html[data-theme="dark"] .clp-launch-pillars > h2,
+html[data-theme="dark"] .clp-launch-next-step h2,
+html[data-theme="dark"] .clp-launch-pillar-grid h3 {
+  color: #f2f6fb !important;
+}
+html[data-theme="dark"] .clp-launch-pillars .eyebrow,
+html[data-theme="dark"] .clp-launch-pillar-grid article > span {
+  color: #8bdfff !important;
+}
+html[data-theme="dark"] .clp-launch-pillar-grid article {
+  background: #111f31 !important;
+  border-color: #2b4056 !important;
+  color: #edf4fb !important;
+}
+html[data-theme="dark"] .clp-launch-pillar-grid article p,
+html[data-theme="dark"] .clp-launch-next-step p {
+  color: #c0cede !important;
+}
+html[data-theme="dark"] .media-library-card,
+html[data-theme="dark"] .editorial-card {
+  background: #111f31 !important;
+  border-color: #2b4056 !important;
+  color: #edf4fb !important;
+}
+html[data-theme="dark"] .media-library-card h3,
+html[data-theme="dark"] .media-library-card h3 a,
+html[data-theme="dark"] .editorial-card h3,
+html[data-theme="dark"] .editorial-card h3 a {
+  color: #f2f6fb !important;
+}
+html[data-theme="dark"] .media-library-copy > p:not(.card-kicker),
+html[data-theme="dark"] .editorial-card-copy > p:not(.card-kicker):not(.editorial-meta),
+html[data-theme="dark"] .media-detail-description,
+html[data-theme="dark"] .media-detail-description p,
+html[data-theme="dark"] .media-detail-description li,
+html[data-theme="dark"] .editorial-article-body,
+html[data-theme="dark"] .editorial-article-deck {
+  color: #c0cede !important;
+}
+html[data-theme="dark"] .media-detail h1,
+html[data-theme="dark"] .media-detail h2,
+html[data-theme="dark"] .media-detail h3,
+html[data-theme="dark"] .media-metadata h2,
+html[data-theme="dark"] .media-metadata strong {
+  color: #f2f6fb !important;
+}
+html[data-theme="dark"] .media-metadata {
+  background: #111f31 !important;
+  border-color: #2b4056 !important;
+  color: #c0cede !important;
+}
+html[data-theme="dark"] .media-metadata p {
+  border-bottom-color: #2b4056 !important;
+}
+html[data-theme="dark"] .media-library-copy .card-kicker,
+html[data-theme="dark"] .media-detail .card-kicker {
+  color: #8bdfff !important;
+}
