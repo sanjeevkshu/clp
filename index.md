@@ -35,22 +35,6 @@ permalink: /
   </div>
 </section>
 
-<section class="clp-launch-feature clp-launch-card clp-concept-feature" aria-labelledby="clp-concept-title">
-  <a class="clp-launch-film" href="{{ '/media/learning-is-a-continuous-journey/' | relative_url }}" aria-label="Explore the CLP concept video on continuous learning">
-    <img src="https://i.ytimg.com/vi/IoTj5P0pQMw/hqdefault.jpg" alt="Thumbnail for the CLP concept video on continuous learning" loading="lazy">
-    <span class="clp-launch-play" aria-hidden="true">▶</span>
-    <span class="clp-launch-film-label">CLP PERSPECTIVES · CONCEPT VIDEO</span>
-  </a>
-  <div class="clp-launch-copy">
-    <p class="eyebrow">LEARN · APPLY · EVOLVE</p>
-    <h2 id="clp-concept-title">Learning is a continuous journey.</h2>
-    <p>A CLP point of view on moving beyond knowing: apply ideas, reflect on experience and keep evolving as life changes.</p>
-    <div class="clp-launch-actions">
-      <a class="learn-card-button" href="{{ '/media/learning-is-a-continuous-journey/' | relative_url }}">Explore the concept <span aria-hidden="true">↗</span></a>
-      <a class="learn-card-button" href="{{ '/media/' | relative_url }}">Visit Media Gallery <span aria-hidden="true">↗</span></a>
-    </div>
-  </div>
-</section>
 
 <section class="home-pathways" id="home-pathways" aria-label="CLP learning pathways">
   <div class="home-path-grid">
@@ -62,7 +46,7 @@ permalink: /
       <img class="home-card-image" src="{{ '/assets/images/card-apply.jpg' | relative_url }}" alt="CLP Masterclass learning pathway" loading="lazy">
       <span class="home-path-icon path-violet">⌁</span><h2>CLP Masterclass</h2><p>Build practical skills step by step.</p><span class="home-card-cta">Start Learning <b>→</b></span>
     </a>
-    <a class="home-path-card path-perspectives" href="{{ '/learn/' | relative_url }}">
+    <a class="home-path-card path-perspectives" href="{{ '/perspective/' | relative_url }}">
       <img class="home-card-image" src="{{ '/assets/images/card-evolve.jpg' | relative_url }}" alt="CLP Perspectives learning pathway" loading="lazy">
       <span class="home-path-icon">♧</span><h2>CLP Perspectives</h2><p>Explore different viewpoints.</p><span class="home-card-cta">See Insights <b>→</b></span>
     </a>
