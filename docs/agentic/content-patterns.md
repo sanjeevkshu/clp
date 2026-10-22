@@ -86,3 +86,12 @@ The current expansion adds:
 - **Data Literacy: Turn Data into Better Decisions** — Decodes; asking useful questions, checking context and data quality, interpreting patterns, and communicating uncertainty.
 
 For every new page, verify that it is linked from the Learn library, has a unique title/description/canonical URL, uses the shared FAQ accordion, includes relevant internal links, and appears in generated sitemap output. The SEO validation workflow's required-route list should be updated when the project intentionally adds or removes core learning routes; sitemap generation itself should remain automatic for eligible pages.
+
+
+## Information architecture and route integrity
+- CLP Perspective is an editorial substream within Learn, not a peer-level primary navigation destination. Its canonical route is `/learn/clp-perspective/` and the main navigation presents it nested under Learn.
+- When moving a route, update homepage/card links, menus, related article links, metadata/canonical output, sitemap, required-route checks, and SEO/AI-readiness checks in the same PR.
+- Keep a lightweight compatibility route for the former `/perspective/` URL when changing an already published route; point visitors and crawlers to the canonical destination and exclude the legacy route from the sitemap.
+- Sitemap generation must include eligible pages, media collection entries, and posts. Additions should be automatic rather than requiring manual URL duplication.
+- CTA labels should be short, specific, action-led, and destination-aware (for example, “Explore video”, “Browse media”, “Explore Learn”). Avoid verbose labels and generic “Click here” language.
+- A landing page may omit FAQs when they add no value. Never render an empty Common Questions/FAQ shell; when FAQs exist, they must use the shared accordion include.
