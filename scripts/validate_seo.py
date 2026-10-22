@@ -12,8 +12,6 @@ from urllib.parse import urlparse
 ROOT = Path(sys.argv[1] if len(sys.argv) > 1 else "_site")
 MODE = sys.argv[2] if len(sys.argv) > 2 else "production"
 ERRORS: list[str] = []
-
-
 class PageParser(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -66,6 +64,10 @@ for html_file in html_files:
         fail(f"{rel}: missing/empty meta description")
     if len(parser.links) != 1 or not parser.links[0].get("href", "").startswith("https://"):
         fail(f"{rel}: expected exactly one absolute HTTPS canonical URL")
+    if rel == "learn/perspective/index.html" and len(parser.links) == 1:
+        canonical_path = urlparse(parser.links[0].get("href", "")).path.rstrip("/")
+        if canonical_path != "/learn/perspective":
+            fail(f"{rel}: canonical URL must resolve to /learn/perspective/")
     if not parser.meta.get("og:title") or not parser.meta.get("og:description"):
         fail(f"{rel}: missing Open Graph title/description")
     if not parser.jsonld:
@@ -77,10 +79,12 @@ for html_file in html_files:
             fail(f"{rel}: invalid JSON-LD ({exc})")
 
     robots = " ".join(parser.meta.get("robots", [])).lower()
-    if MODE == "preview" and "noindex" not in robots:
-        fail(f"{rel}: preview build must include robots noindex")
-    if MODE == "production" and ("noindex" in robots or "index" not in robots):
-        fail(f"{rel}: production build must be indexable")
+    if MODE == "preview":
+        if "noindex" not in robots:
+            fail(f"{rel}: preview build must include robots noindex")
+    elif MODE == "production":
+        if "noindex" in robots or "index" not in robots:
+            fail(f"{rel}: production build must be indexable")
 
 sitemap_file = ROOT / "sitemap.xml"
 robots_file = ROOT / "robots.txt"
@@ -93,21 +97,23 @@ else:
     if not re.search(r"(?m)^Sitemap:\s*https://", robots_text):
         fail("robots.txt must contain an absolute HTTPS Sitemap directive")
 
+if MODE == "production" and (ROOT / "perspective" / "index.html").exists():
+    fail("Production build must not generate the unpublished legacy /perspective/ route")
+
 if sitemap_file.exists():
     sitemap = sitemap_file.read_text(encoding="utf-8")
     urls = re.findall(r"<loc>(.*?)</loc>", sitemap)
     paths = [urlparse(url).path.rstrip("/") or "/" for url in urls]
-    required_routes = ("/", "/learn/", "/learn/ai-agents/", "/learn/30-day-ai-plan/", "/learn/7-day-ai-challenge/", "/learn/build-a-learning-habit/", "/learn/data-literacy-for-decisions/")
+    required_routes = ("/", "/learn/", "/learn/ai-agents/", "/learn/30-day-ai-plan/", "/learn/7-day-ai-challenge/", "/learn/build-a-learning-habit/", "/learn/data-literacy-for-decisions/", "/learn/perspective/")
     for route in required_routes:
         normalized = route.rstrip("/") or "/"
-        if normalized == "/":
-            present = any(path == "/" or path.count("/") <= 1 for path in paths)
-        else:
-            present = any(path == normalized or path.endswith(normalized) for path in paths)
+        present = any(path == normalized for path in paths)
         if not present:
             fail(f"Sitemap missing required route: {route}")
     if any("/previews/" in url for url in urls):
         fail("Sitemap must not include pull-request preview URLs")
+    if any(urlparse(url).path.rstrip("/") == "/perspective" for url in urls):
+        fail("Sitemap must not include the unpublished legacy /perspective/ route")
     if any(urlparse(url).path.endswith((".txt", ".xml")) for url in urls):
         fail("Sitemap must not list robots.txt or sitemap.xml")
 

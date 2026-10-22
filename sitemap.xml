@@ -8,10 +8,31 @@ sitemap: false
 {% assign indexable_pages = site.pages | sort: "url" %}
 {% for sitemap_page in indexable_pages %}
   {% assign last_character = sitemap_page.url | slice: -1, 1 %}
-  {% if sitemap_page.sitemap != false %}
+  {% if sitemap_page.sitemap != false and sitemap_page.url != "/sitemap.xml" %}
     {% if sitemap_page.url == "/" or last_character == "/" %}
-  <url><loc>{{ sitemap_page.url | absolute_url | xml_escape }}</loc></url>
+  <url>
+    <loc>{{ sitemap_page.url | absolute_url | xml_escape }}</loc>
+    {% if sitemap_page.last_modified_at %}<lastmod>{{ sitemap_page.last_modified_at | date_to_xmlschema }}</lastmod>{% elsif sitemap_page.date %}<lastmod>{{ sitemap_page.date | date_to_xmlschema }}</lastmod>{% endif %}
+  </url>
     {% endif %}
+  {% endif %}
+{% endfor %}
+{% assign media_items = site.media | sort: "url" %}
+{% for sitemap_item in media_items %}
+  {% if sitemap_item.sitemap != false %}
+  <url>
+    <loc>{{ sitemap_item.url | absolute_url | xml_escape }}</loc>
+    {% if sitemap_item.last_modified_at %}<lastmod>{{ sitemap_item.last_modified_at | date_to_xmlschema }}</lastmod>{% elsif sitemap_item.date %}<lastmod>{{ sitemap_item.date | date_to_xmlschema }}</lastmod>{% endif %}
+  </url>
+  {% endif %}
+{% endfor %}
+{% assign articles = site.posts | sort: "url" %}
+{% for sitemap_item in articles %}
+  {% if sitemap_item.sitemap != false %}
+  <url>
+    <loc>{{ sitemap_item.url | absolute_url | xml_escape }}</loc>
+    {% if sitemap_item.last_modified_at %}<lastmod>{{ sitemap_item.last_modified_at | date_to_xmlschema }}</lastmod>{% elsif sitemap_item.date %}<lastmod>{{ sitemap_item.date | date_to_xmlschema }}</lastmod>{% endif %}
+  </url>
   {% endif %}
 {% endfor %}
 </urlset>
