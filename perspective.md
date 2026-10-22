@@ -1,28 +1,14 @@
 ---
-title: "CLP Perspective | Learn. Apply. Evolve."
+title: "CLP Perspective: Continuous Learning and Growth"
 description: "The ideas and points of view behind CLP Vriksha: connect learning with real life, apply what you discover, reflect on experience, and keep evolving."
-permalink: /perspective/
+permalink: /learn/clp-perspective/
 image: "/assets/images/clp-home-hero.jpg"
 image_alt: "A landscape from the CLP image library, representing a wider horizon for continuous learning"
-faq_items:
-  - question: "What does CLP Perspective mean?"
-    answer: >-
-      CLP Perspective shares the ideas, beliefs and points of view that shape continuous learning and progressive evolution. It connects what we learn with how we live, work, create and grow.
-  - question: "How is a perspective different from a learning guide?"
-    answer: >-
-      A guide helps you understand or practise a topic. A perspective invites you to think more deeply about why it matters, how it connects to real life, and what you might do differently as a result.
-  - question: "How can I put a CLP Perspective into practice?"
-    answer: >-
-      Choose one idea that resonates, try it in a real situation, reflect on what happened, and adapt your next step. Learning becomes more valuable when it moves into action.
 ---
 <section class="page-hero page-hero-perspective" style="--page-hero-image:url('{{ page.image | relative_url }}')" aria-labelledby="perspective-title">
   <p class="eyebrow">CLP VRIKSHA · A POINT OF VIEW</p>
   <h1 id="perspective-title">Learning is not a finish line.<br><span>It is a way forward.</span></h1>
   <p>Ideas shape how we see the world. Experience helps us test them. Reflection helps us grow. CLP Perspective explores the beliefs that keep learning connected to real life—and progress moving forward.</p>
-  <div class="hero-actions">
-    <a class="button" href="#featured-perspective">Watch the featured perspective <span aria-hidden="true">↘</span></a>
-    <a class="button button-ghost" href="{{ '/learn/' | relative_url }}">Explore learning pathways <span aria-hidden="true">↗</span></a>
-  </div>
 </section>
 
 <section class="section perspective-intro" aria-labelledby="perspective-intro-title">
@@ -43,17 +29,16 @@ faq_items:
       <img src="https://i.ytimg.com/vi/IoTj5P0pQMw/hqdefault.jpg" alt="Thumbnail for the CLP concept video on continuous learning" loading="lazy">
       <span class="clp-launch-play" aria-hidden="true">▶</span><span class="clp-launch-film-label">CLP PERSPECTIVES · CONCEPT VIDEO</span>
     </a>
-    <div class="clp-launch-copy"><p class="eyebrow">FROM KNOWING TO DOING</p><h2>Learn. Apply. Reflect. Evolve.</h2><p>Learning does not stop when a lesson ends. It continues when we test an idea in context, reflect on what happened and carry that insight into what we do next.</p><div class="clp-launch-actions"><a class="learn-card-button" href="{{ '/media/learning-is-a-continuous-journey/' | relative_url }}">Explore the concept <span aria-hidden="true">↗</span></a><a class="learn-card-button" href="https://youtu.be/IoTj5P0pQMw" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a></div></div>
+    <div class="clp-launch-copy"><p class="eyebrow">FROM KNOWING TO DOING</p><h2>Learn. Apply. Reflect. Evolve.</h2><p>Learning does not stop when a lesson ends. It continues when we test an idea in context, reflect on what happened and carry that insight into what we do next.</p><div class="clp-launch-actions"><a class="learn-card-button" href="{{ '/media/learning-is-a-continuous-journey/' | relative_url }}">Explore video <span aria-hidden="true">↗</span></a><a class="learn-card-button" href="https://youtu.be/IoTj5P0pQMw" target="_blank" rel="noopener noreferrer">Watch video <span aria-hidden="true">↗</span></a></div></div>
   </article>
 </section>
 
 <section class="section perspective-next" aria-labelledby="perspective-next-title">
   <div class="section-heading"><div><p class="eyebrow">TAKE THE NEXT STEP</p><h2 id="perspective-next-title">A perspective is a starting point.</h2><p class="section-subtitle">Choose a path to explore an idea, practise a skill or discover more CLP stories.</p></div></div>
   <div class="article-cta-group">
-    <a class="content-button" href="{{ '/learn/' | relative_url }}">Explore CLP learning <span aria-hidden="true">↗</span></a>
-    <a class="content-button" href="{{ '/media/' | relative_url }}">Browse the Media Gallery <span aria-hidden="true">↗</span></a>
-    <a class="content-button" href="{{ '/launch/' | relative_url }}">Discover the CLP story <span aria-hidden="true">↗</span></a>
+    <a class="content-button" href="{{ '/learn/' | relative_url }}">Explore Learn <span aria-hidden="true">↗</span></a>
+    <a class="content-button" href="{{ '/media/' | relative_url }}">Browse media <span aria-hidden="true">↗</span></a>
+    <a class="content-button" href="{{ '/launch/' | relative_url }}">Our story <span aria-hidden="true">↗</span></a>
   </div>
 </section>
 
-{% include faq-accordion.html %}
