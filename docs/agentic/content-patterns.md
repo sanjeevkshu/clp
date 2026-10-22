@@ -89,9 +89,9 @@ For every new page, verify that it is linked from the Learn library, has a uniqu
 
 
 ## Information architecture and route integrity
-- CLP Perspective is an editorial substream within Learn, not a peer-level primary navigation destination. Its canonical route is `/learn/clp-perspective/` and the main navigation presents it nested under Learn.
+- CLP Perspective is an editorial substream within Learn, not a peer-level primary navigation destination. Its canonical route is `/learn/perspective/` and the main navigation presents it nested under Learn.
 - When moving a route, update homepage/card links, menus, related article links, metadata/canonical output, sitemap, required-route checks, and SEO/AI-readiness checks in the same PR.
-- Keep a lightweight compatibility route for the former `/perspective/` URL when changing an already published route; point visitors and crawlers to the canonical destination and exclude the legacy route from the sitemap.
+- Add a redirect only when a route being changed was already published or externally linked; do not create speculative legacy/compatibility pages for routes that never went live.
 - Sitemap generation must include eligible pages, media collection entries, and posts. Additions should be automatic rather than requiring manual URL duplication.
 - CTA labels should be short, specific, action-led, and destination-aware (for example, “Explore video”, “Browse media”, “Explore Learn”). Avoid verbose labels and generic “Click here” language.
 - A landing page may omit FAQs when they add no value. Never render an empty Common Questions/FAQ shell; when FAQs exist, they must use the shared accordion include.
