@@ -9,7 +9,7 @@ This document defines practical publishing requirements for discoverability in s
 - Use `relative_url` for internal paths and `absolute_url` for metadata.
 - Inspect the generated HTML for metadata, canonical URL, robots directives, social cards, and structured data.
 - Verify sitemap and robots behavior from the actual build/configuration; include eligible pages, media collection items, and posts automatically, with canonical production URLs and last-modified dates where available; do not assume files exist.
-- When routes or information architecture change, update all internal links, menu hierarchy, legacy-route handling, sitemap output, required-route checks, canonical metadata, and structured-data URLs in the same change.
+- When routes or information architecture change, update all internal links, menu hierarchy, canonical metadata, sitemap output, required-route checks, and structured-data URLs in the same change. Add redirects only when a prior route was published or externally linked.
 - PR preview paths should remain blocked from indexing, as implemented by the current preview workflow's `robots.txt`; verify the generated output and do not publish preview URLs as canonical content.
 
 ## Structured data
