@@ -40,7 +40,7 @@ faq_items:
     </article>
     <article class="learn-resource-card">
       <img class="learn-resource-art" src="{{ '/assets/images/card-evolve.jpg' | relative_url }}" alt="A visual representing perspective, reflection, and continuous growth" loading="lazy">
-      <div class="learn-resource-copy"><p class="card-kicker">CLP PERSPECTIVES · IDEAS AND VIEWPOINTS</p><h3>CLP Perspective</h3><p>Explore ideas about continuous learning, real-world application, reflection, and growth in a changing world.</p><a class="learn-card-button" href="{{ '/learn/clp-perspective/' | relative_url }}">Explore perspectives <span aria-hidden="true">↗</span></a></div>
+      <div class="learn-resource-copy"><p class="card-kicker">CLP PERSPECTIVES · IDEAS AND VIEWPOINTS</p><h3>CLP Perspective</h3><p>Explore ideas about continuous learning, real-world application, reflection, and growth in a changing world.</p><a class="learn-card-button" href="{{ '/learn/perspective/' | relative_url }}">Explore perspectives <span aria-hidden="true">↗</span></a></div>
     </article>
   </div>
 </section>
