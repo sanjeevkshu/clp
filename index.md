@@ -46,7 +46,7 @@ permalink: /
       <img class="home-card-image" src="{{ '/assets/images/card-apply.jpg' | relative_url }}" alt="CLP Masterclass learning pathway" loading="lazy">
       <span class="home-path-icon path-violet">⌁</span><h2>CLP Masterclass</h2><p>Build practical skills step by step.</p><span class="home-card-cta">Start Learning <b>→</b></span>
     </a>
-    <a class="home-path-card path-perspectives" href="{{ '/learn/clp-perspective/' | relative_url }}">
+    <a class="home-path-card path-perspectives" href="{{ '/learn/perspective/' | relative_url }}">
       <img class="home-card-image" src="{{ '/assets/images/card-evolve.jpg' | relative_url }}" alt="CLP Perspectives learning pathway" loading="lazy">
       <span class="home-path-icon">♧</span><h2>CLP Perspectives</h2><p>Explore different viewpoints.</p><span class="home-card-cta">See Insights <b>→</b></span>
     </a>
