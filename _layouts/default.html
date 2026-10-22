@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.url == '/' %}CLP — Continuous Learning &amp; Progressive Evolution | Learn. Apply. Evolve.{% else %}{{ page.title | escape }} | CLP — Learn. Apply. Evolve.{% endif %}</title>
   <meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}">
-  <link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+  {% assign canonical_url = page.canonical | default: page.url | replace: 'index.html', '' | absolute_url %}
+  <link rel="canonical" href="{{ canonical_url }}">
   <meta name="theme-color" content="#0B1F3B">
-  {% if jekyll.environment == "production" %}
+  {% if page.noindex %}
+  <meta name="robots" content="noindex,follow">
+  {% elsif jekyll.environment == "production" %}
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   {% else %}
   <meta name="robots" content="noindex,nofollow">
@@ -22,7 +25,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="{% if page.url == '/' %}CLP — Learn. Apply. Evolve.{% else %}{{ page.title | escape }} | CLP{% endif %}">
   <meta property="og:description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}">
-  <meta property="og:url" content="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+  <meta property="og:url" content="{{ canonical_url }}">
   <meta property="og:image" content="{{ '/assets/images/clp-card-atlas.jpg' | absolute_url }}">
   <meta property="og:image:alt" content="CLP — Continuous Learning &amp; Progressive Evolution">
   <meta property="og:locale" content="en_IN">
@@ -53,8 +56,8 @@
       },
       {
         "@type": "WebPage",
-        "@id": "{{ page.url | replace: 'index.html', '' | absolute_url }}#webpage",
-        "url": "{{ page.url | replace: 'index.html', '' | absolute_url }}",
+        "@id": "{{ canonical_url }}#webpage",
+        "url": "{{ canonical_url }}",
         "name": {% if page.url == '/' %}"CLP — Continuous Learning & Progressive Evolution | Learn. Apply. Evolve."{% else %}{{ page.title | jsonify }}{% endif %},
         "description": {{ page.description | default: site.description | jsonify }},
         "isPartOf": {"@id": "{{ '/' | absolute_url }}#website"},
