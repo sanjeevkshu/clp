@@ -1,8 +1,8 @@
 ## 2026-10-22 — CLP Perspective belongs within Learn
 - **Status:** Implemented on feature branch; awaiting preview verification and approval.
-- **Decision:** Use `/learn/clp-perspective/` as the canonical route and represent CLP Perspective as a nested item under Learn in the main navigation. Keep the former `/perspective/` route as a noindex compatibility redirect and exclude it from the sitemap.
+- **Decision:** Use `/learn/perspective/` as the canonical route and represent CLP Perspective as a nested item under Learn in the main navigation. Do not create a `/perspective/` compatibility route because the new landing page has not gone live.
 - **Rationale:** Information architecture should reflect that Perspectives is a learning substream, not a peer-level top navigation destination.
-- **Consequence:** Route changes must update internal links, navigation, metadata/canonical URLs, legacy-route behavior, sitemap coverage, and SEO/AI-readiness checks together.
+- **Consequence:** Route changes must update internal links, navigation, metadata/canonical URLs, sitemap coverage, and SEO/AI-readiness checks together. Add a redirect only if a prior route was published or externally linked.
 
 # CLP Decision Log
 
