@@ -1404,3 +1404,6 @@ html[data-theme="dark"] .learn-resource-copy>p:not(.card-kicker){color:#c0d1e2}
 .content-button-secondary{background:#fff;color:var(--ocean);border-color:#a8c8dc}
 .content-button-secondary:hover,.content-button-secondary:focus-visible{background:#eaf6fc;border-color:var(--ocean);color:#073b60}
 .article-library-nav .content-button{margin:0}
+
+/* Learn navigation grouping: keep the Perspective substream visibly under Learn. */
+.site-nav .nav-group{display:flex;flex-direction:column;align-items:flex-start;gap:2px}.site-nav .nav-subitem{font-size:.82em;padding-left:12px;border-left:2px solid var(--aqua);margin-left:2px;white-space:nowrap}@media(max-width:700px){.site-nav .nav-group{width:100%;gap:0}.site-nav .nav-subitem{margin:0 0 4px 10px;padding:7px 10px;border-left:2px solid var(--aqua)}}
