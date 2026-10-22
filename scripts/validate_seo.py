@@ -12,13 +12,6 @@ from urllib.parse import urlparse
 ROOT = Path(sys.argv[1] if len(sys.argv) > 1 else "_site")
 MODE = sys.argv[2] if len(sys.argv) > 2 else "production"
 ERRORS: list[str] = []
-# The legacy URL is intentionally retained as a noindex compatibility route.
-# It must canonicalize to the new Learn route and stay out of the sitemap.
-NOINDEX_COMPAT_ROUTES = {
-    "perspective/index.html": "/learn/clp-perspective/",
-}
-
-
 class PageParser(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -86,14 +79,7 @@ for html_file in html_files:
         if "noindex" not in robots:
             fail(f"{rel}: preview build must include robots noindex")
     elif MODE == "production":
-        if rel in NOINDEX_COMPAT_ROUTES:
-            if "noindex" not in robots:
-                fail(f"{rel}: legacy compatibility route must remain noindex")
-            canonical = parser.links[0].get("href", "") if len(parser.links) == 1 else ""
-            expected_path = NOINDEX_COMPAT_ROUTES[rel]
-            if urlparse(canonical).path.rstrip("/") != expected_path.rstrip("/"):
-                fail(f"{rel}: canonical must point to {expected_path}")
-        elif "noindex" in robots or "index" not in robots:
+        if "noindex" in robots or "index" not in robots:
             fail(f"{rel}: production build must be indexable")
 
 sitemap_file = ROOT / "sitemap.xml"
@@ -111,11 +97,7 @@ if sitemap_file.exists():
     sitemap = sitemap_file.read_text(encoding="utf-8")
     urls = re.findall(r"<loc>(.*?)</loc>", sitemap)
     paths = [urlparse(url).path.rstrip("/") or "/" for url in urls]
-    for rel, canonical_path in NOINDEX_COMPAT_ROUTES.items():
-        legacy_path = "/" + rel.removesuffix("/index.html").rstrip("/")
-        if any(urlparse(url).path.rstrip("/") == legacy_path for url in urls):
-            fail(f"Sitemap must not include noindex compatibility route: {legacy_path}")
-    required_routes = ("/", "/learn/", "/learn/ai-agents/", "/learn/30-day-ai-plan/", "/learn/7-day-ai-challenge/", "/learn/build-a-learning-habit/", "/learn/data-literacy-for-decisions/", "/learn/clp-perspective/")
+    required_routes = ("/", "/learn/", "/learn/ai-agents/", "/learn/30-day-ai-plan/", "/learn/7-day-ai-challenge/", "/learn/build-a-learning-habit/", "/learn/data-literacy-for-decisions/", "/learn/perspective/")
     for route in required_routes:
         normalized = route.rstrip("/") or "/"
         if normalized == "/":
