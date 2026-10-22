@@ -18,7 +18,7 @@ Creating content, changing metadata, structured data, URL strategy, social cards
 7. Inspect generated HTML and validate JSON-LD. Add schema only when visible content supports it.
 8. Ensure social metadata and image metadata are accurate.
 9. Check robots/sitemap behavior from actual build output; ensure sitemap covers eligible pages, collection entries, and posts with canonical production URLs and last-modified values where available.
-10. For any IA/URL change, trace every internal link, menu item, legacy route, canonical URL, sitemap entry, and required-route guardrail; check for orphaned or duplicate content.
+10. For any IA/URL change, trace every internal link, menu item, canonical URL, sitemap entry, and required-route guardrail; add a redirect only for a previously published or externally linked route; check for orphaned or duplicate content.
 11. Ensure previews are blocked from indexing and production canonicals do not point to previews.
 12. Avoid keyword stuffing, fabricated citations, ungrounded claims, and ranking/citation guarantees.
 
