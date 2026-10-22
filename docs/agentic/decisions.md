@@ -1,3 +1,9 @@
+## 2026-10-22 — CLP Perspective belongs within Learn
+- **Status:** Implemented on feature branch; awaiting preview verification and approval.
+- **Decision:** Use `/learn/clp-perspective/` as the canonical route and represent CLP Perspective as a nested item under Learn in the main navigation. Keep the former `/perspective/` route as a noindex compatibility redirect and exclude it from the sitemap.
+- **Rationale:** Information architecture should reflect that Perspectives is a learning substream, not a peer-level top navigation destination.
+- **Consequence:** Route changes must update internal links, navigation, metadata/canonical URLs, legacy-route behavior, sitemap coverage, and SEO/AI-readiness checks together.
+
 # CLP Decision Log
 
 Record durable decisions here. Add new entries in reverse chronological order. Each entry should state date, status, decision, rationale, consequences, and the evidence or owner needed to revisit it.
