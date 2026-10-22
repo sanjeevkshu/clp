@@ -43,7 +43,7 @@ Watch the video, then consider one question: **What is one idea you could put in
 
 ## Explore the CLP ecosystem
 
-Visit the new [CLP Perspective landing page]({{ '/perspective/' | relative_url }}) for the ideas and points of view behind continuous learning. The idea connects with the wider CLP experience:
+Visit the new [CLP Perspective landing page]({{ '/learn/clp-perspective/' | relative_url }}) for the ideas and points of view behind continuous learning. The idea connects with the wider CLP experience:
 
 - **CLP Decodes** makes complex ideas easier to understand.
 - **CLP Masterclass** supports practical, guided skill-building.
