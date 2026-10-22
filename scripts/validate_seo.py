@@ -64,6 +64,10 @@ for html_file in html_files:
         fail(f"{rel}: missing/empty meta description")
     if len(parser.links) != 1 or not parser.links[0].get("href", "").startswith("https://"):
         fail(f"{rel}: expected exactly one absolute HTTPS canonical URL")
+    if rel == "learn/perspective/index.html" and len(parser.links) == 1:
+        canonical_path = urlparse(parser.links[0].get("href", "")).path.rstrip("/")
+        if canonical_path != "/learn/perspective":
+            fail(f"{rel}: canonical URL must resolve to /learn/perspective/")
     if not parser.meta.get("og:title") or not parser.meta.get("og:description"):
         fail(f"{rel}: missing Open Graph title/description")
     if not parser.jsonld:
@@ -92,6 +96,9 @@ else:
     robots_text = robots_file.read_text(encoding="utf-8")
     if not re.search(r"(?m)^Sitemap:\s*https://", robots_text):
         fail("robots.txt must contain an absolute HTTPS Sitemap directive")
+
+if MODE == "production" and (ROOT / "perspective" / "index.html").exists():
+    fail("Production build must not generate the unpublished legacy /perspective/ route")
 
 if sitemap_file.exists():
     sitemap = sitemap_file.read_text(encoding="utf-8")
