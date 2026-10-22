@@ -1,26 +1,15 @@
 ---
-layout: null
+layout: default
 title: "CLP Perspective has moved"
-description: "CLP Perspective is now part of the Learn library."
+description: "CLP Perspective is now part of the Learn library. Follow this link to explore the current page."
 permalink: /perspective/
+canonical: /learn/clp-perspective/
+noindex: true
 sitemap: false
 ---
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="robots" content="noindex,follow">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="{{ '/learn/clp-perspective/' | absolute_url }}">
-  <meta http-equiv="refresh" content="0;url={{ '/learn/clp-perspective/' | relative_url }}">
-  <title>CLP Perspective has moved | CLP</title>
-</head>
-<body>
-  <main>
-    <h1>CLP Perspective has moved</h1>
-    <p>Find CLP Perspective in the Learn library.</p>
-    <p><a href="{{ '/learn/clp-perspective/' | relative_url }}">Explore CLP Perspective</a></p>
-  </main>
-  <script>window.location.replace("{{ '/learn/clp-perspective/' | relative_url }}");</script>
-</body>
-</html>
+<section class="section prose">
+  <h1>CLP Perspective has moved</h1>
+  <p>CLP Perspective is now part of the Learn library. You will be redirected automatically.</p>
+  <p><a class="content-button" href="{{ '/learn/clp-perspective/' | relative_url }}">Explore CLP Perspective</a></p>
+</section>
+<meta http-equiv="refresh" content="0;url={{ '/learn/clp-perspective/' | relative_url }}">
