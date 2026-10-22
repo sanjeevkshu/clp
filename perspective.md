@@ -37,9 +37,9 @@ image_alt: "A landscape from the CLP image library, representing a wider horizon
 <section class="section perspective-next" aria-labelledby="perspective-next-title">
   <div class="section-heading"><div><p class="eyebrow">TAKE THE NEXT STEP</p><h2 id="perspective-next-title">A perspective is a starting point.</h2><p class="section-subtitle">Choose a path to explore an idea, practise a skill or discover more CLP stories.</p></div></div>
   <div class="article-cta-group">
-    <a class="content-button" href="{{ '/learn/' | relative_url }}">Explore Learn <span aria-hidden="true">↗</span></a>
+    <a class="content-button" href="{{ '/learn/' | relative_url }}">Explore learning <span aria-hidden="true">↗</span></a>
     <a class="content-button" href="{{ '/media/' | relative_url }}">Browse media <span aria-hidden="true">↗</span></a>
-    <a class="content-button" href="{{ '/launch/' | relative_url }}">Our story <span aria-hidden="true">↗</span></a>
+    <a class="content-button" href="{{ '/launch/' | relative_url }}">Read launch story <span aria-hidden="true">↗</span></a>
   </div>
 </section>
 
