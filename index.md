@@ -35,6 +35,23 @@ permalink: /
   </div>
 </section>
 
+<section class="clp-launch-feature clp-launch-card clp-concept-feature" aria-labelledby="clp-concept-title">
+  <a class="clp-launch-film" href="{{ '/media/learning-is-a-continuous-journey/' | relative_url }}" aria-label="Explore the CLP concept video on continuous learning">
+    <img src="https://i.ytimg.com/vi/IoTj5P0pQMw/hqdefault.jpg" alt="Thumbnail for the CLP concept video on continuous learning" loading="lazy">
+    <span class="clp-launch-play" aria-hidden="true">▶</span>
+    <span class="clp-launch-film-label">CLP PERSPECTIVES · CONCEPT VIDEO</span>
+  </a>
+  <div class="clp-launch-copy">
+    <p class="eyebrow">LEARN · APPLY · EVOLVE</p>
+    <h2 id="clp-concept-title">Learning is a continuous journey.</h2>
+    <p>A CLP point of view on moving beyond knowing: apply ideas, reflect on experience and keep evolving as life changes.</p>
+    <div class="clp-launch-actions">
+      <a class="learn-card-button" href="{{ '/media/learning-is-a-continuous-journey/' | relative_url }}">Explore the concept <span aria-hidden="true">↗</span></a>
+      <a class="learn-card-button" href="{{ '/media/' | relative_url }}">Visit Media Gallery <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
 <section class="home-pathways" id="home-pathways" aria-label="CLP learning pathways">
   <div class="home-path-grid">
     <a class="home-path-card path-decodes" href="{{ '/learn/' | relative_url }}">
