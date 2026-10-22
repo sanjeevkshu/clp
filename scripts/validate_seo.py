@@ -112,6 +112,8 @@ if sitemap_file.exists():
             fail(f"Sitemap missing required route: {route}")
     if any("/previews/" in url for url in urls):
         fail("Sitemap must not include pull-request preview URLs")
+    if any(urlparse(url).path.rstrip("/") == "/perspective" for url in urls):
+        fail("Sitemap must not include the unpublished legacy /perspective/ route")
     if any(urlparse(url).path.endswith((".txt", ".xml")) for url in urls):
         fail("Sitemap must not list robots.txt or sitemap.xml")
 
