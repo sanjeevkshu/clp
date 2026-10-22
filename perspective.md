@@ -1,7 +1,7 @@
 ---
 title: "CLP Perspective: Continuous Learning and Growth"
 description: "The ideas and points of view behind CLP Vriksha: connect learning with real life, apply what you discover, reflect on experience, and keep evolving."
-permalink: /learn/clp-perspective/
+permalink: /learn/perspective/
 last_modified_at: 2026-10-22
 image: "/assets/images/clp-home-hero.jpg"
 image_alt: "A landscape from the CLP image library, representing a wider horizon for continuous learning"
