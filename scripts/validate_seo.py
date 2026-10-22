@@ -97,7 +97,7 @@ if sitemap_file.exists():
     sitemap = sitemap_file.read_text(encoding="utf-8")
     urls = re.findall(r"<loc>(.*?)</loc>", sitemap)
     paths = [urlparse(url).path.rstrip("/") or "/" for url in urls]
-    required_routes = ("/", "/learn/", "/learn/ai-agents/", "/learn/30-day-ai-plan/", "/learn/7-day-ai-challenge/", "/learn/build-a-learning-habit/", "/learn/data-literacy-for-decisions/")
+    required_routes = ("/", "/learn/", "/learn/ai-agents/", "/learn/30-day-ai-plan/", "/learn/7-day-ai-challenge/", "/learn/build-a-learning-habit/", "/learn/data-literacy-for-decisions/", "/learn/clp-perspective/")
     for route in required_routes:
         normalized = route.rstrip("/") or "/"
         if normalized == "/":
