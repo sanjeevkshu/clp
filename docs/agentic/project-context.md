@@ -16,7 +16,7 @@
 - Shared site chrome: `_includes/header.html`, `_includes/footer.html`.
 - Shared styling: `assets/css/styles.css` and `assets/css/responsive-polish.css`.
 - Shared browser behavior: `assets/js/main.js`.\n- Privacy-first analytics (proposed in PR #13): `_includes/analytics-consent.html`, `assets/js/analytics-consent.js`, and `docs/agentic/analytics-measurement.md`. GTM/GA4 remain inactive in production until PR approval/merge and GTM UI tags are configured.
-- Configuration: `_config.yml`; current known configuration has `url: https://sanjeevkshu.github.io`, `baseurl: /clp`, `permalink: pretty`, and no plugins listed. Recheck current source.
+- Configuration: `_config.yml`; current source has `url: https://clpvriksha.com`, `baseurl: ""`, `permalink: pretty`, and no plugins listed. Recheck current source before changing deployment assumptions.
 - Current page sources include `index.md`, `learn.md`, `about.md`, `community.md`, `contact.md`, `learn/ai-agents.md`, `learn/30-day-ai-plan.md`, `learn/7-day-ai-challenge.md`, and `video/` content.
 - SEO foundation in default layout includes page title/description, canonical URL, Open Graph/Twitter metadata, favicon, and JSON-LD for Organization, WebSite, and WebPage. Validate emitted HTML rather than assuming every page is correct.
 - Theme toggle and responsive navigation exist in shared header/JavaScript; test their current behavior when touching these surfaces.
