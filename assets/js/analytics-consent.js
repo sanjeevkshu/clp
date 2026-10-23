@@ -26,12 +26,12 @@
       return false;
     }
   };
-  const setPanel = (visible, focusFirst = false) => {
+  const setPanel = (visible, focusFirst = false, restoreFocus = false) => {
     consentPanel.hidden = !visible;
     preferencesButton.setAttribute('aria-expanded', String(visible));
     preferencesButton.hidden = visible;
     if (visible && focusFirst) acceptButton.focus();
-    if (!visible) preferencesButton.focus();
+    if (!visible && restoreFocus) preferencesButton.focus();
   };
 
   const initialiseDataLayer = () => {
@@ -71,7 +71,7 @@
 
   acceptButton.addEventListener('click', () => {
     saveChoice('accepted');
-    setPanel(false);
+    setPanel(false, false, true);
     loadContainer();
   });
 
@@ -85,7 +85,7 @@
         ad_personalization: 'denied'
       });
     }
-    setPanel(false);
+    setPanel(false, false, true);
     // Reload so a previously loaded container cannot continue handling new UI events.
     if (analyticsEnabled && document.querySelector('script[data-clp-gtm="true"]')) window.location.reload();
   });
