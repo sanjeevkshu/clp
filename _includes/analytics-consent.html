@@ -1,0 +1,17 @@
+{% comment %}
+Shared consent control for optional website analytics.
+The GTM container ID is emitted only on production builds. Preview builds can
+exercise the consent UI without loading or transmitting analytics data.
+{% endcomment %}
+<div class="analytics-consent" id="analytics-consent" role="region" aria-label="Analytics privacy choices" hidden>
+  <div class="analytics-consent-copy">
+    <p class="analytics-consent-title">Help CLP improve</p>
+    <p>Allow optional analytics to help us understand which learning resources are useful. Analytics is optional and is not loaded unless you accept. We do not use it for advertising.</p>
+    <a href="{{ '/privacy/' | relative_url }}">Privacy information</a>
+  </div>
+  <div class="analytics-consent-actions">
+    <button class="analytics-consent-button analytics-consent-accept" type="button" id="analytics-accept">Accept analytics</button>
+    <button class="analytics-consent-button analytics-consent-reject" type="button" id="analytics-reject">Reject optional analytics</button>
+  </div>
+</div>
+<button class="analytics-preferences-trigger" type="button" id="analytics-preferences" aria-controls="analytics-consent" aria-expanded="false">Privacy choices</button>
