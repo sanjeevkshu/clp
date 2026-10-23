@@ -1430,7 +1430,7 @@ html[data-theme="dark"] .learn-resource-copy>p:not(.card-kicker){color:#c0d1e2}
 
 
 /* Desktop navigation: keep CLP Perspective nested under Learn. */
-@media (min-width: 701px) {
+@media (min-width: 901px) {
   .site-nav .nav-group {
     position: relative;
     display: flex;
@@ -1463,7 +1463,7 @@ html[data-theme="dark"] .learn-resource-copy>p:not(.card-kicker){color:#c0d1e2}
   .site-nav .nav-group .nav-subitem {
     display: none;
     position: absolute;
-    top: calc(100% + 10px);
+    top: 100%;
     left: 0;
     z-index: 30;
     min-width: 205px;
