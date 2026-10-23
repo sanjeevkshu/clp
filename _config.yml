@@ -7,6 +7,12 @@ markdown: kramdown
 permalink: pretty
 exclude: [README.md, AGENTS.md, Gemfile, Gemfile.lock, docs, skills, vendor]
 plugins: []
+
+# Public analytics identifiers; no credentials or secrets are stored here.
+# Collection is enabled only on production and only after visitor opt-in.
+analytics:
+  ga4_measurement_id: "G-YMJS96D5TZ"
+  gtm_container_id: "GTM-KQ49L3GG"
 collections:
   media:
     output: true

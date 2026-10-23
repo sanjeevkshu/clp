@@ -16,9 +16,9 @@
   <meta name="robots" content="noindex,nofollow">
   {% endif %}
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com https://img.youtube.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self'; font-src 'self' data:; form-action 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'{% if jekyll.environment == 'production' %} https://www.googletagmanager.com{% endif %}; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com https://img.youtube.com{% if jekyll.environment == 'production' %} https://www.google-analytics.com https://region1.google-analytics.com{% endif %}; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self'{% if jekyll.environment == 'production' %} https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com{% endif %}; font-src 'self' data:; form-action 'self'; upgrade-insecure-requests">
   <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}?v=20261015-clp-theme-control-contextual-hero-v21">
+  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}?v=20261023-clp-analytics-consent-v1">
   <link rel="stylesheet" href="{{ '/assets/css/responsive-polish.css' | relative_url }}?v=20261015-clp-responsive-polish-v27">
   <link rel="stylesheet" href="{{ '/assets/css/editorial-media.css' | relative_url }}?v=20261020-footer-two-column-dark-contrast-v1">
   <meta property="og:site_name" content="CLP — Continuous Learning &amp; Progressive Evolution">
@@ -71,6 +71,8 @@
     {% include header.html %}
   <main id="main-content">{{ content }}</main>
   {% include footer.html %}
+  {% include analytics-consent.html %}
+  <script src="{{ '/assets/js/analytics-consent.js' | relative_url }}?v=20261023-clp-privacy-first-v1" defer></script>
   <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
 </body>
 </html>

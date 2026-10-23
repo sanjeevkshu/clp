@@ -66,8 +66,15 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           node --check production-source/assets/js/main.js
+          node --check production-source/assets/js/analytics-consent.js
           test -f _site/index.html
           test -f _site/assets/js/main.js
+          test -f _site/assets/js/analytics-consent.js
+          test -f _site/privacy/index.html
+          grep -q 'data-analytics-enabled="true"' _site/index.html
+          grep -q 'data-gtm-id="GTM-KQ49L3GG"' _site/index.html
+          grep -q 'Privacy choices' _site/index.html
+          grep -q 'https://www.googletagmanager.com' _site/index.html
           test -f _site/assets/css/styles.css
           test -f _site/assets/css/responsive-polish.css
           test -f _site/assets/css/editorial-media.css
@@ -98,8 +105,21 @@ jobs:
           printf 'User-agent: *\nDisallow: /\n' > "$GITHUB_WORKSPACE/_preview_site/robots.txt"
           preview_root="$GITHUB_WORKSPACE/_preview_site"
           node --check "$GITHUB_WORKSPACE/preview-source/assets/js/main.js"
+          node --check "$GITHUB_WORKSPACE/preview-source/assets/js/analytics-consent.js"
           test -f "$preview_root/index.html"
           grep -q 'name="robots" content="noindex,nofollow"' "$preview_root/index.html"
+          grep -q 'data-analytics-enabled="false"' "$preview_root/index.html"
+          grep -q 'data-gtm-id=""' "$preview_root/index.html"
+          grep -q 'Privacy choices' "$preview_root/index.html"
+          if grep -q 'data-gtm-id="GTM-KQ49L3GG"' "$preview_root/index.html"; then
+            echo "ERROR: Preview HTML exposes the production GTM container ID."
+            exit 1
+          fi
+          if grep -q 'https://www.googletagmanager.com' "$preview_root/index.html"; then
+            echo "ERROR: Preview HTML allows or loads the production GTM endpoint."
+            exit 1
+          fi
+          test -f "$preview_root/privacy/index.html"
           test -f "$preview_root/blog/index.html"
           test -f "$preview_root/media/index.html"
           test -f "$preview_root/blog/contribute/index.html"

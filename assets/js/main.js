@@ -142,4 +142,78 @@ document.addEventListener('DOMContentLoaded', () => {
     homeTabs.forEach(tab => tab.addEventListener('click', () => applyFilter(tab.dataset.homeFilter, tab)));
     applyFilter('all', homeTabs.find(tab => tab.dataset.homeFilter === 'all') || homeTabs[0]);
   }
+
+  // Privacy-safe analytics events. GTM is injected only after analytics opt-in;
+  // this layer never includes form values, email addresses, query strings, or full URLs.
+  const analyticsChoice = () => {
+    try { return localStorage.getItem('clp-analytics-consent'); } catch (_) { return null; }
+  };
+  const trackClpEvent = (eventName, parameters = {}) => {
+    if (analyticsChoice() !== 'accepted' || !Array.isArray(window.dataLayer)) return;
+    window.dataLayer.push({ event: eventName, ...parameters });
+  };
+  const cleanLabel = element => (element?.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100);
+  const internalPath = href => {
+    try {
+      const url = new URL(href, window.location.origin);
+      return url.origin === window.location.origin ? url.pathname : undefined;
+    } catch (_) { return undefined; }
+  };
+  document.addEventListener('click', event => {
+    const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+    if (!target) return;
+
+    const filter = target.closest('.topic-tab, [data-home-filter]');
+    if (filter) {
+      trackClpEvent('clp_series_filter', {
+        filter_category: String(filter.dataset.filter || filter.dataset.homeFilter || 'unknown').slice(0, 60)
+      });
+    }
+
+    const card = target.closest('.learning-card, .learn-resource-card, [data-home-topic]');
+    const link = target.closest('a[href]');
+    if (card && link) {
+      const heading = card.querySelector('h2, h3, h4');
+      const kicker = card.querySelector('.card-kicker, .eyebrow');
+      trackClpEvent('clp_learning_card_click', {
+        content_title: cleanLabel(heading),
+        content_series: cleanLabel(kicker),
+        destination_path: internalPath(link.href) || 'external'
+      });
+    }
+
+    if (link && link.matches('.learn-card-button, .content-button, .button')) {
+      trackClpEvent('clp_content_cta_click', {
+        cta_label: cleanLabel(link),
+        destination_path: internalPath(link.href) || 'external'
+      });
+    }
+
+    if (link && link.closest('.site-nav')) {
+      trackClpEvent('clp_navigation_click', {
+        link_label: cleanLabel(link),
+        destination_path: internalPath(link.href) || 'external'
+      });
+    }
+  });
+
+  document.querySelectorAll('.clp-faq-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+      trackClpEvent('clp_faq_toggle', {
+        faq_question: cleanLabel(item.querySelector('summary')),
+        faq_state: item.open ? 'open' : 'closed'
+      });
+    });
+  });
+
+  document.addEventListener('submit', event => {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+    if (form.id === 'join-form') {
+      trackClpEvent('clp_community_intent', { intent_type: 'join_request_email_draft' });
+    } else if (form.id === 'topic-form') {
+      trackClpEvent('clp_community_intent', { intent_type: 'topic_suggestion_email_draft' });
+    }
+  });
+
 });

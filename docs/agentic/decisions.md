@@ -1,3 +1,10 @@
+## 2026-10-23 — Privacy-first CLP analytics
+- **Status:** Implemented on feature branch; awaiting build/preview verification, GTM UI configuration, owner review, and approval.
+- **Decision:** Use GA4 (`G-YMJS96D5TZ`) through GTM (`GTM-KQ49L3GG`), owned administratively by `clpvriksha@gmail.com`. Load the GTM container only on production and only after explicit analytics opt-in; do not load it for rejected/unknown consent or preview builds.
+- **Rationale:** CLP needs actionable content and journey measurement without collecting data before consent or contaminating production analytics with preview traffic.
+- **Consequences:** Keep consent UI, event taxonomy, CSP allowlist, privacy notice, and QA criteria in the repository. Configure GA4 Google tag and custom event tags in GTM separately; no ad/remarketing/session-replay tags without explicit approval. No merge or production change without owner approval.
+- **Evidence / open work:** PR checks and exact-SHA preview deployment must be verified; GTM tags still need configuration in the Google UI; owner must review consent/privacy wording and applicable requirements.
+
 ## 2026-10-22 — CLP Perspective belongs within Learn
 - **Status:** Implemented on feature branch; awaiting preview verification and approval.
 - **Decision:** Use `/learn/perspective/` as the canonical route and represent CLP Perspective as a nested item under Learn in the main navigation. Do not create a `/perspective/` compatibility route because the new landing page has not gone live.
