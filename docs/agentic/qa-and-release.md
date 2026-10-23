@@ -10,7 +10,7 @@
 7. **Deployment QA:** exact PR SHA built, preview workflow succeeded, deployed preview route reflects the current SHA, production remains intact.
 8. **Regression QA:** check nearby pages sharing a component and both the main site and nested preview base path.
 
-## Minimum change checklist
+## Analytics and consent QA\n- Confirm GTM is not loaded before explicit analytics opt-in.\n- Confirm reject/unknown consent leaves analytics unloaded and the preference can be reopened.\n- Confirm production alone emits the GTM ID and production CSP allows only the required Google endpoints.\n- Confirm preview/development builds omit the GTM ID and remain noindex.\n- Confirm custom events never include personal data, form values, query strings, or full URLs.\n- Confirm GTM Preview and GA4 Realtime/DebugView only after the owner configures tags in Google UI.\n\n## Minimum change checklist
 - [ ] Read the relevant skill and current implementation.
 - [ ] Define acceptance criteria and impacted routes/components.
 - [ ] Reuse existing components; no duplicate FAQ markup.
