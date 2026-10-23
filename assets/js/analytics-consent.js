@@ -26,11 +26,12 @@
       return false;
     }
   };
-  const setPanel = (visible) => {
+  const setPanel = (visible, focusFirst = false) => {
     consentPanel.hidden = !visible;
     preferencesButton.setAttribute('aria-expanded', String(visible));
     preferencesButton.hidden = visible;
-    if (visible) acceptButton.focus();
+    if (visible && focusFirst) acceptButton.focus();
+    if (!visible) preferencesButton.focus();
   };
 
   const initialiseDataLayer = () => {
@@ -65,7 +66,7 @@
 
   const choice = readChoice();
   if (choice === 'accepted') loadContainer();
-  if (!choice) setPanel(true);
+  if (!choice) setPanel(true, false);
   else setPanel(false);
 
   acceptButton.addEventListener('click', () => {
@@ -89,5 +90,5 @@
     if (analyticsEnabled && document.querySelector('script[data-clp-gtm="true"]')) window.location.reload();
   });
 
-  preferencesButton.addEventListener('click', () => setPanel(true));
+  preferencesButton.addEventListener('click', () => setPanel(true, true));
 })();
