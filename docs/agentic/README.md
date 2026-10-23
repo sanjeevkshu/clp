@@ -12,7 +12,7 @@
 - [Digital assets and media](digital-assets.md)
 - [QA, release, and deployment safety](qa-and-release.md)
 - [SEO, GEO, AIO, and AI readiness](ai-readiness.md)
-- [Decision log and open questions](decisions.md)
+- [Analytics measurement and consent](analytics-measurement.md)\n- [Decision log and open questions](decisions.md)
 
 ## Portable skills
 Skills are plain Markdown with a small YAML front matter header. They contain task-specific checklists and acceptance criteria and do not depend on a model API or a proprietary agent framework.
