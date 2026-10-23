@@ -3,7 +3,7 @@ Shared consent control for optional website analytics.
 The GTM container ID is emitted only on production builds. Preview builds can
 exercise the consent UI without loading or transmitting analytics data.
 {% endcomment %}
-<div class="analytics-consent" id="analytics-consent" role="region" aria-label="Analytics privacy choices" hidden>
+<div class="analytics-consent" id="analytics-consent" data-analytics-enabled="{% if jekyll.environment == 'production' and site.analytics.gtm_container_id %}true{% else %}false{% endif %}" data-gtm-id="{% if jekyll.environment == 'production' %}{{ site.analytics.gtm_container_id | escape }}{% endif %}" role="region" aria-label="Analytics privacy choices" hidden>
   <div class="analytics-consent-copy">
     <p class="analytics-consent-title">Help CLP improve</p>
     <p>Allow optional analytics to help us understand which learning resources are useful. Analytics is optional and is not loaded unless you accept. We do not use it for advertising.</p>
