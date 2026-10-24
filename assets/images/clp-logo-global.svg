@@ -1,59 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-  <title id="title">CLP Vriksha</title><desc id="desc">A flourishing tree with golden roots inside an open teal and green circular arc, with CLP below.</desc>
+  <title id="title">CLP Vriksha</title>
+  <desc id="desc">A simple green tree with a teal and green open circular arc and CLP beneath.</desc>
   <defs>
-    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#78c91d"/><stop offset=".42" stop-color="#18bda7"/><stop offset=".76" stop-color="#007b73"/><stop offset="1" stop-color="#6bcf2b"/></linearGradient>
-    <linearGradient id="bark" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#75401c"/><stop offset=".32" stop-color="#d78a2e"/><stop offset=".58" stop-color="#f4c75b"/><stop offset=".8" stop-color="#8e4c1d"/><stop offset="1" stop-color="#593315"/></linearGradient>
-    <linearGradient id="leaf" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#c4df29"/><stop offset=".46" stop-color="#3f9b31"/><stop offset="1" stop-color="#075b42"/></linearGradient>
-    <linearGradient id="goldLeaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffdf51"/><stop offset="1" stop-color="#d98712"/></linearGradient>
-    <radialGradient id="sun"><stop stop-color="#fff5ad" stop-opacity=".95"/><stop offset="1" stop-color="#ffdb58" stop-opacity="0"/></radialGradient>
-    <filter id="soft"><feGaussianBlur stdDeviation="7"/></filter>
-    <g id="leafShape"><path d="M0 0 C-15 -9 -17 -25 0 -39 C17 -25 15 -9 0 0Z" fill="url(#leaf)"/><path d="M0 -2V-34" fill="none" stroke="#e0e88a" stroke-opacity=".65" stroke-width="1.4"/></g>
-    <g id="goldShape"><path d="M0 0 C-13 -8 -14 -22 0 -34 C14 -22 13 -8 0 0Z" fill="url(#goldLeaf)"/><path d="M0 -2V-29" stroke="#fff0a1" stroke-opacity=".7" stroke-width="1.2"/></g>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#83c928"/><stop offset=".5" stop-color="#16b7a4"/><stop offset="1" stop-color="#087c70"/></linearGradient>
+    <linearGradient id="canopy" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#b5d927"/><stop offset=".52" stop-color="#4b9e35"/><stop offset="1" stop-color="#087454"/></linearGradient>
   </defs>
-  <circle cx="256" cy="225" r="175" fill="url(#sun)" opacity=".7"/>
-  <circle cx="256" cy="225" r="178" fill="#ffed8a" opacity=".2" filter="url(#soft)"/>
-  <path d="M92 346 A190 190 0 0 1 183 54" fill="none" stroke="url(#ring)" stroke-width="12" stroke-linecap="round"/>
-  <path d="M330 52 A190 190 0 0 1 420 346" fill="none" stroke="url(#ring)" stroke-width="12" stroke-linecap="round"/>
-  <path d="M87 342 Q111 382 151 399 M425 342 Q401 382 361 399" fill="none" stroke="#36b99b" stroke-width="5" stroke-linecap="round"/>
-  <g opacity=".95">
-    <path d="M255 325 C250 282 257 244 254 205 C252 168 251 132 256 101" fill="none" stroke="url(#bark)" stroke-width="18" stroke-linecap="round"/>
-    <path d="M255 234 C220 211 198 185 178 154 M255 211 C292 190 314 163 335 132 M254 260 C217 245 185 236 156 211 M257 257 C292 240 324 222 355 194 M255 184 C236 161 223 137 215 111 M256 170 C274 149 289 123 296 99" fill="none" stroke="url(#bark)" stroke-width="9" stroke-linecap="round"/>
-    <path d="M255 317 C238 342 213 351 183 361 C211 359 235 354 256 336 C279 355 303 359 333 360 C303 347 278 336 255 317Z" fill="url(#bark)"/>
-    <path d="M254 326 Q222 355 144 370 Q203 370 247 346 M260 327 Q295 355 368 369 Q309 370 266 347" fill="none" stroke="url(#bark)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M110 350 A182 182 0 0 1 190 65" fill="none" stroke="url(#arc)" stroke-width="13" stroke-linecap="round"/>
+  <path d="M323 64 A182 182 0 0 1 402 350" fill="none" stroke="url(#arc)" stroke-width="13" stroke-linecap="round"/>
+  <path d="M106 346 Q125 374 154 387 M406 346 Q387 374 358 387" fill="none" stroke="#21b89e" stroke-width="5" stroke-linecap="round"/>
+  <g fill="url(#canopy)">
+    <circle cx="256" cy="123" r="38"/><circle cx="215" cy="151" r="39"/><circle cx="296" cy="151" r="39"/>
+    <circle cx="180" cy="190" r="38"/><circle cx="232" cy="190" r="43"/><circle cx="280" cy="190" r="43"/><circle cx="332" cy="190" r="38"/>
+    <circle cx="164" cy="230" r="32"/><circle cx="207" cy="231" r="39"/><circle cx="256" cy="228" r="43"/><circle cx="305" cy="231" r="39"/><circle cx="348" cy="230" r="32"/>
   </g>
-  <g>
-    <use href="#leafShape" transform="translate(255 102) scale(1.05)"/>
-    <use href="#leafShape" transform="translate(214 116) rotate(-28) scale(.94)"/>
-    <use href="#leafShape" transform="translate(296 104) rotate(25) scale(.95)"/>
-    <use href="#goldShape" transform="translate(178 145) rotate(-42) scale(.92)"/>
-    <use href="#leafShape" transform="translate(192 153) rotate(-30) scale(1.05)"/>
-    <use href="#leafShape" transform="translate(226 151) rotate(-15) scale(.92)"/>
-    <use href="#goldShape" transform="translate(273 143) rotate(17) scale(.92)"/>
-    <use href="#leafShape" transform="translate(310 145) rotate(32) scale(1.05)"/>
-    <use href="#leafShape" transform="translate(337 151) rotate(42) scale(.92)"/>
-    <use href="#leafShape" transform="translate(151 181) rotate(-58) scale(.95)"/>
-    <use href="#leafShape" transform="translate(177 190) rotate(-44) scale(1.02)"/>
-    <use href="#goldShape" transform="translate(207 190) rotate(-24) scale(.88)"/>
-    <use href="#leafShape" transform="translate(237 185) rotate(-12) scale(.9)"/>
-    <use href="#leafShape" transform="translate(272 183) rotate(12) scale(.95)"/>
-    <use href="#goldShape" transform="translate(303 190) rotate(26) scale(.92)"/>
-    <use href="#leafShape" transform="translate(333 187) rotate(43) scale(1.02)"/>
-    <use href="#leafShape" transform="translate(361 178) rotate(57) scale(.95)"/>
-    <use href="#leafShape" transform="translate(126 213) rotate(-67) scale(.92)"/>
-    <use href="#leafShape" transform="translate(157 224) rotate(-52) scale(1.02)"/>
-    <use href="#leafShape" transform="translate(190 220) rotate(-34) scale(.92)"/>
-    <use href="#goldShape" transform="translate(220 221) rotate(-20) scale(.84)"/>
-    <use href="#leafShape" transform="translate(289 221) rotate(20) scale(.9)"/>
-    <use href="#leafShape" transform="translate(321 220) rotate(35) scale(.96)"/>
-    <use href="#goldShape" transform="translate(352 220) rotate(52) scale(.9)"/>
-    <use href="#leafShape" transform="translate(385 211) rotate(68) scale(.92)"/>
-    <use href="#leafShape" transform="translate(150 252) rotate(-72) scale(.86)"/>
-    <use href="#leafShape" transform="translate(182 253) rotate(-48) scale(.92)"/>
-    <use href="#goldShape" transform="translate(214 251) rotate(-28) scale(.82)"/>
-    <use href="#leafShape" transform="translate(301 251) rotate(28) scale(.82)"/>
-    <use href="#leafShape" transform="translate(333 253) rotate(48) scale(.92)"/>
-    <use href="#leafShape" transform="translate(365 252) rotate(72) scale(.86)"/>
-  </g>
-  <g fill="#e7aa2e" opacity=".9"><path d="M130 270q-11 -9 -3 -19q13 9 3 19Z"/><path d="M381 278q-10 -8 -2 -18q12 8 2 18Z"/><path d="M166 294q-9 -7 -2 -15q10 7 2 15Z"/><path d="M350 300q-9 -7 -2 -15q10 7 2 15Z"/></g>
-  <text x="256" y="448" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="61" font-weight="bold" letter-spacing="1" fill="#064b3c">CLP</text>
+  <g fill="#c4dd35" opacity=".95"><circle cx="214" cy="143" r="9"/><circle cx="274" cy="163" r="8"/><circle cx="183" cy="193" r="8"/><circle cx="247" cy="197" r="8"/><circle cx="324" cy="199" r="8"/></g>
+  <path d="M256 204 C253 249 259 289 256 329 M256 244 L213 208 M257 260 L300 218 M256 283 L222 265 M257 292 L291 267" fill="none" stroke="#87552c" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 321 Q236 349 203 359 Q235 358 256 340 Q278 359 310 359 Q278 348 256 321Z" fill="#9b6a32"/>
+  <text x="256" y="449" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="600" letter-spacing="2" fill="#075344">CLP</text>
 </svg>
