@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 560" role="img" aria-labelledby="title desc">
+  <title id="title">CLP Vriksha</title>
+  <desc id="desc">A simple green tree with a teal and green open circular arc and CLP beneath.</desc>
+  <defs>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#83c928"/><stop offset=".5" stop-color="#16b7a4"/><stop offset="1" stop-color="#087c70"/></linearGradient>
+    <linearGradient id="canopy" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#b5d927"/><stop offset=".52" stop-color="#4b9e35"/><stop offset="1" stop-color="#087454"/></linearGradient>
+  </defs>
+  <path d="M110 350 A182 182 0 0 1 190 65" fill="none" stroke="url(#arc)" stroke-width="13" stroke-linecap="round"/>
+  <path d="M323 64 A182 182 0 0 1 402 350" fill="none" stroke="url(#arc)" stroke-width="13" stroke-linecap="round"/>
+  <path d="M106 346 Q125 374 154 387 M406 346 Q387 374 358 387" fill="none" stroke="#21b89e" stroke-width="5" stroke-linecap="round"/>
+  <g fill="url(#canopy)">
+    <circle cx="256" cy="123" r="38"/><circle cx="215" cy="151" r="39"/><circle cx="296" cy="151" r="39"/>
+    <circle cx="180" cy="190" r="38"/><circle cx="232" cy="190" r="43"/><circle cx="280" cy="190" r="43"/><circle cx="332" cy="190" r="38"/>
+    <circle cx="164" cy="230" r="32"/><circle cx="207" cy="231" r="39"/><circle cx="256" cy="228" r="43"/><circle cx="305" cy="231" r="39"/><circle cx="348" cy="230" r="32"/>
+  </g>
+  <g fill="#c4dd35" opacity=".95"><circle cx="214" cy="143" r="9"/><circle cx="274" cy="163" r="8"/><circle cx="183" cy="193" r="8"/><circle cx="247" cy="197" r="8"/><circle cx="324" cy="199" r="8"/></g>
+  <path d="M256 204 C253 249 259 289 256 329 M256 244 L213 208 M257 260 L300 218 M256 283 L222 265 M257 292 L291 267" fill="none" stroke="#87552c" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 321 Q236 349 203 359 Q235 358 256 340 Q278 359 310 359 Q278 348 256 321Z" fill="#9b6a32"/>
+  <text x="256" y="449" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="600" letter-spacing="2" fill="#075344">CLP</text>
+  <text x="256" y="490" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" letter-spacing="2" fill="#47705d">Learn. Apply. Evolve.</text>
+</svg>

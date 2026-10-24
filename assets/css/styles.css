@@ -1490,3 +1490,7 @@ html[data-theme="dark"] .learn-resource-copy>p:not(.card-kicker){color:#c0d1e2}
     background: color-mix(in srgb, var(--aqua) 9%, var(--paper));
   }
 }
+
+/* Global CLP footer logo: preserve the full vision lockup at responsive sizes. */
+.site-footer .footer-brand img{width:180px;height:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 8px 18px #0003)}
+@media(max-width:700px){.site-footer .footer-brand img{width:156px}}
