@@ -1,0 +1,17 @@
+{% comment %}
+  Shared CLP social links.
+  Only enabled registry entries are rendered. The branded subdomains must be
+  configured as HTTPS redirects to verified official profile URLs before
+  enabling any entry in _data/social_extensions.yml.
+{% endcomment %}
+{% assign enabled_social_links = site.data.social_extensions | where: "enabled", true %}
+{% if enabled_social_links.size > 0 %}
+<div class="footer-social">
+  <p class="footer-column-title">Connect with CLP</p>
+  <ul class="footer-social-links" aria-label="CLP social channels">
+    {% for social in enabled_social_links %}
+    <li><a href="{{ social.subdomain | escape }}" aria-label="CLP on {{ social.platform | escape }}">{{ social.platform | escape }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
