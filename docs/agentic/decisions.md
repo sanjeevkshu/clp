@@ -1,3 +1,10 @@
+## 2026-10-26 — Branded social extensions
+- **Status:** Implemented on feature branch; public channels remain disabled pending owner confirmation and external DNS/redirect setup.
+- **Decision:** Reserve `instagram.clpvriksha.com`, `x.clpvriksha.com`, `facebook.clpvriksha.com`, and `linkedin.clpvriksha.com` as proposed HTTPS aliases for official CLP profiles. Keep profile destinations in `_data/social_extensions.yml` and render enabled entries through one shared footer include.
+- **Rationale:** Give CLP stable, memorable links without scattering platform URLs throughout content or coupling the static website to a social platform.
+- **Consequences:** Aliases are not live until DNS and an HTTP redirect/URL-forwarding service are configured. DNS records alone do not redirect; never enable a channel before its official destination and HTTPS redirect are verified. Do not add credentials or tracking parameters.
+- **Evidence / open work:** Confirm official profile URLs, DNS provider/owner, redirect mechanism, and live end-to-end verification. No external DNS change has been made by this PR.
+
 ## 2026-10-23 — Privacy-first CLP analytics
 - **Status:** Implemented on feature branch; awaiting build/preview verification, GTM UI configuration, owner review, and approval.
 - **Decision:** Use GA4 (`G-YMJS96D5TZ`) through GTM (`GTM-KQ49L3GG`), owned administratively by `clpvriksha@gmail.com`. Load the GTM container only on production and only after explicit analytics opt-in; do not load it for rejected/unknown consent or preview builds.

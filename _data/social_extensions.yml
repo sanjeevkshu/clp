@@ -1,0 +1,19 @@
+# CLP social-extension registry.
+# Keep entries disabled until the official profile URL is confirmed and the
+# corresponding HTTPS subdomain redirect has been provisioned and tested.
+- platform: Instagram
+  subdomain: https://instagram.clpvriksha.com/
+  profile_url: ""
+  enabled: false
+- platform: X
+  subdomain: https://x.clpvriksha.com/
+  profile_url: ""
+  enabled: false
+- platform: Facebook
+  subdomain: https://facebook.clpvriksha.com/
+  profile_url: ""
+  enabled: false
+- platform: LinkedIn
+  subdomain: https://linkedin.clpvriksha.com/
+  profile_url: ""
+  enabled: false
