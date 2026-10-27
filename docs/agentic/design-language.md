@@ -64,4 +64,4 @@ Look for nav overlap, CTA wrapping, card alignment, hero image cropping, footer 
 
 
 ## Logo contrast across themes
-Approved header and footer logo artwork MUST sit on a white container in both light and dark themes so the detailed approved colors remain legible and unmodified. Do not apply theme-specific filters to the logo image itself. Validate responsive sizing and spacing in desktop, mobile portrait, and mobile landscape views.
+Approved header and footer logo artwork MUST sit on a tight circular white disc in both light and dark themes, with only about 2px of inset around the artwork. Keep the artwork unmodified and do not apply theme-specific filters. The header disc is 62px on desktop and 50px on narrow screens; the footer disc is 184px on desktop and 160px on narrow screens. Use `object-fit: contain` so the full approved artwork remains visible. Validate desktop, mobile portrait, and mobile landscape.
