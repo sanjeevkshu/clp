@@ -1554,3 +1554,8 @@ html[data-theme="light"] .site-header .brand .theme-logo img,
 html[data-theme="light"] .site-footer .footer-brand .theme-logo img{content:url("{{ '/assets/images/clp-vriksha-logo-light.png' | relative_url }}")}
 html[data-theme="dark"] .site-header .brand .theme-logo img,
 html[data-theme="dark"] .site-footer .footer-brand .theme-logo img{content:url("{{ '/assets/images/clp-vriksha-logo-dark.png' | relative_url }}")}
+
+
+/* Shared header/footer logos: preserve the approved theme-specific PNG colors. */
+.site-header .brand img.theme-aware-logo,
+.site-footer .footer-brand img.theme-aware-logo { filter: none; object-fit: contain; }
