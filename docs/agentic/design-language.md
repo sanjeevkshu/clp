@@ -61,3 +61,7 @@ Look for nav overlap, CTA wrapping, card alignment, hero image cropping, footer 
 - Are both light and dark themes legible?
 - Does mobile portrait and landscape preserve intent?
 - Does this design add a reusable rule or accidentally create a one-off?
+
+
+## Logo contrast across themes
+Approved header and footer logo artwork MUST sit on a white container in both light and dark themes so the detailed approved colors remain legible and unmodified. Do not apply theme-specific filters to the logo image itself. Validate responsive sizing and spacing in desktop, mobile portrait, and mobile landscape views.
