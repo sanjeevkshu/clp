@@ -1559,3 +1559,14 @@ html[data-theme="dark"] .site-footer .footer-brand .theme-logo img{content:url("
 /* Shared header/footer logos: preserve the approved theme-specific PNG colors. */
 .site-header .brand img.theme-aware-logo,
 .site-footer .footer-brand img.theme-aware-logo { filter: none; object-fit: contain; }
+
+
+/* Remove the white circular container behind the approved header logo. */
+.site-header .brand,
+body:has(.home-hero) .site-header .brand {
+  background: transparent !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
