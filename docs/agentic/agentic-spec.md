@@ -160,3 +160,7 @@ Documentation MUST distinguish planned, implemented, build-verified, preview-dep
 
 ## Theme-aware shared logo contract
 Both shared header and footer MUST use the approved `clp-vriksha-logo-dark.png` and `clp-vriksha-logo-light.png` repository assets. Variant selection follows the active root theme attribute set by `assets/js/main.js`; never infer theme from viewport or page type. Preserve each asset unchanged and do not add color-altering filters. Keep layout sizing separate from asset selection and validate both themes at desktop and mobile sizes.
+
+
+## Theme-aware shared logo contract
+Both shared header and footer MUST use the approved `clp-vriksha-logo-dark.png` and `clp-vriksha-logo-light.png` repository assets. Variant selection follows the active root theme set by `assets/js/main.js`; do not infer theme from viewport or page type. Preserve asset files unchanged and do not apply color-altering filters. Keep layout sizing separate from theme selection and validate both themes at desktop and mobile sizes.
