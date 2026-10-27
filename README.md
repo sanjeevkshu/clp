@@ -80,3 +80,7 @@ The approved header and footer logo PNGs must render on white containers in both
 
 ### Theme-aware shared logos
 The header and footer use `assets/images/clp-vriksha-logo-dark.png` in dark theme and `assets/images/clp-vriksha-logo-light.png` in light theme. The active theme is controlled by the shared theme toggle; see `docs/agentic/design-language.md` and `docs/agentic/digital-assets.md` for the rule.
+
+
+### Theme-aware shared logos
+The header and footer use `assets/images/clp-vriksha-logo-dark.png` in dark theme and `assets/images/clp-vriksha-logo-light.png` in light theme. Variant selection follows the active theme set by the shared theme toggle; see `docs/agentic/design-language.md` and `docs/agentic/digital-assets.md`.
