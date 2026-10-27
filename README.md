@@ -72,3 +72,7 @@ Edit Markdown content while preserving front matter. Follow `docs/content-manage
 ## Release readiness
 
 A successful build is necessary but insufficient. For each PR, verify the current preview, relevant desktop/mobile portrait/landscape layouts, approved logo rendering, navigation and shared components, links, page metadata, sitemap/robots output, and structured data as appropriate. Record exact commit and preview URL in the PR. Production remains unchanged until an explicit merge approval.
+
+
+### Logo contrast and theme behavior
+The approved header and footer logo PNGs must render on white containers in both light and dark themes. Theme-specific logo filters must not alter the approved artwork. Any changes to logo placement must be checked at desktop, mobile portrait, and mobile landscape sizes.
