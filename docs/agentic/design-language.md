@@ -62,3 +62,7 @@ Look for nav overlap, CTA wrapping, card alignment, hero image cropping, footer 
 - Does mobile portrait and landscape preserve intent?
 - Does this design add a reusable rule or accidentally create a one-off?
 
+
+
+## Theme-aware logo assets
+Use the approved repository assets `assets/images/clp-vriksha-logo-dark.png` and `assets/images/clp-vriksha-logo-light.png` for both shared header and footer. Select the dark variant when `html[data-theme="dark"]` is active and the light variant when `html[data-theme="light"]` is active. The theme toggle in `assets/js/main.js` is the source of truth. Keep asset files unchanged, avoid filters that alter logo colors, and preserve established header/footer layout sizing. Validate both themes at desktop and narrow breakpoints.
