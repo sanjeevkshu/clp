@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const preferredTheme = savedTheme || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
   const applyTheme = theme => {
     root.dataset.theme = theme;
+    document.querySelectorAll('img.theme-aware-logo[data-logo-dark][data-logo-light]').forEach(img => {
+      const variant = theme === 'light' ? 'light' : 'dark';
+      const nextSrc = img.dataset['logo' + (variant === 'light' ? 'Light' : 'Dark')];
+      if (nextSrc && img.getAttribute('src') !== nextSrc) img.setAttribute('src', nextSrc);
+    });
     if (themeToggle) {
       const light = theme === 'light';
       themeToggle.setAttribute('aria-pressed', String(light));
