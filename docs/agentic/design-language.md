@@ -62,6 +62,3 @@ Look for nav overlap, CTA wrapping, card alignment, hero image cropping, footer 
 - Does mobile portrait and landscape preserve intent?
 - Does this design add a reusable rule or accidentally create a one-off?
 
-
-## Logo contrast across themes
-Approved header and footer logo artwork MUST sit on a tight circular white disc in both light and dark themes, with 1px of inset around the header artwork and no container padding around the footer artwork. Keep the artwork unmodified and do not apply theme-specific filters. The header disc is 62px on desktop and 50px on narrow screens. The footer disc is 140px on desktop and 120px on narrow screens; the approved transparent footer PNG is scaled to 124% within the disc to reduce excess apparent white space. Verify the tree, wordmark, and tagline remain fully visible at desktop, mobile portrait, and mobile landscape before merge.
