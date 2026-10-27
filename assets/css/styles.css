@@ -1539,10 +1539,5 @@ body:has(.home-hero) .site-header .brand img{
     height:50px;
     padding:1px;
   }
-  .site-footer .footer-brand{
-    width:160px;
-    height:160px;
-    padding:0;
-  }
 }
 
