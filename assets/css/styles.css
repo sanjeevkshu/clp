@@ -1491,11 +1491,6 @@ html[data-theme="dark"] .learn-resource-copy>p:not(.card-kicker){color:#c0d1e2}
   }
 }
 
-/* Global CLP footer logo: preserve the full vision lockup at responsive sizes. */
-.site-footer .footer-brand img{width:180px;height:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 8px 18px #0003)}
-@media(max-width:700px){.site-footer .footer-brand img{width:156px}}
-
-
 /* Approved CLP logo lockups use a tight circular white disc in both themes. */
 .site-header .brand{
   display:inline-flex;
@@ -1532,28 +1527,6 @@ body:has(.home-hero) .site-header .brand img{
   max-height:none;
   object-fit:contain;
 }
-.site-footer .footer-brand{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:184px;
-  height:184px;
-  max-width:100%;
-  box-sizing:border-box;
-  padding:0;
-  overflow:hidden;
-  border:0;
-  border-radius:50%;
-  background:#fff;
-}
-.site-footer .footer-brand img{
-  display:block;
-  width:108%;
-  height:108%;
-  max-width:none;
-  object-fit:contain;
-  filter:none;
-}
 @media(max-width:700px){
   .site-header .brand{
     flex-basis:50px;
@@ -1573,33 +1546,3 @@ body:has(.home-hero) .site-header .brand img{
   }
 }
 
-
-/* Footer logo correction v3: the prior 184px disc visually overwhelmed the artwork.
-   Tighten the white disc and scale the approved transparent PNG within it. */
-.site-footer .footer-brand{
-  width:140px;
-  height:140px;
-  padding:0;
-  flex:0 0 140px;
-  overflow:hidden;
-  border-radius:50%;
-  background:#fff;
-}
-.site-footer .footer-brand img{
-  width:124%;
-  height:124%;
-  max-width:none;
-  object-fit:contain;
-  filter:none;
-}
-@media(max-width:700px){
-  .site-footer .footer-brand{
-    width:120px;
-    height:120px;
-    flex-basis:120px;
-  }
-  .site-footer .footer-brand img{
-    width:124%;
-    height:124%;
-  }
-}
