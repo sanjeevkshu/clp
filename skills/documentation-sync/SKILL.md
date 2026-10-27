@@ -38,3 +38,6 @@ Run this skill for every PR that changes website behavior, content, architecture
 ## Output
 
 Report the docs reviewed, docs changed, validation performed, unresolved drift, and any work intentionally deferred.
+
+## Logo/theme acceptance
+When a change touches shared branding or color themes, confirm that the approved header and footer artwork sits on a white background in both themes, with no filters changing the logo colors. Check desktop, mobile portrait, and mobile landscape layouts and record the result in the PR.
