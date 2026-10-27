@@ -1541,3 +1541,16 @@ body:has(.home-hero) .site-header .brand img{
   }
 }
 
+
+
+/* Theme-aware approved CLP Vriksha logos for shared header and footer. */
+.site-header .brand .theme-logo,
+.site-footer .footer-brand .theme-logo{display:block;line-height:0}
+.site-header .brand .theme-logo img,
+.site-footer .footer-brand .theme-logo img{display:block;max-width:100%;height:auto;object-fit:contain;filter:none}
+html[data-theme="dark"] .theme-logo source,
+html[data-theme="light"] .theme-logo source{display:none}
+html[data-theme="light"] .site-header .brand .theme-logo img,
+html[data-theme="light"] .site-footer .footer-brand .theme-logo img{content:url("{{ '/assets/images/clp-vriksha-logo-light.png' | relative_url }}")}
+html[data-theme="dark"] .site-header .brand .theme-logo img,
+html[data-theme="dark"] .site-footer .footer-brand .theme-logo img{content:url("{{ '/assets/images/clp-vriksha-logo-dark.png' | relative_url }}")}
