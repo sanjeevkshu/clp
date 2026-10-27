@@ -41,3 +41,7 @@ Report the docs reviewed, docs changed, validation performed, unresolved drift, 
 
 ## Logo/theme acceptance
 When a change touches shared branding or color themes, confirm that the approved header and footer artwork sits on a white background in both themes, with no filters changing the logo colors. Check desktop, mobile portrait, and mobile landscape layouts and record the result in the PR.
+
+
+## Theme-aware branding check
+For logo/theme changes, verify both header and footer use the approved dark/light Vriksha PNGs and the selected variant follows the root `data-theme` attribute. Confirm the theme toggle updates both, asset colors are not altered by filters, and existing layout sizing remains intact across desktop and mobile. Record automated CI evidence separately from visual verification.
