@@ -36,3 +36,19 @@
 - Check image appearance/crop at mobile portrait, mobile landscape, and desktop.
 - Confirm alt text, licensing/provenance, dimensions, file size, and fallback behavior.
 - Check browser console/network failures where browser tooling is available.
+
+
+## Theme-aware CLP Vriksha lockups
+- Dark-theme logo: `assets/images/clp-vriksha-logo-dark.png`.
+- Light-theme logo: `assets/images/clp-vriksha-logo-light.png`.
+- Both the global header and footer use these same approved assets, selected from the explicit active theme (`html[data-theme="dark|light"]`).
+- Do not use alternate generated logo variants or recolor the files with filters.
+- Test the visible logo in both themes and at desktop, mobile portrait, and mobile landscape widths. Existing header/footer sizing and spacing remain independently controlled by the shared CSS.
+
+
+## Theme-aware CLP Vriksha lockups
+- Dark-theme asset: `assets/images/clp-vriksha-logo-dark.png`.
+- Light-theme asset: `assets/images/clp-vriksha-logo-light.png`.
+- The same approved pair is used in both header and footer and selected from the explicit root theme set by `assets/js/main.js`.
+- Do not substitute generated variants or recolor the PNGs with filters.
+- Check both themes and desktop, mobile portrait, and mobile landscape. Keep layout sizing separate from asset selection.

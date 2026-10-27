@@ -23,6 +23,7 @@ Skills are plain Markdown with a small YAML front matter header. They contain ta
 - [Digital assets skill](../../skills/digital-assets/SKILL.md)
 - [QA and accessibility skill](../../skills/qa/SKILL.md)
 - [Release engineering skill](../../skills/release-engineering/SKILL.md)
+- [Documentation synchronization skill](../../skills/documentation-sync/SKILL.md) — mandatory review of README, agentic specs, skills, and operational docs in every implementation PR.
 - [AI readiness skill](../../skills/ai-readiness/SKILL.md)
 
 ## How to use this pack with any AI model
@@ -47,3 +48,11 @@ If documentation and implementation disagree, do not silently choose one. Inspec
 - **Implemented, not yet preview-verified:** code is committed but the latest preview has not yet been confirmed.
 - **Proposed:** recommended future direction, not current implementation.
 - **Open question:** requires product-owner input or additional evidence.
+
+## Mandatory documentation synchronization
+
+Every implementation PR must use the [documentation synchronization skill](../../skills/documentation-sync/SKILL.md). Keep README, agentic specifications, relevant skills, and release instructions aligned with actual code and workflows. Record what changed and the evidence checked in the PR. Do not confuse build success with visual verification or production verification.
+
+
+### Theme-aware logo assets
+The shared header and footer use the approved dark/light Vriksha PNG pair and swap according to the active theme. See the design-language and digital-assets documents for the implementation contract and validation requirements.

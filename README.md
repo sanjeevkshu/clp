@@ -1,44 +1,86 @@
-# CLP — Continuous Learning & Progressive Evolution
+# CLP — Continuous Learning, Continuous Inclusive Learning
 
 **Learn. Apply. Evolve.**
 
-CLP is a brand-led learning initiative helping curious minds understand change, build practical capabilities, and evolve continuously. The site is built with GitHub Pages, Jekyll, and Markdown so the content remains easy to maintain in GitHub.
+CLP Vriksha is a learning initiative helping people understand change, build practical capabilities, apply learning, and evolve inclusively. The website is maintained as a GitHub Pages/Jekyll project with Markdown content, shared includes, CSS, and reusable digital assets.
 
-## Brand direction
-- Deep Ocean: `#0B1F3B`
-- Aquatic Blue: `#00A7E9`
-- Sky Aqua: `#38BDF8`
-- Violet accent: `#8B5CF6`
-- Soft white: `#F8FAFC`
+## Live website and release model
 
-The current Kalpavriksha logo and CLP identity are maintained in the repository's shared digital assets. Do not replace the approved circular emblem or green tree without an explicit brand decision.
+- Production website: https://clpvriksha.com/
+- Repository: https://github.com/sanjeevkshu/clp
+- Current logo work: [PR #16 — global header and footer logos](https://github.com/sanjeevkshu/clp/pull/16)
+- Preview/deployment workflows: `.github/workflows/pages.yml`
+- SEO and AI-readiness guardrails: `.github/workflows/seo-validation.yml`
 
-## Website
-- Homepage: `index.md`
-- Learning library: `learn.md`
+The website is live. Do not describe the custom domain as a future launch or gated activation. Any statement about current deployment health must be verified against the latest workflow and live site, not inferred from the fact that the domain exists.
+
+### Safe delivery workflow
+
+1. Inspect the current branch, relevant source files, and repository operating contract.
+2. Implement a scoped change on a feature branch and open/update a PR.
+3. Wait for the preview build for the exact PR head commit.
+4. Validate the rendered preview, including responsive layouts and accessibility where relevant.
+5. Run build, SEO/metadata, and relevant project guardrails.
+6. Update the PR with the exact commit, preview URL, test evidence, and any limitations.
+7. Merge only with explicit owner approval. A passing build is not proof of visual correctness. Never claim a deployment or preview exists until verified.
+
+## Brand and digital assets
+
+The approved CLP identity is the detailed Kalpavriksha/tree emblem with an open teal/green circular arc, CLP wordmark, and the tagline **“Learn. Apply. Evolve.”** Preserve the approved artwork exactly; do not redraw it as a simplified SVG or substitute generated approximations. Header, footer, YouTube, and other social assets should look like one connected brand system. Reuse the approved source artwork and adapt only its crop, size, and placement for each channel.
+
+Use the current approved design language and source files in `docs/agentic/design-language.md` and `docs/agentic/digital-assets.md` as the authority for colors, typography, spacing, asset formats, and responsive behavior. If the source of truth is ambiguous, pause and ask rather than inventing brand details.
+
+## Website information architecture
+
+- Home: `index.md`
+- Learn library: `learn.md`
 - About: `about.md`
 - Community: `community.md`
 - Contact: `contact.md`
-- Brand system and publishing instructions: `docs/`
-- Launch video script and storyboard: `video/`
+- Shared includes: `_includes/`
+- Styles and interaction presentation: `assets/css/` and related assets
+- Learning content and semantic routes: inspect current page front matter and `_config.yml` before changing URLs.
+- Launch video scripts/storyboards: `video/`
 
-## GitHub Pages deployment and preview
-The `.github/workflows/pages.yml` workflow builds the production site from the default branch and publishes a branch-specific preview for pull requests. Production remains unchanged until a PR is reviewed and merged. Review the preview generated for the exact current PR head SHA; an older preview is not sufficient evidence.
+Avoid assuming this list exhausts every route; inspect the current repository before documenting or changing information architecture.
 
-## Automated SEO / GEO / AIO readiness checks
-The `.github/workflows/seo-validation.yml` workflow builds the Jekyll site and validates rendered page metadata, canonical URLs, JSON-LD, robots directives, sitemap coverage, and crawl configuration on pull requests and pushes. The checks are guardrails, not a guarantee of search indexing or AI citation. Live browser verification and Google Search Console checks remain part of launch QA.
+## Automated validation and limitations
 
-The sitemap is generated from eligible site pages, so new learning articles are included automatically unless explicitly excluded with `sitemap: false`. The sitemap URL in `robots.txt` is generated from the Jekyll site configuration rather than hard-coded.
+The SEO/AI-readiness workflow validates repository-level signals such as rendered metadata, canonical URLs, structured data, robots directives, sitemap coverage, and crawl configuration. These checks are guardrails, not guarantees of search indexing, rankings, GEO/AEO visibility, or AI citation.
 
-## Domain
-The selected launch domain is **clpvriksha.com**. Domain activation, DNS changes, the production `url` / `baseurl` change, and the GitHub Pages custom-domain setting are deliberately gated until the SEO validation workflow passes and the production site, current PR preview, and live rendering have been verified. Do not add a `CNAME` file or change production canonical URLs before that gate is cleared.
+For material changes, supplement CI with live preview checks and, where relevant, Google Search Console inspection. Confirm the preview is built from the exact current PR head SHA; a stale preview is not sufficient evidence.
 
 ## Agentic engineering handbook
 
-The model-neutral project contract, architecture and design standards, content patterns, digital-asset rules, QA/release process, AI-readiness guidance, decision log, and reusable agent skills live in [`AGENTS.md`](AGENTS.md), [`docs/agentic/`](docs/agentic/), and [`skills/`](skills/). Start with the [handbook index](docs/agentic/README.md). These files are the durable source of project knowledge; do not rely on chat history alone.
+The model-neutral operating contract, architecture, design language, content patterns, digital asset rules, QA/release process, AI-readiness guidance, decisions, and reusable skills are maintained in:
+
+- [`AGENTS.md`](AGENTS.md) — mandatory operating contract.
+- [`docs/agentic/README.md`](docs/agentic/README.md) — handbook index.
+- [`docs/agentic/agentic-spec.md`](docs/agentic/agentic-spec.md) — model-neutral project specification.
+- [`skills/`](skills/) — portable task-specific skills.
+
+These files are durable project memory. Keep them aligned with implemented capabilities and workflow changes; chat history alone is not the source of truth.
+
+## Documentation is part of every change
+
+Every PR MUST review whether README, `AGENTS.md`, agentic specifications, relevant skills, design/architecture decisions, content guidance, and release instructions need updates. Update the documents in the same PR whenever behavior, capabilities, workflows, routes, assets, acceptance criteria, or operating rules change. If no documentation change is needed, state that in the PR description. See [the documentation synchronization skill](skills/documentation-sync/SKILL.md).
 
 ## Content workflow
-Edit Markdown files directly in GitHub. Keep page front matter intact. See [`docs/content-management.md`](docs/content-management.md).
+
+Edit Markdown content while preserving front matter. Follow `docs/content-management.md` and `docs/agentic/content-patterns.md`. Reusable interactions such as common-question FAQs should use the documented shared accordion pattern; article CTAs should follow the documented button/link convention.
 
 ## Release readiness
-A successful build is necessary but not sufficient. Before custom-domain activation, verify the current PR preview, mobile portrait and landscape layouts, logo and homepage hover behavior, FAQ accordions, page-specific metadata, sitemap and robots output, JSON-LD validity, and live Search Console URL inspection. Record the exact commit and deployment URL in the PR.
+
+A successful build is necessary but insufficient. For each PR, verify the current preview, relevant desktop/mobile portrait/landscape layouts, approved logo rendering, navigation and shared components, links, page metadata, sitemap/robots output, and structured data as appropriate. Record exact commit and preview URL in the PR. Production remains unchanged until an explicit merge approval.
+
+
+### Logo contrast and theme behavior
+The approved header and footer logo PNGs must render on white containers in both light and dark themes. Theme-specific logo filters must not alter the approved artwork. Any changes to logo placement must be checked at desktop, mobile portrait, and mobile landscape sizes.
+
+
+### Theme-aware shared logos
+The header and footer use `assets/images/clp-vriksha-logo-dark.png` in dark theme and `assets/images/clp-vriksha-logo-light.png` in light theme. The active theme is controlled by the shared theme toggle; see `docs/agentic/design-language.md` and `docs/agentic/digital-assets.md` for the rule.
+
+
+### Theme-aware shared logos
+The header and footer use `assets/images/clp-vriksha-logo-dark.png` in dark theme and `assets/images/clp-vriksha-logo-light.png` in light theme. Variant selection follows the active theme set by the shared theme toggle; see `docs/agentic/design-language.md` and `docs/agentic/digital-assets.md`.
