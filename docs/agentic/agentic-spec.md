@@ -149,3 +149,10 @@ These states are independent and MUST NOT be conflated.
 - When adding a provider-specific instruction file, make it a thin pointer to `AGENTS.md` and the relevant skills.
 - Revisit the pack when architecture, hosting, brand, content model, or release workflow changes.
 - Prefer explicit dates, revision IDs, links, and status labels over vague claims such as “latest” or “already deployed”.
+
+
+## 9. Mandatory documentation synchronization
+
+Every implementation PR MUST run the [documentation synchronization skill](../../skills/documentation-sync/SKILL.md). Review README, the root operating contract, this specification, the handbook index, and the relevant architecture/design/content/digital-asset/QA/release/AI-readiness documents and skills. Update the source-of-truth documentation in the same PR whenever implementation changes routes, user-visible behavior, shared components, brand assets, workflows, capabilities, validation, or operating procedures. If no edits are required, record that the review occurred and why.
+
+Documentation MUST distinguish planned, implemented, build-verified, preview-deployed, visually verified, and production-verified states. A successful build does not prove visual correctness. Claims about the live site or release readiness must be supported by current source or evidence for the exact commit. Production remains protected by explicit owner approval.
