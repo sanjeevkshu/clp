@@ -97,25 +97,17 @@ if not robots_file.exists():
     fail("Missing generated robots.txt")
 else:
     robots_text = robots_file.read_text(encoding="utf-8")
-    if not re.search(r"(?m)^Sitemap:\\s*https://clpvriksha\\.com/sitemap\\.xml\\s*$", robots_text):
+    if not re.search(r"(?m)^Sitemap:\s*https://clpvriksha\.com/sitemap\.xml\s*$", robots_text):
         fail("robots.txt must contain the canonical HTTPS sitemap URL")
     for bot in ("OAI-SearchBot", "Google-Extended", "PerplexityBot", "Claude-SearchBot", "Claude-User", "GPTBot", "ClaudeBot"):
-        if not re.search(rf"(?mi)^User-agent:\\s*{re.escape(bot)}\\s*$", robots_text):
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*$", robots_text):
             fail(f"robots.txt missing explicit AI discovery policy for {bot}")
-    if not re.search(r"(?mi)^User-agent:\\s*OAI-SearchBot\\s*\\nAllow:\\s*/\\s*$", robots_text):
-        fail("robots.txt must explicitly allow OAI-SearchBot")
-    if not re.search(r"(?mi)^User-agent:\\s*PerplexityBot\\s*\\nAllow:\\s*/\\s*$", robots_text):
-        fail("robots.txt must explicitly allow PerplexityBot")
-    if not re.search(r"(?mi)^User-agent:\\s*Claude-SearchBot\\s*\\nAllow:\\s*/\\s*$", robots_text):
-        fail("robots.txt must explicitly allow Claude-SearchBot")
-    if not re.search(r"(?mi)^User-agent:\\s*Claude-User\\s*\\nAllow:\\s*/\\s*$", robots_text):
-        fail("robots.txt must explicitly allow Claude-User")
-    if not re.search(r"(?mi)^User-agent:\\s*GPTBot\\s*\\nDisallow:\\s*/\\s*$", robots_text):
-        fail("robots.txt must explicitly disallow GPTBot model-training crawl")
-    if not re.search(r"(?mi)^User-agent:\\s*ClaudeBot\\s*\\nDisallow:\\s*/\\s*$", robots_text):
-        fail("robots.txt must explicitly disallow ClaudeBot model-training crawl")
-    if not re.search(r"(?mi)^User-agent:\\s*Google-Extended\\s*\\nAllow:\\s*/\\s*$", robots_text):
-        fail("robots.txt must explicitly allow Google-Extended")
+    for bot in ("OAI-SearchBot", "PerplexityBot", "Claude-SearchBot", "Claude-User"):
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*\nAllow:\s*/\s*$", robots_text):
+            fail(f"robots.txt must explicitly allow {bot}")
+    for bot in ("GPTBot", "ClaudeBot", "Google-Extended"):
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*\nDisallow:\s*/\s*$", robots_text):
+            fail(f"robots.txt must explicitly disallow {bot}")
 
 if MODE == "production" and (ROOT / "perspective" / "index.html").exists():
     fail("Production build must not generate the unpublished legacy /perspective/ route")
