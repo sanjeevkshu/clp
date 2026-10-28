@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: clp-continuous-quality-${ github.event.pull_request.number || github.ref }
+  group: clp-continuous-quality-${{ github.event.pull_request.number || github.ref }
   cancel-in-progress: true
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       - name: Checkout PR source or production branch
         uses: actions/checkout@v4
         with:
-          ref: ${ github.event.pull_request.head.sha || github.sha }
+          ref: ${{ github.event.pull_request.head.sha || github.sha }
       - name: Setup Ruby and Bundler
         uses: ruby/setup-ruby@v1
         with:
@@ -40,21 +40,19 @@ jobs:
       - name: Run bounded deterministic auto-remediation
         if: github.event_name == 'pull_request'
         run: |
-          python3 scripts/auto_remediate.py $(git ls-files '*.md' '*.markdown' '*.html' '*.css' '*.js' '*.json' '*.yml' '*.yaml' '*.txt' '*.xml' '*.py')
-      - name: Report safe fixes without bypassing review
+          git diff --name-only ${{ github.event.pull_request.base.sha } ${{ github.event.pull_request.head.sha } > /tmp/clp-changed-files.txt
+          while IFS= read -r file; do
+            python3 scripts/auto_remediate.py "$file"
+          done < /tmp/clp-changed-files.txt
+      - name: Report safe fixes for PR review
         if: github.event_name == 'pull_request'
         run: |
           if ! git diff --quiet; then
-            {
-              echo "## CLP safe auto-remediation"
-              echo
-              echo "The bounded fixer normalized whitespace only. These edits are proposed on the PR branch and still require review."
-              echo
-              git --no-pager diff --stat
-            } >> "$GITHUB_STEP_SUMMARY"
+            echo 'Safe whitespace-only changes detected; inspect diff before applying.' >> "$GITHUB_STEP_SUMMARY"
+            git --no-pager diff --stat >> "$GITHUB_STEP_SUMMARY"
             git --no-pager diff --check
           else
-            echo "No safe deterministic fixes were needed." >> "$GITHUB_STEP_SUMMARY"
+            echo 'No safe deterministic fixes were needed.' >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Live production smoke test (scheduled and manual runs only)
         if: github.event_name != 'pull_request'
@@ -65,12 +63,8 @@ jobs:
           for path in / /robots.txt /sitemap.xml /sitemap/ /learn/; do
             code="$(curl --silent --show-error --location --output /tmp/clp-response --write-out '%{http_code}' "$SITE_URL$path")"
             echo "$code $path"
-            if [ "$code" -lt 200 ] || [ "$code" -ge 400 ]; then
-              echo "Unexpected HTTP status $code for $path"
-              exit 1
-            fi
-            if [ ! -s /tmp/clp-response ]; then
-              echo "Empty response for $path"
+            if [ "$code" -lt 200 ] || [ "$code" -ge 400 ] || [ ! -s /tmp/clp-response ]; then
+              echo "Unexpected response for $path"
               exit 1
             fi
           done
@@ -79,13 +73,6 @@ jobs:
       - name: Publish audit summary
         if: always()
         run: |
-          {
-            echo "## CLP continuous quality run"
-            echo
-            echo "- Event: ${ github.event_name }"
-            echo "- Commit: ${ github.sha }"
-            echo "- SEO and sitemap validators are required to pass."
-            echo "- Live smoke tests run on scheduled/manual runs."
-            echo "- The fixer is intentionally limited to whitespace hygiene; it does not change content, metadata, redirects, canonical URLs, structured data, privacy or crawler policy."
-            echo "- Human review remains mandatory for merge and production deployment."
-          } >> "$GITHUB_STEP_SUMMARY"
+          echo 'SEO and sitemap validators are required to pass.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Live smoke tests run on scheduled/manual runs.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Auto-remediation is limited to whitespace hygiene; human review remains mandatory.' >> "$GITHUB_STEP_SUMMARY"
