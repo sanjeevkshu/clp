@@ -23,9 +23,22 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-# Anthropic crawler. Allowing ClaudeBot permits crawling under its published policy.
-User-agent: ClaudeBot
+# Anthropic search crawler: allow discovery in Claude search.
+User-agent: Claude-SearchBot
 Allow: /
+
+# User-triggered retrieval in Claude.
+User-agent: Claude-User
+Allow: /
+
+# ClaudeBot is separate from search/retrieval; keep model-training crawling opted out.
+User-agent: ClaudeBot
+Disallow: /
+
+# ClaudeBot model-training crawl is intentionally not permitted.
+# GPTBot is separate from ChatGPT search; keep model-training crawling opted out.
+User-agent: GPTBot
+Disallow: /
 
 # Keep the canonical XML sitemap discoverable to all compliant crawlers.
 Sitemap: {{ '/sitemap.xml' | absolute_url }}
