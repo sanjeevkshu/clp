@@ -7,38 +7,36 @@ sitemap: false
 User-agent: *
 Allow: /
 
-# OpenAI search visibility in ChatGPT.
+# OpenAI search visibility in ChatGPT; separate from model-training crawling.
 User-agent: OAI-SearchBot
 Allow: /
 
-# Google Search crawling is handled by Googlebot. Google-Extended is a
-# separate usage-control token for Gemini-related training/grounding.
+# Google Search crawling remains enabled.
 User-agent: Googlebot
 Allow: /
 
+# Opt out of Google-Extended uses for Gemini-related training/grounding.
+# This does not block Google Search crawling by Googlebot.
 User-agent: Google-Extended
-Allow: /
+Disallow: /
 
 # Perplexity search and answer citation crawler.
 User-agent: PerplexityBot
 Allow: /
 
-# Anthropic search crawler: allow discovery in Claude search.
+# Anthropic search crawler and user-triggered retrieval.
 User-agent: Claude-SearchBot
 Allow: /
 
-# User-triggered retrieval in Claude.
 User-agent: Claude-User
 Allow: /
 
-# ClaudeBot is separate from search/retrieval; keep model-training crawling opted out.
+# Opt out of model-training crawlers while keeping search/retrieval enabled.
 User-agent: ClaudeBot
 Disallow: /
 
-# ClaudeBot model-training crawl is intentionally not permitted.
-# GPTBot is separate from ChatGPT search; keep model-training crawling opted out.
 User-agent: GPTBot
 Disallow: /
 
-# Keep the canonical XML sitemap discoverable to all compliant crawlers.
+# Keep the canonical XML sitemap discoverable to compliant crawlers.
 Sitemap: {{ '/sitemap.xml' | absolute_url }}
