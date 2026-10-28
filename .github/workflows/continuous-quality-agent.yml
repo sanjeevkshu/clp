@@ -43,15 +43,17 @@ jobs:
           from pathlib import Path
           class NavCheck(HTMLParser):
               def __init__(self):
-                  super().__init__(); self.in_main_nav = False; self.dashboard_in_main_nav = False; self.dashboard_in_footer = False
+                  super().__init__(); self.in_main_nav = False; self.in_resources = False; self.dashboard_in_main_nav = False; self.dashboard_in_footer = False
               def handle_starttag(self, tag, attrs):
                   attrs = dict(attrs)
                   if tag == "nav" and attrs.get("id") == "site-nav": self.in_main_nav = True
+                  if tag == "div" and "footer-resources" in attrs.get("class", "").split(): self.in_resources = True
                   if tag == "a" and attrs.get("href") == "/dashboard/":
                       if self.in_main_nav: self.dashboard_in_main_nav = True
-                      if "footer-resources" in attrs.get("class", ""): self.dashboard_in_footer = True
+                      if self.in_resources: self.dashboard_in_footer = True
               def handle_endtag(self, tag):
                   if tag == "nav" and self.in_main_nav: self.in_main_nav = False
+                  if tag == "div" and self.in_resources: self.in_resources = False
           parser = NavCheck()
           parser.feed(Path("_site/index.html").read_text(encoding="utf-8"))
           if parser.dashboard_in_main_nav: raise SystemExit("Dashboard must not appear in header navigation.")
