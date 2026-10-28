@@ -3,7 +3,29 @@ layout: null
 permalink: /robots.txt
 sitemap: false
 ---
+# Public pages are available for search and AI-assisted discovery.
 User-agent: *
 Allow: /
 
+# OpenAI search visibility in ChatGPT.
+User-agent: OAI-SearchBot
+Allow: /
+
+# Google Search crawling is handled by Googlebot. Google-Extended is a
+# separate usage-control token for Gemini-related training/grounding.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity search and answer citation crawler.
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic crawler. Allowing ClaudeBot permits crawling under its published policy.
+User-agent: ClaudeBot
+Allow: /
+
+# Keep the canonical XML sitemap discoverable to all compliant crawlers.
 Sitemap: {{ '/sitemap.xml' | absolute_url }}
