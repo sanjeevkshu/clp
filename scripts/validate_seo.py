@@ -83,7 +83,10 @@ for html_file in html_files:
         if "noindex" not in robots:
             fail(f"{rel}: preview build must include robots noindex")
     elif MODE == "production":
-        if "noindex" in robots or "index" not in robots:
+        if rel == "sitemap/index.html":
+            if "noindex" not in robots or "follow" not in robots:
+                fail(f"{rel}: HTML site map must be noindex,follow")
+        elif "noindex" in robots or "index" not in robots:
             fail(f"{rel}: production build must be indexable")
 
 sitemap_file = ROOT / "sitemap.xml"
