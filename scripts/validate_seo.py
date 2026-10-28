@@ -55,13 +55,13 @@ if not sitemap_file.exists(): fail("Missing generated sitemap.xml")
 if not robots_file.exists(): fail("Missing generated robots.txt")
 else:
     robots_text = robots_file.read_text(encoding="utf-8")
-    if not re.search(r"(?m)^Sitemap:\\s*https://clpvriksha\\.com/sitemap\\.xml\\s*$", robots_text): fail("robots.txt must contain the canonical HTTPS sitemap URL")
+    if not re.search(r"(?m)^Sitemap:\s*https://clpvriksha\.com/sitemap\.xml\s*$", robots_text): fail("robots.txt must contain the canonical HTTPS sitemap URL")
     for bot in ("OAI-SearchBot", "Google-Extended", "PerplexityBot", "Claude-SearchBot", "Claude-User", "GPTBot", "ClaudeBot"):
-        if not re.search(rf"(?mi)^User-agent:\\s*{re.escape(bot)}\\s*$", robots_text): fail(f"robots.txt missing explicit AI discovery policy for {bot}")
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*$", robots_text): fail(f"robots.txt missing explicit AI discovery policy for {bot}")
     for bot in ("OAI-SearchBot", "PerplexityBot", "Claude-SearchBot", "Claude-User"):
-        if not re.search(rf"(?mi)^User-agent:\\s*{re.escape(bot)}\\s*\\nAllow:\\s*/\\s*$", robots_text): fail(f"robots.txt must explicitly allow {bot}")
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*\nAllow:\s*/\s*$", robots_text): fail(f"robots.txt must explicitly allow {bot}")
     for bot in ("GPTBot", "ClaudeBot", "Google-Extended"):
-        if not re.search(rf"(?mi)^User-agent:\\s*{re.escape(bot)}\\s*\\nDisallow:\\s*/\\s*$", robots_text): fail(f"robots.txt must explicitly disallow {bot}")
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*\nDisallow:\s*/\s*$", robots_text): fail(f"robots.txt must explicitly disallow {bot}")
 if MODE == "production" and (ROOT / "perspective" / "index.html").exists(): fail("Production build must not generate the unpublished legacy /perspective/ route")
 if sitemap_file.exists():
     sitemap = sitemap_file.read_text(encoding="utf-8"); urls = re.findall(r"<loc>(.*?)</loc>", sitemap); paths = [urlparse(url).path.rstrip("/") or "/" for url in urls]
