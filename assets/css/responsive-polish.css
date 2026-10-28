@@ -456,3 +456,22 @@ body.home-page > .site-footer {
 @media (prefers-reduced-motion: reduce) {
   .hamburger-icon > span { transition: none !important; }
 }
+
+
+/* CLP Connect landing page: reuse brand tokens and shared card/button patterns. */
+.clp-connect-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+.clp-connect-intro { max-width:760px; }
+.clp-connect-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; margin-top:28px; }
+.clp-connect-card { display:flex; flex-direction:column; align-items:flex-start; gap:10px; min-width:0; padding:clamp(18px,2.4vw,28px); }
+.clp-connect-card > img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:14px; }
+.clp-connect-card .eyebrow { margin:8px 0 0; }
+.clp-connect-card h3 { margin:0; }
+.clp-connect-card > p:not(.eyebrow) { margin:0 0 8px; }
+.clp-connect-card .learn-card-button { margin-top:auto; }
+.clp-connect-follow .content-card { max-width:940px; margin-inline:auto; padding:clamp(22px,4vw,44px); }
+.clp-connect-follow .content-card > p:not(.eyebrow) { max-width:760px; }
+@media (max-width:700px) {
+  .clp-connect-grid { grid-template-columns:minmax(0,1fr); gap:16px; }
+  .clp-connect-actions { align-items:stretch; }
+  .clp-connect-actions .learn-card-button { max-width:100%; }
+}
