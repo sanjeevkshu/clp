@@ -97,8 +97,19 @@ if not robots_file.exists():
     fail("Missing generated robots.txt")
 else:
     robots_text = robots_file.read_text(encoding="utf-8")
-    if not re.search(r"(?m)^Sitemap:\s*https://", robots_text):
-        fail("robots.txt must contain an absolute HTTPS Sitemap directive")
+    if not re.search(r"(?m)^Sitemap:\\s*https://clpvriksha\\.com/sitemap\\.xml\\s*$", robots_text):
+        fail("robots.txt must contain the canonical HTTPS sitemap URL")
+    for bot in ("OAI-SearchBot", "Google-Extended", "PerplexityBot", "ClaudeBot"):
+        if not re.search(rf"(?mi)^User-agent:\\s*{re.escape(bot)}\\s*$", robots_text):
+            fail(f"robots.txt missing explicit AI discovery policy for {bot}")
+    if not re.search(r"(?mi)^User-agent:\\s*OAI-SearchBot\\s*\\nAllow:\\s*/\\s*$", robots_text):
+        fail("robots.txt must explicitly allow OAI-SearchBot")
+    if not re.search(r"(?mi)^User-agent:\\s*PerplexityBot\\s*\\nAllow:\\s*/\\s*$", robots_text):
+        fail("robots.txt must explicitly allow PerplexityBot")
+    if not re.search(r"(?mi)^User-agent:\\s*ClaudeBot\\s*\\nAllow:\\s*/\\s*$", robots_text):
+        fail("robots.txt must explicitly allow ClaudeBot")
+    if not re.search(r"(?mi)^User-agent:\\s*Google-Extended\\s*\\nAllow:\\s*/\\s*$", robots_text):
+        fail("robots.txt must explicitly allow Google-Extended")
 
 if MODE == "production" and (ROOT / "perspective" / "index.html").exists():
     fail("Production build must not generate the unpublished legacy /perspective/ route")
