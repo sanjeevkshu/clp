@@ -83,7 +83,10 @@ for html_file in html_files:
         if "noindex" not in robots:
             fail(f"{rel}: preview build must include robots noindex")
     elif MODE == "production":
-        if "noindex" in robots or "index" not in robots:
+        if rel == "sitemap/index.html":
+            if "noindex" not in robots or "follow" not in robots:
+                fail(f"{rel}: HTML site map must be noindex,follow")
+        elif "noindex" in robots or "index" not in robots:
             fail(f"{rel}: production build must be indexable")
 
 sitemap_file = ROOT / "sitemap.xml"
@@ -94,8 +97,17 @@ if not robots_file.exists():
     fail("Missing generated robots.txt")
 else:
     robots_text = robots_file.read_text(encoding="utf-8")
-    if not re.search(r"(?m)^Sitemap:\s*https://", robots_text):
-        fail("robots.txt must contain an absolute HTTPS Sitemap directive")
+    if not re.search(r"(?m)^Sitemap:\s*https://clpvriksha\.com/sitemap\.xml\s*$", robots_text):
+        fail("robots.txt must contain the canonical HTTPS sitemap URL")
+    for bot in ("OAI-SearchBot", "Google-Extended", "PerplexityBot", "Claude-SearchBot", "Claude-User", "GPTBot", "ClaudeBot"):
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*$", robots_text):
+            fail(f"robots.txt missing explicit AI discovery policy for {bot}")
+    for bot in ("OAI-SearchBot", "PerplexityBot", "Claude-SearchBot", "Claude-User"):
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*\nAllow:\s*/\s*$", robots_text):
+            fail(f"robots.txt must explicitly allow {bot}")
+    for bot in ("GPTBot", "ClaudeBot", "Google-Extended"):
+        if not re.search(rf"(?mi)^User-agent:\s*{re.escape(bot)}\s*\nDisallow:\s*/\s*$", robots_text):
+            fail(f"robots.txt must explicitly disallow {bot}")
 
 if MODE == "production" and (ROOT / "perspective" / "index.html").exists():
     fail("Production build must not generate the unpublished legacy /perspective/ route")
