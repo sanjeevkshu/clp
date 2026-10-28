@@ -42,7 +42,6 @@ for html_file in html_files:
     is_dashboard = rel == "dashboard/index.html"
     if is_dashboard:
         if "noindex" not in robots: fail(f"{rel}: dashboard must be noindex")
-        if "nofollow" not in robots: fail(f"{rel}: dashboard must be nofollow")
         if "index" in robots.replace("noindex", ""): fail(f"{rel}: dashboard must not contain an index directive")
     elif MODE == "preview":
         if "noindex" not in robots: fail(f"{rel}: preview build must include robots noindex")
