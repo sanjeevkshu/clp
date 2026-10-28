@@ -1,37 +1,36 @@
 # CLP Webmaster Dashboard — Data and Security Plan
 
-## Current implementation
-The first release is a static, noindex dashboard shell at `/dashboard/`. It uses explicit empty KPI values and identifies itself as a demo until the authenticated data service is connected. It is excluded from the XML sitemap and is linked only from the footer Resources column. It is intentionally absent from header navigation.
+## Approved direction (2026-10-28)
+The owner supports a **public aggregate-only webmaster dashboard** to demonstrate transparency about CLP website performance. The dashboard itself may be public; Google credentials and underlying account access must remain private.
+
+The page at `/dashboard/` remains noindex, excluded from the XML sitemap, absent from header navigation, and linked from footer Resources. Public availability is intentional; noindex is not access control.
 
 ## KPI design
-- **Acquisition (GA4):** active users, sessions, sessions by default channel group, landing pages, referral sources.
-- **Engagement (GA4):** engaged sessions, engagement rate, average engagement time, event/key-event counts where configured.
-- **Search (Search Console):** clicks, impressions, CTR, average position, top queries and landing pages.
-- **Performance (PageSpeed Insights / CrUX):** LCP, INP, CLS field data where available; lab diagnostics clearly separated from field data.
-- **Technical quality (CI):** SEO validator, sitemap validator, broken-link checks, deployment smoke tests and Core Web Vitals trend.
+- **Acquisition (GA4):** aggregate users, sessions, engaged sessions, broad channel and landing-page trends.
+- **Engagement (GA4):** engagement rate, average engagement time and approved aggregate interactions.
+- **Search Console:** clicks, impressions, CTR and average position over meaningful periods. Query-level visibility requires a sensitivity review.
+- **Performance (PageSpeed Insights / CrUX):** LCP, INP and CLS field data where available; label lab diagnostics separately.
+- **Technical quality (CI):** build, SEO/sitemap validation, broken-link checks and deployment health.
 
-Every metric must display source, date range, comparison period, refresh timestamp, and a clear unavailable/insufficient-data state. Do not interpret low-volume data as a statistically reliable trend.
+Every metric must show source, period, last refresh, definition and limitations.
 
-## Production data architecture
-Static GitHub Pages cannot safely hold OAuth refresh tokens or service-account credentials. Add a separate authenticated backend (for example, a serverless function behind an identity-aware access layer) that:
-1. authenticates an authorized webmaster;
-2. reads secrets from a managed secret store;
-3. queries GA4 Data API and, optionally, Search Console and PageSpeed Insights/CrUX;
-4. applies a narrow allowlist of dimensions/metrics and date ranges;
-5. returns aggregated data only, with caching, timeouts, rate limits and error states;
-6. records operational logs without exposing credentials or unnecessary visitor-level data.
+## Secure pipeline
+GitHub Pages is static. A trusted scheduled GitHub Actions workflow can fetch data, transform it to a strict public schema, validate privacy rules and publish only aggregate JSON. The browser must never call Google with a secret.
 
-Do not expose a service account key, OAuth refresh token, or unrestricted API key in HTML, JavaScript, public GitHub Actions logs, or the repository. GA4 property access should be read-only and limited to the required property. Configure authenticated access before showing real metrics; `noindex` is not an access-control mechanism.
+Use a dedicated read-only service identity and least privilege. Prefer short-lived identity federation where feasible; if a service-account key is required initially, store it as a GitHub Actions secret and restrict it to a trusted protected-branch job. PR workflows must not access Google secrets or execute untrusted PR code in a secret-bearing job. Never expose credentials in source, logs, artifacts, HTML or browser JavaScript.
 
-## Release guardrails
-- Generated `dashboard/index.html` must contain `noindex` and must not contain an index directive.
-- `dashboard/` must not appear in `sitemap.xml`.
-- Dashboard must not be present in the header/main navigation.
-- Footer Resources must link to `/dashboard/`.
-- Production and preview SEO/sitemap validators must pass.
-- Preview URLs must remain noindex-protected.
-- The page must render responsively, have a single H1, semantic headings, accessible card labels and understandable missing-data states.
-- Automated whitespace remediation is limited to known text files, emits a reviewable patch artifact, and never pushes to the PR branch automatically. Human review and approval remain required.
+## Public data controls
+Follow [the public analytics privacy/security contract](agentic/public-analytics-dashboard.md) and [the portable skill](../skills/public-analytics-dashboard/SKILL.md). Publish aggregate metrics only, suppress small cohorts and rare dimensions, reject forbidden fields, strip URL query strings, and avoid visitor-level paths or drill-downs. The proposed initial threshold is fewer than 10 users/events per segment; confirm suitability for each metric. This reduces risk but does not prove anonymisation.
 
-## Follow-on decision
-Before enabling live metrics, select the hosting/authentication layer, identify the GA4 property and Search Console property, define authorized users, and add credentials through the chosen secret manager. The static dashboard is a safe front-end foundation, not a live analytics connection.
+Google Analytics must not receive PII. Public aggregation does not make unlawful source collection lawful. Review consent, privacy disclosures, retention, international transfers and the phased commencement of applicable Indian DPDP provisions with qualified counsel.
+
+## Required release gates
+- Dashboard noindex, absent from XML sitemap and header navigation, present in footer Resources.
+- Credentialed refresh runs only on trusted protected master; PR workflows are secret-free.
+- Public JSON schema is allowlisted, versioned, freshness-checked and tested against forbidden keys and small cohorts.
+- No raw data or secrets in public artifacts/logs; stale-data fallback is tested.
+- Build, SEO, sitemap, schema, accessibility and exact-SHA preview checks pass.
+- Owner approval is required for new public metrics/dimensions, collection changes, thresholds, APIs or publication behavior.
+
+## Current implementation state
+The current PR implements the static dashboard shell and basic page/sitemap/navigation guardrails. It does **not yet** implement the Google data pipeline, credential configuration, aggregation suppression, public JSON schema validator or synthetic privacy tests. Those are required before live metrics are enabled.
