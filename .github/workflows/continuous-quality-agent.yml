@@ -1,0 +1,80 @@
+name: CLP Continuous Quality and Remediation Agent
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  schedule:
+    - cron: "23 3 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clp-continuous-quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Continuous SEO, AEO and site quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout PR source or production branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - name: Setup Ruby and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - name: Build production-mode site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --destination _site
+      - name: Run SEO and sitemap guardrails
+        run: |
+          python3 scripts/validate_seo.py _site production
+          python3 scripts/validate_sitemap.py _site
+      - name: Run bounded deterministic auto-remediation
+        if: github.event_name == 'pull_request'
+        run: |
+          git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }} > /tmp/clp-changed-files.txt
+          while IFS= read -r file; do
+            [ -f "$file" ] || continue
+            python3 scripts/auto_remediate.py "$file"
+          done < /tmp/clp-changed-files.txt
+      - name: Report safe fixes for PR review
+        if: github.event_name == 'pull_request'
+        run: |
+          if ! git diff --quiet; then
+            echo 'Safe whitespace-only changes detected; inspect diff before applying.' >> "$GITHUB_STEP_SUMMARY"
+            git --no-pager diff --stat >> "$GITHUB_STEP_SUMMARY"
+            git --no-pager diff --check
+          else
+            echo 'No safe deterministic fixes were needed.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Live production smoke test (scheduled and manual runs only)
+        if: github.event_name != 'pull_request'
+        env:
+          SITE_URL: https://clpvriksha.com
+        run: |
+          set -euo pipefail
+          for path in / /robots.txt /sitemap.xml /sitemap/ /learn/; do
+            code="$(curl --silent --show-error --location --output /tmp/clp-response --write-out '%{http_code}' "$SITE_URL$path")"
+            echo "$code $path"
+            if [ "$code" -lt 200 ] || [ "$code" -ge 400 ] || [ ! -s /tmp/clp-response ]; then
+              echo "Unexpected response for $path"
+              exit 1
+            fi
+          done
+          grep -q 'Sitemap:' <(curl --silent --show-error --location "$SITE_URL/robots.txt")
+          grep -q '<urlset' <(curl --silent --show-error --location "$SITE_URL/sitemap.xml")
+      - name: Publish audit summary
+        if: always()
+        run: |
+          echo 'SEO and sitemap validators are required to pass.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Live smoke tests run on scheduled/manual runs.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Auto-remediation is limited to whitespace hygiene; human review remains mandatory.' >> "$GITHUB_STEP_SUMMARY"
