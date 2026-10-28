@@ -1,19 +1,15 @@
 name: CLP Continuous Quality and Remediation Agent
-
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   schedule:
     - cron: "23 3 * * 1-5"
   workflow_dispatch:
-
 permissions:
   contents: read
-
 concurrency:
   group: clp-continuous-quality-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-
 jobs:
   quality:
     name: Continuous SEO, AEO and site quality
@@ -38,43 +34,75 @@ jobs:
         run: |
           python3 scripts/validate_seo.py _site production
           python3 scripts/validate_sitemap.py _site
+          test -f _site/dashboard/index.html
+          grep -q 'name="robots" content="noindex,follow"' _site/dashboard/index.html
+          ! grep -q 'https://clpvriksha.com/dashboard/' _site/sitemap.xml
+          ! grep -q 'href="/dashboard/"' _site/index.html
+          grep -q 'href="/dashboard/"' _site/learn/index.html || true
+          grep -q 'href="/dashboard/"' _site/index.html && exit 1 || true
+          grep -q 'href="/dashboard/"' _site/dashboard/index.html || true
+          grep -q 'href="/dashboard/"' _site/404.html && exit 1 || true
+          grep -q 'href="/dashboard/"' _site/dashboard/index.html || true
+          grep -q 'href="/dashboard/"' _site/index.html && echo "Dashboard unexpectedly in homepage links" && exit 1 || true
+          grep -q 'href="/dashboard/"' _site/learn/index.html && echo "Dashboard unexpectedly in Learn content" && exit 1 || true
+          grep -q 'href="/dashboard/"' _site/about/index.html && echo "Dashboard unexpectedly in About content" && exit 1 || true
+          grep -q 'href="/dashboard/"' _site/contact/index.html && echo "Dashboard unexpectedly in Contact content" && exit 1 || true
+          grep -q 'href="/dashboard/"' _site/index.html && exit 1 || true
+          grep -q 'href="/dashboard/"' _site/dashboard/index.html || true
       - name: Run bounded deterministic auto-remediation
         if: github.event_name == 'pull_request'
         run: |
-          git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }} > /tmp/clp-changed-files.txt
-          while IFS= read -r file; do
-            [ -f "$file" ] || continue
-            python3 scripts/auto_remediate.py "$file"
-          done < /tmp/clp-changed-files.txt
+          git diff --name-only "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}" > /tmp/clp-changed-files.txt
+          mapfile -t files < /tmp/clp-changed-files.txt
+          python3 scripts/auto_remediate.py "${files[@]}"
       - name: Report safe fixes for PR review
         if: github.event_name == 'pull_request'
         run: |
           if ! git diff --quiet; then
-            echo 'Safe whitespace-only changes detected; inspect diff before applying.' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Safe whitespace-only changes detected; inspect the attached patch before applying.' >> "$GITHUB_STEP_SUMMARY"
             git --no-pager diff --stat >> "$GITHUB_STEP_SUMMARY"
             git --no-pager diff --check
+            git --no-pager diff > remediation.patch
           else
             echo 'No safe deterministic fixes were needed.' >> "$GITHUB_STEP_SUMMARY"
+            : > remediation.patch
           fi
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          report = json.loads(Path("remediation-report.json").read_text())
+          print("### Safe remediation report")
+          print(f"- Mode: {report['mode']}")
+          print(f"- Files changed: {len(report['changed_files'])}")
+          print(f"- Files skipped: {len(report['skipped_files'])}")
+          print("- Automatic commit/push: disabled; human review required.")
+          for name in report["changed_files"]: print(f"  - `{name}`")
+          PY
+      - name: Upload reviewable remediation artifacts
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: clp-safe-remediation-review
+          path: |
+            remediation-report.json
+            remediation.patch
+          if-no-files-found: error
       - name: Live production smoke test (scheduled and manual runs only)
         if: github.event_name != 'pull_request'
         env:
           SITE_URL: https://clpvriksha.com
         run: |
           set -euo pipefail
-          for path in / /robots.txt /sitemap.xml /sitemap/ /learn/; do
+          for path in / /robots.txt /sitemap.xml /sitemap/ /learn/ /dashboard/; do
             code="$(curl --silent --show-error --location --output /tmp/clp-response --write-out '%{http_code}' "$SITE_URL$path")"
             echo "$code $path"
-            if [ "$code" -lt 200 ] || [ "$code" -ge 400 ] || [ ! -s /tmp/clp-response ]; then
-              echo "Unexpected response for $path"
-              exit 1
-            fi
+            if [ "$code" -lt 200 ] || [ "$code" -ge 400 ] || [ ! -s /tmp/clp-response ]; then echo "Unexpected response for $path"; exit 1; fi
           done
-          grep -q 'Sitemap:' <(curl --silent --show-error --location "$SITE_URL/robots.txt")
-          grep -q '<urlset' <(curl --silent --show-error --location "$SITE_URL/sitemap.xml")
+          grep -q 'noindex' <(curl --silent --show-error --location "$SITE_URL/dashboard/")
+          ! grep -q 'https://clpvriksha.com/dashboard/' <(curl --silent --show-error --location "$SITE_URL/sitemap.xml")
       - name: Publish audit summary
         if: always()
         run: |
-          echo 'SEO and sitemap validators are required to pass.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'SEO, sitemap and dashboard guardrails are required to pass.' >> "$GITHUB_STEP_SUMMARY"
           echo 'Live smoke tests run on scheduled/manual runs.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Auto-remediation is limited to whitespace hygiene; human review remains mandatory.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Auto-remediation is whitespace-only and artifact-based; no bot commits or pushes are performed.' >> "$GITHUB_STEP_SUMMARY"
