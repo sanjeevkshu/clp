@@ -30,25 +30,34 @@ jobs:
         env:
           JEKYLL_ENV: production
         run: bundle exec jekyll build --destination _site
-      - name: Run SEO and sitemap guardrails
+      - name: Run SEO, sitemap and dashboard guardrails
         run: |
+          set -euo pipefail
           python3 scripts/validate_seo.py _site production
           python3 scripts/validate_sitemap.py _site
           test -f _site/dashboard/index.html
           grep -q 'name="robots" content="noindex,follow"' _site/dashboard/index.html
           ! grep -q 'https://clpvriksha.com/dashboard/' _site/sitemap.xml
-          ! grep -q 'href="/dashboard/"' _site/index.html
-          grep -q 'href="/dashboard/"' _site/learn/index.html || true
-          grep -q 'href="/dashboard/"' _site/index.html && exit 1 || true
-          grep -q 'href="/dashboard/"' _site/dashboard/index.html || true
-          grep -q 'href="/dashboard/"' _site/404.html && exit 1 || true
-          grep -q 'href="/dashboard/"' _site/dashboard/index.html || true
-          grep -q 'href="/dashboard/"' _site/index.html && echo "Dashboard unexpectedly in homepage links" && exit 1 || true
-          grep -q 'href="/dashboard/"' _site/learn/index.html && echo "Dashboard unexpectedly in Learn content" && exit 1 || true
-          grep -q 'href="/dashboard/"' _site/about/index.html && echo "Dashboard unexpectedly in About content" && exit 1 || true
-          grep -q 'href="/dashboard/"' _site/contact/index.html && echo "Dashboard unexpectedly in Contact content" && exit 1 || true
-          grep -q 'href="/dashboard/"' _site/index.html && exit 1 || true
-          grep -q 'href="/dashboard/"' _site/dashboard/index.html || true
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class NavCheck(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.in_main_nav = False; self.dashboard_in_main_nav = False; self.dashboard_in_footer = False
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if tag == "nav" and attrs.get("id") == "site-nav": self.in_main_nav = True
+                  if tag == "a" and attrs.get("href") == "/dashboard/":
+                      if self.in_main_nav: self.dashboard_in_main_nav = True
+                      if "footer-resources" in attrs.get("class", ""): self.dashboard_in_footer = True
+              def handle_endtag(self, tag):
+                  if tag == "nav" and self.in_main_nav: self.in_main_nav = False
+          parser = NavCheck()
+          parser.feed(Path("_site/index.html").read_text(encoding="utf-8"))
+          if parser.dashboard_in_main_nav: raise SystemExit("Dashboard must not appear in header navigation.")
+          if not parser.dashboard_in_footer: raise SystemExit("Dashboard must be linked in the footer Resources column.")
+          print("Dashboard navigation and footer placement guardrails passed.")
+          PY
       - name: Run bounded deterministic auto-remediation
         if: github.event_name == 'pull_request'
         run: |
