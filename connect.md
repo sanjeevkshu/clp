@@ -56,7 +56,7 @@ image_alt: "CLP launch campaign graphic: The world evolves. So should we. Learn.
   <div class="content-card">
     <p class="eyebrow">STAY CONNECTED</p>
     <h2 id="connect-follow-title">Keep curiosity in motion.</h2>
-    <p>Watch the CLP launch film on YouTube, explore the website, and return for new learning resources. Official LinkedIn and WhatsApp Channel links will be added here once those channels are created and verified.</p>
+    <p>Explore the CLP learning library and watch the launch film. As CLP grows, this page will remain a simple starting point for finding our latest learning resources and official channels.</p>
     <div class="clp-connect-actions">
       <a class="learn-card-button" href="https://youtube.com/@clplearnapplyevolve" rel="noopener noreferrer">Visit CLP on YouTube <span aria-hidden="true">↗</span></a>
       <a class="learn-card-button" href="{{ '/community/' | relative_url }}">Join the CLP community <span aria-hidden="true">→</span></a>
