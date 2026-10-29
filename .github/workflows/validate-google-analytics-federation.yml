@@ -1,0 +1,104 @@
+name: Validate Google Analytics Federation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: clp-google-federation-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate trusted Google API access
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout trusted production code
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Check required repository variables
+        env:
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          GCP_WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+          GCP_SERVICE_ACCOUNT: ${{ vars.GCP_SERVICE_ACCOUNT }}
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+        run: |
+          set -euo pipefail
+          for name in GCP_PROJECT_ID GCP_WIF_PROVIDER GCP_SERVICE_ACCOUNT GA4_PROPERTY_ID GSC_SITE_URL; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::Missing repository variable: $name"
+              exit 1
+            fi
+          done
+          echo "All required configuration variables are present."
+
+      - name: Authenticate using GitHub OIDC
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Google reporting clients
+        run: |
+          python -m pip install --disable-pip-version-check google-analytics-data google-api-python-client google-auth
+
+      - name: Test read access to GA4 and Search Console
+        env:
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+        run: |
+          python - <<'PY'
+          import os
+          from datetime import date, timedelta
+          import google.auth
+          from google.analytics.data_v1beta import BetaAnalyticsDataClient
+          from google.analytics.data_v1beta.types import DateRange, Metric, RunReportRequest
+          from googleapiclient.discovery import build
+
+          credentials, _ = google.auth.default(
+              scopes=["https://www.googleapis.com/auth/analytics.readonly",
+                      "https://www.googleapis.com/auth/webmasters.readonly"]
+          )
+
+          # Test GA4 authorization with a minimal aggregate report. Never print metric values.
+          ga4 = BetaAnalyticsDataClient(credentials=credentials)
+          ga4_response = ga4.run_report(
+              RunReportRequest(
+                  property=f"properties/{os.environ['GA4_PROPERTY_ID']}",
+                  date_ranges=[DateRange(start_date="7daysAgo", end_date="yesterday")],
+                  metrics=[Metric(name="sessions")],
+                  limit=1,
+              )
+          )
+          print(f"GA4 API authorization successful; rows returned: {len(ga4_response.rows)}")
+
+          # Search Console data can be delayed; use the last complete days.
+          end_date = date.today() - timedelta(days=3)
+          start_date = end_date - timedelta(days=6)
+          gsc = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
+          response = gsc.searchanalytics().query(
+              siteUrl=os.environ["GSC_SITE_URL"],
+              body={
+                  "startDate": start_date.isoformat(),
+                  "endDate": end_date.isoformat(),
+                  "dimensions": ["page"],
+                  "rowLimit": 1,
+              },
+          ).execute()
+          print(f"Search Console API authorization successful; rows returned: {len(response.get('rows', []))}")
+          print("Google federation and read-access validation passed. No metric values were logged.")
+          PY
