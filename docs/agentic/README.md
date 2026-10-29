@@ -17,6 +17,7 @@
 ## Portable skills
 Skills are plain Markdown with a small YAML front matter header. They contain task-specific checklists and acceptance criteria and do not depend on a model API or a proprietary agent framework.
 
+- [Feature development skill](../../skills/feature-development/SKILL.md) — required for every feature; includes self-inclusive documentation review as part of development, not a GitHub Actions gate.
 - [Architecture skill](../../skills/architecture/SKILL.md)
 - [Design language skill](../../skills/design-language/SKILL.md)
 - [Content patterns skill](../../skills/content-patterns/SKILL.md)
