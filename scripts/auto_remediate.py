@@ -6,6 +6,7 @@ provided, repository-relative text files. It never commits or pushes changes.
 """
 from __future__ import annotations
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -30,5 +31,14 @@ for raw in sys.argv[1:]:
         changed.append(rel)
         print(f"SAFE_FIX: normalized whitespace in {rel}")
 report = {"mode": "whitespace-only", "changed_files": changed, "skipped_files": skipped, "writes_commits_or_pushes": False}
-Path("remediation-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+# Refuse to follow or overwrite an existing path (including a symlink) in the
+# checkout. The report is created atomically and exclusively for this run.
+report_path = ROOT / "remediation-report.json"
+try:
+    report_fd = os.open(report_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+except FileExistsError:
+    print("ERROR: remediation-report.json already exists; refusing to overwrite it.")
+    raise SystemExit(2)
+with os.fdopen(report_fd, "w", encoding="utf-8") as report_file:
+    report_file.write(json.dumps(report, indent=2) + "\n")
 print(f"Safe auto-remediation complete; files changed: {len(changed)}; skipped: {len(skipped)}")
