@@ -11,31 +11,31 @@ sitemap: false
   <p class="eyebrow">CLP HEALTH BOARD</p>
   <h1>Website signals, <span>made clear.</span></h1>
   <p class="hero-lede">A single place to understand whether people are finding CLP, engaging with learning resources, and experiencing a fast, reliable website.</p>
-  <p class="dashboard-status"><strong>Connection status:</strong> Not connected — Google Analytics and Search Console data are not available yet.</p>
+  <p class="dashboard-status" id="dashboard-connection-status" role="status" aria-live="polite"><strong>Connection status:</strong> Waiting for the first validated refresh.</p>
 </section>
 
 <section class="content-section dashboard-content" aria-labelledby="dashboard-overview">
   <div class="section-heading">
     <p class="eyebrow">THE QUICK READ</p>
     <h2 id="dashboard-overview">Your website health at a glance</h2>
-    <p>Metrics are not connected yet. Values remain intentionally blank until a validated, privacy-safe data feed is available.</p>
+    <p id="dashboard-period">Values remain intentionally blank until a validated, privacy-safe dataset is available.</p>
   </div>
 
-  <div class="dashboard-grid" aria-label="Illustrative KPI cards">
+  <div class="dashboard-grid" aria-label="Aggregate website metrics">
     <article class="dashboard-card">
-      <p class="dashboard-kpi-label">Active users</p><p class="dashboard-kpi-value">—</p>
+      <p class="dashboard-kpi-label">Active users</p><p class="dashboard-kpi-value" data-metric="active_users">—</p>
       <p class="dashboard-kpi-note">People active in the selected period.</p><span class="dashboard-signal signal-neutral">Awaiting GA4</span>
     </article>
     <article class="dashboard-card">
-      <p class="dashboard-kpi-label">Engagement rate</p><p class="dashboard-kpi-value">—</p>
+      <p class="dashboard-kpi-label">Engagement rate</p><p class="dashboard-kpi-value" data-metric="engagement_rate">—</p>
       <p class="dashboard-kpi-note">Share of sessions that were engaged.</p><span class="dashboard-signal signal-neutral">Awaiting GA4</span>
     </article>
     <article class="dashboard-card">
-      <p class="dashboard-kpi-label">Organic search clicks</p><p class="dashboard-kpi-value">—</p>
+      <p class="dashboard-kpi-label">Organic search clicks</p><p class="dashboard-kpi-value" data-metric="organic_clicks">—</p>
       <p class="dashboard-kpi-note">Visits earned from Google Search results.</p><span class="dashboard-signal signal-neutral">Awaiting Search Console</span>
     </article>
     <article class="dashboard-card">
-      <p class="dashboard-kpi-label">Core Web Vitals</p><p class="dashboard-kpi-value">—</p>
+      <p class="dashboard-kpi-label">Core Web Vitals</p><p class="dashboard-kpi-value">Not connected</p>
       <p class="dashboard-kpi-note">Field experience for real visitors, where data is available.</p><span class="dashboard-signal signal-neutral">Awaiting CrUX / PSI</span>
     </article>
   </div>
@@ -72,7 +72,7 @@ sitemap: false
       <li>Keep credentials in the protected workflow/secret-management boundary. Never put service-account keys, OAuth refresh tokens, API secrets or raw provider responses in this static page, Git history, public artifacts or browser JavaScript.</li>
       <li>Keep public output aggregate-only and sanitized. <strong>Noindex is not access control.</strong> Show each metric's source, reporting period, last refresh and data gaps; label missing or delayed data instead of inventing values.</li>
     </ol>
-    <p class="dashboard-note">This GitHub Pages site is static. The planned data path is a trusted GitHub Actions workflow that publishes a validated, privacy-safe aggregate JSON dataset; it does not require a private application backend. Until that refresh/publish pipeline is implemented and validated, this page intentionally displays no fabricated metrics.</p>
+    <p class="dashboard-note">This static page reads only the validated public aggregate dataset. Core Web Vitals are not included in the first refresh pipeline. No user-level records or query-level search terms are published.</p>
   </aside>
 </section>
 
@@ -115,3 +115,39 @@ html[data-theme="dark"] .dashboard-kpi-label,html[data-theme="dark"] .dashboard-
 html[data-theme="light"] .dashboard-card,html[data-theme="light"] .dashboard-panel,html[data-theme="light"] .dashboard-next-steps{background:#fff;border-color:#d9e8f4}
 html[data-theme="light"] .dashboard-kpi-label,html[data-theme="light"] .dashboard-kpi-note,html[data-theme="light"] .dashboard-panel p,html[data-theme="light"] .dashboard-panel li,html[data-theme="light"] .dashboard-next-steps li{color:#52677d}
 </style>
+
+<script>
+(function () {
+  const status = document.getElementById("dashboard-connection-status");
+  const period = document.getElementById("dashboard-period");
+  const fmt = new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 });
+  const show = (key, value) => {
+    const node = document.querySelector('[data-metric="' + key + '"]');
+    if (!node || typeof value !== "number" || !Number.isFinite(value)) return;
+    if (key === "engagement_rate") node.textContent = (value * 100).toFixed(1) + "%";
+    else node.textContent = fmt.format(value);
+  };
+  fetch("{{ '/dashboard-data.json' | relative_url }}", { cache: "no-store" })
+    .then(response => { if (!response.ok) throw new Error("dataset_unavailable"); return response.json(); })
+    .then(data => {
+      if (data.schema_version !== 1 || !data.sources || !data.metrics) throw new Error("dataset_invalid");
+      Object.keys(data.metrics).forEach(key => show(key, data.metrics[key]));
+      const available = Object.values(data.sources).some(source => source && source.status === "available");
+      if (status) status.textContent = available ? "Connection status: Validated aggregate data available." : "Connection status: No publishable aggregate data available yet.";
+      if (period && data.reporting_period && data.reporting_period.start_date && data.reporting_period.end_date) {
+        period.textContent = "Reporting period: " + data.reporting_period.start_date + " to " + data.reporting_period.end_date + ". Data is aggregate-only and may be delayed.";
+      }
+      document.querySelectorAll(".dashboard-card").forEach(card => {
+        const metric = card.querySelector("[data-metric]");
+        if (!metric) return;
+        const sourceName = metric.dataset.metric === "organic_clicks" ? "search_console" : "ga4";
+        const source = data.sources[sourceName];
+        const signal = card.querySelector(".dashboard-signal");
+        if (signal && source) signal.textContent = source.status === "available" ? "Validated aggregate" : (source.status === "suppressed" ? "Low-volume data suppressed" : "Not available");
+      });
+    })
+    .catch(() => {
+      if (status) status.textContent = "Connection status: Dataset unavailable; no live values are shown.";
+    });
+})();
+</script>
