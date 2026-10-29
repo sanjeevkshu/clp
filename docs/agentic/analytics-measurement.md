@@ -78,3 +78,7 @@ Use aggregated reports. Avoid collecting personally identifiable information. Ke
 - The repository implementation does not publish GTM tags or configure GA4 property settings. The Google UI steps above remain a manual setup requirement.
 - GA4 data collection cannot be validated until the GA4 Google tag and event tags are configured in GTM.
 - The privacy notice and consent UX need owner review; this is not a substitute for jurisdiction-specific legal review.
+
+
+## Public webmaster dashboard boundary
+The public dashboard is a separate reporting surface, not a replacement for the site's consent-gated collection contract. It may expose only approved, sanitized aggregate metrics and must not receive raw events, identifiers, form text or arbitrary URL values. Consent approval does not authorize publishing unsafe data. Follow the [dashboard technical design](../WEBMASTER-DASHBOARD-DATA-PLAN.md), [functional inventory](public-analytics-dashboard-functional-inventory.md), and [privacy/security contract](public-analytics-dashboard.md). The dashboard's public route is noindex but remains publicly accessible; noindex is not access control.
