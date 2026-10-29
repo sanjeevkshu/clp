@@ -1,7 +1,16 @@
 import unittest
 from datetime import date, datetime, timezone
 
-from scripts.dashboard_refresh import build_dataset, safe_api_category, validate_dataset
+from scripts.dashboard_refresh import (average_engagement_time_seconds, build_dataset,
+                                         safe_api_category, validate_dataset)
+
+
+class EngagementMetricTests(unittest.TestCase):
+    def test_average_engagement_time_uses_active_users(self):
+        self.assertEqual(average_engagement_time_seconds(120.0, 10.0), 12.0)
+
+    def test_average_engagement_time_handles_zero_active_users(self):
+        self.assertEqual(average_engagement_time_seconds(120.0, 0.0), 0.0)
 
 
 class DashboardDiagnosticTests(unittest.TestCase):
