@@ -97,7 +97,9 @@ html[data-theme="dark"] .dashboard-hero .dashboard-status{background:#20d7f410;b
 .dashboard-kpi-label{font-size:.85rem;font-weight:800;color:var(--muted);margin:0}
 .dashboard-kpi-value{font-size:2.25rem;line-height:1.2;font-weight:850;letter-spacing:-.04em;margin:12px 0}
 .dashboard-kpi-note{font-size:.88rem;color:var(--muted);min-height:3em}
-.dashboard-signal{display:inline-flex;font-size:.73rem;font-weight:800;border-radius:99px;padding:5px 9px;background:#64748b18;color:var(--muted)}
+.dashboard-signal{display:inline-flex;font-size:.73rem;font-weight:800;border-radius:99px;padding:5px 9px;background:#64748b18}
+html[data-theme="light"] .dashboard-signal{color:#52677d;background:#e8eef5}
+html[data-theme="dark"] .dashboard-signal{color:#c4d2e2;background:#263d56}
 .dashboard-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:32px 0}
 .dashboard-panel h3{font-size:1.3rem;line-height:1.25;margin:8px 0 12px}
 .dashboard-panel p,.dashboard-panel li,.dashboard-next-steps li{color:var(--muted)}
