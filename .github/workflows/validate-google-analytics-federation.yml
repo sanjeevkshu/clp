@@ -69,36 +69,50 @@ jobs:
           from google.analytics.data_v1beta.types import DateRange, Metric, RunReportRequest
           from googleapiclient.discovery import build
 
-          credentials, _ = google.auth.default(
-              scopes=["https://www.googleapis.com/auth/analytics.readonly",
-                      "https://www.googleapis.com/auth/webmasters.readonly"]
-          )
+          def fail(stage):
+              # Never print provider exceptions: they may include request URLs or response details.
+              print(f"::error::Google API validation failed at stage: {stage}")
+              raise SystemExit(1)
+
+          try:
+              credentials, _ = google.auth.default(
+                  scopes=["https://www.googleapis.com/auth/analytics.readonly",
+                          "https://www.googleapis.com/auth/webmasters.readonly"]
+              )
+          except Exception:
+              fail("credential_loading")
 
           # Test GA4 authorization with a minimal aggregate report. Never print metric values.
-          ga4 = BetaAnalyticsDataClient(credentials=credentials)
-          ga4_response = ga4.run_report(
-              RunReportRequest(
-                  property=f"properties/{os.environ['GA4_PROPERTY_ID']}",
-                  date_ranges=[DateRange(start_date="7daysAgo", end_date="yesterday")],
-                  metrics=[Metric(name="sessions")],
-                  limit=1,
+          try:
+              ga4 = BetaAnalyticsDataClient(credentials=credentials)
+              ga4_response = ga4.run_report(
+                  RunReportRequest(
+                      property=f"properties/{os.environ['GA4_PROPERTY_ID']}",
+                      date_ranges=[DateRange(start_date="7daysAgo", end_date="yesterday")],
+                      metrics=[Metric(name="sessions")],
+                      limit=1,
+                  )
               )
-          )
+          except Exception:
+              fail("ga4_read_access")
           print(f"GA4 API authorization successful; rows returned: {len(ga4_response.rows)}")
 
           # Search Console data can be delayed; use the last complete days.
           end_date = date.today() - timedelta(days=3)
           start_date = end_date - timedelta(days=6)
-          gsc = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
-          response = gsc.searchanalytics().query(
-              siteUrl=os.environ["GSC_SITE_URL"],
-              body={
-                  "startDate": start_date.isoformat(),
-                  "endDate": end_date.isoformat(),
-                  "dimensions": ["page"],
-                  "rowLimit": 1,
-              },
-          ).execute()
+          try:
+              gsc = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
+              response = gsc.searchanalytics().query(
+                  siteUrl=os.environ["GSC_SITE_URL"],
+                  body={
+                      "startDate": start_date.isoformat(),
+                      "endDate": end_date.isoformat(),
+                      "dimensions": ["page"],
+                      "rowLimit": 1,
+                  },
+              ).execute()
+          except Exception:
+              fail("search_console_read_access")
           print(f"Search Console API authorization successful; rows returned: {len(response.get('rows', []))}")
           print("Google federation and read-access validation passed. No metric values were logged.")
           PY
