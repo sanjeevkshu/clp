@@ -106,8 +106,8 @@ def fetch_and_build() -> dict[str, Any]:
     from google.analytics.data_v1beta.types import DateRange, Metric, RunReportRequest
     from googleapiclient.discovery import build
 
-    # GA4 uses a trailing complete 28-day window. No dimensions or event names are requested.
-    end = date.today() - timedelta(days=1)
+    # Use the same completed 28-day window for both providers; Search Console has a longer delay.
+    end = date.today() - timedelta(days=3)
     start = end - timedelta(days=27)
     credentials, _ = google.auth.default(scopes=[
         "https://www.googleapis.com/auth/analytics.readonly",
@@ -130,8 +130,8 @@ def fetch_and_build() -> dict[str, Any]:
             "engagement_rate": values[2], "average_engagement_time_seconds": values[3]
         }
     # Search Console is queried only for aggregate totals; no query/page dimensions.
-    gsc_end = date.today() - timedelta(days=3)
-    gsc_start = gsc_end - timedelta(days=27)
+    gsc_end = end
+    gsc_start = start
     gsc = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
     response = gsc.searchanalytics().query(
         siteUrl=os.environ["GSC_SITE_URL"],
