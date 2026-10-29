@@ -71,6 +71,11 @@ def utc_now() -> datetime:
     return datetime.now(timezone.utc).replace(microsecond=0)
 
 
+def average_engagement_time_seconds(total_user_engagement_seconds: float, active_users: float) -> float:
+    """Calculate GA4 average engagement time per active user from supported API metrics."""
+    return total_user_engagement_seconds / active_users if active_users > 0 else 0.0
+
+
 def validate_dataset(data: Any, *, today: date | None = None) -> None:
     if not isinstance(data, dict) or set(data) != ALLOWED_TOP:
         raise ValueError("top_level_schema")
@@ -170,7 +175,7 @@ def fetch_and_build() -> dict[str, Any]:
             property=f"properties/{os.environ['GA4_PROPERTY_ID']}",
             date_ranges=[DateRange(start_date=start.isoformat(), end_date=end.isoformat())],
             metrics=[Metric(name="activeUsers"), Metric(name="sessions"),
-                     Metric(name="engagementRate"), Metric(name="averageEngagementTime")],
+                     Metric(name="engagementRate"), Metric(name="userEngagementDuration")],
             limit=1
         ))
         ga4_values = None
@@ -179,7 +184,7 @@ def fetch_and_build() -> dict[str, Any]:
             values = [float(x.value) for x in row.metric_values]
             ga4_values = {
                 "active_users": values[0], "sessions": values[1],
-                "engagement_rate": values[2], "average_engagement_time_seconds": values[3]
+                "engagement_rate": values[2], "average_engagement_time_seconds": average_engagement_time_seconds(values[3], values[0])
             }
     except Exception as exc:
         raise RefreshFailure("ga4_api", safe_api_category(exc)) from None
