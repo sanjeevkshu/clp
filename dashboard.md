@@ -66,13 +66,13 @@ sitemap: false
   <aside class="dashboard-next-steps">
     <h2>Connect real data safely</h2>
     <ol>
-      <li>Use a server-side integration with Google Analytics Data API and least-privilege access to the intended GA4 property.</li>
-      <li>Optionally connect Google Search Console and PageSpeed Insights / CrUX for search and performance signals.</li>
-      <li>Store credentials only in a protected backend or secret manager. Never put service-account keys, OAuth refresh tokens or API secrets in this static page, Git history, or browser JavaScript.</li>
-      <li>Keep public output aggregate-only and sanitized. <strong>Noindex is not access control.</strong></li>
-      <li>Show the date range, last refresh, source, comparison period and data gaps next to each KPI. Label missing or delayed data instead of inventing values.</li>
+      <li>Use a trusted, master-only GitHub Actions workflow with GitHub OIDC and Google Cloud Workload Identity Federation to read only the required aggregate fields from the approved GA4 property.</li>
+      <li>Optionally collect aggregate Google Search Console data and PageSpeed Insights / CrUX performance signals through the same controlled pipeline.</li>
+      <li>Normalize and validate a versioned, allowlisted dataset; apply privacy suppression, freshness checks and forbidden-field checks before publishing a static JSON dataset to GitHub Pages. Reject incomplete or unsafe candidates and preserve the last-known-good dataset.</li>
+      <li>Keep credentials in the protected workflow/secret-management boundary. Never put service-account keys, OAuth refresh tokens, API secrets or raw provider responses in this static page, Git history, public artifacts or browser JavaScript.</li>
+      <li>Keep public output aggregate-only and sanitized. <strong>Noindex is not access control.</strong> Show each metric's source, reporting period, last refresh and data gaps; label missing or delayed data instead of inventing values.</li>
     </ol>
-    <p class="dashboard-note">This GitHub Pages site is static. A live private dashboard needs a separate authenticated data layer; until that is provisioned, the page intentionally displays no fabricated metrics.</p>
+    <p class="dashboard-note">This GitHub Pages site is static. The planned data path is a trusted GitHub Actions workflow that publishes a validated, privacy-safe aggregate JSON dataset; it does not require a private application backend. Until that refresh/publish pipeline is implemented and validated, this page intentionally displays no fabricated metrics.</p>
   </aside>
 </section>
 
