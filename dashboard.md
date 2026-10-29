@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Webmaster Dashboard"
+title: "Health Board"
 description: "A practical CLP webmaster dashboard for website usage, engagement, search visibility and performance signals."
 permalink: /dashboard/
 noindex: true
@@ -8,17 +8,17 @@ sitemap: false
 ---
 
 <section class="page-hero dashboard-hero">
-  <p class="eyebrow">CLP WEBMASTER WORKSPACE</p>
+  <p class="eyebrow">CLP HEALTH BOARD</p>
   <h1>Website signals, <span>made clear.</span></h1>
   <p class="hero-lede">A single place to understand whether people are finding CLP, engaging with learning resources, and experiencing a fast, reliable website.</p>
-  <p class="dashboard-status"><strong>Connection status:</strong> Demo view — Google Analytics and Search Console data are not connected yet.</p>
+  <p class="dashboard-status"><strong>Connection status:</strong> Not connected — Google Analytics and Search Console data are not available yet.</p>
 </section>
 
 <section class="content-section dashboard-content" aria-labelledby="dashboard-overview">
   <div class="section-heading">
     <p class="eyebrow">THE QUICK READ</p>
     <h2 id="dashboard-overview">Your website health at a glance</h2>
-    <p>Sample values below demonstrate the intended experience. They are not live CLP measurements and must not be used for business decisions.</p>
+    <p>Metrics are not connected yet. Values remain intentionally blank until a validated, privacy-safe data feed is available.</p>
   </div>
 
   <div class="dashboard-grid" aria-label="Illustrative KPI cards">
@@ -69,7 +69,7 @@ sitemap: false
       <li>Use a server-side integration with Google Analytics Data API and least-privilege access to the intended GA4 property.</li>
       <li>Optionally connect Google Search Console and PageSpeed Insights / CrUX for search and performance signals.</li>
       <li>Store credentials only in a protected backend or secret manager. Never put service-account keys, OAuth refresh tokens or API secrets in this static page, Git history, or browser JavaScript.</li>
-      <li>Restrict dashboard access with an identity-aware proxy or authenticated service. <strong>Noindex is not authentication.</strong></li>
+      <li>Keep public output aggregate-only and sanitized. <strong>Noindex is not access control.</strong></li>
       <li>Show the date range, last refresh, source, comparison period and data gaps next to each KPI. Label missing or delayed data instead of inventing values.</li>
     </ol>
     <p class="dashboard-note">This GitHub Pages site is static. A live private dashboard needs a separate authenticated data layer; until that is provisioned, the page intentionally displays no fabricated metrics.</p>
@@ -78,6 +78,17 @@ sitemap: false
 
 <style>
 .dashboard-hero{min-height:360px;padding-top:58px;padding-bottom:58px}
+.dashboard-hero .hero-lede{max-width:700px}
+.dashboard-hero .dashboard-status{max-width:100%;color:inherit}
+html[data-theme="light"] .dashboard-hero{background:linear-gradient(135deg,#f5faff 0%,#eaf5fb 68%,#e2f0f8 100%);color:#10243e}
+html[data-theme="light"] .dashboard-hero .eyebrow{color:#075b70}
+html[data-theme="light"] .dashboard-hero h1,
+html[data-theme="light"] .dashboard-hero h1 span{color:#10243e}
+html[data-theme="light"] .dashboard-hero h1 span{background:linear-gradient(90deg,#00647b,#5140a8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html[data-theme="light"] .dashboard-hero .hero-lede{color:#334d64}
+html[data-theme="light"] .dashboard-hero .dashboard-status{background:#ffffffb8;border-color:#b8d6e5;color:#18364f}
+html[data-theme="dark"] .dashboard-hero .hero-lede{color:#d7e8fa}
+html[data-theme="dark"] .dashboard-hero .dashboard-status{background:#20d7f410;border-color:#20d7f466;color:#d7e8fa}
 .dashboard-hero h1{max-width:900px}
 .dashboard-status{display:inline-block;margin-top:16px;padding:10px 14px;border:1px solid #20d7f466;border-radius:12px;background:#20d7f410;font-size:.92rem}
 .dashboard-content{max-width:1200px;margin:0 auto;padding:24px clamp(20px,4vw,48px) 72px}
@@ -96,5 +107,8 @@ sitemap: false
 .dashboard-note{padding-top:12px;border-top:1px solid var(--line);font-size:.9rem}
 @media(max-width:900px){.dashboard-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.dashboard-grid,.dashboard-panels{grid-template-columns:1fr}.dashboard-card,.dashboard-panel,.dashboard-next-steps{padding:18px}.dashboard-hero{min-height:unset}}
-@media(prefers-color-scheme:dark){.dashboard-card,.dashboard-panel,.dashboard-next-steps{background:var(--ocean-2);border-color:#ffffff20}.dashboard-kpi-label,.dashboard-kpi-note,.dashboard-panel p,.dashboard-panel li,.dashboard-next-steps li{color:#b8cbe0}}
+html[data-theme="dark"] .dashboard-card,html[data-theme="dark"] .dashboard-panel,html[data-theme="dark"] .dashboard-next-steps{background:var(--ocean-2);border-color:#ffffff20}
+html[data-theme="dark"] .dashboard-kpi-label,html[data-theme="dark"] .dashboard-kpi-note,html[data-theme="dark"] .dashboard-panel p,html[data-theme="dark"] .dashboard-panel li,html[data-theme="dark"] .dashboard-next-steps li{color:#b8cbe0}
+html[data-theme="light"] .dashboard-card,html[data-theme="light"] .dashboard-panel,html[data-theme="light"] .dashboard-next-steps{background:#fff;border-color:#d9e8f4}
+html[data-theme="light"] .dashboard-kpi-label,html[data-theme="light"] .dashboard-kpi-note,html[data-theme="light"] .dashboard-panel p,html[data-theme="light"] .dashboard-panel li,html[data-theme="light"] .dashboard-next-steps li{color:#52677d}
 </style>
