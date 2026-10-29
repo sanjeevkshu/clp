@@ -1,0 +1,20 @@
+{
+  "generated_at_utc": null,
+  "limitations": [
+    "No successful automated refresh has published data yet.",
+    "Only aggregate totals are intended for publication; no user-level records or query-level search terms are exposed."
+  ],
+  "metrics": {},
+  "reporting_period": null,
+  "schema_version": 1,
+  "sources": {
+    "ga4": {
+      "label": "Google Analytics 4",
+      "status": "unavailable"
+    },
+    "search_console": {
+      "label": "Google Search Console",
+      "status": "unavailable"
+    }
+  }
+}
