@@ -64,4 +64,4 @@ The shared header and footer use the approved dark/light Vriksha PNG pair and sw
 - [Functional inventory and acceptance matrix](public-analytics-dashboard-functional-inventory.md) — capability-by-capability current/planned status and release gates.
 - [Privacy/security contract](public-analytics-dashboard.md) and [portable implementation skill](../../skills/public-analytics-dashboard/SKILL.md).
 
-Treat the dashboard shell and federation validation workflow on PR #21 as unmerged until verified otherwise. The manual validation workflow is not the scheduled refresh pipeline. Check PR head, latest Actions run, and exact-SHA preview before stating status.
+The dashboard shell and manual federation validation workflow are merged to `master`; the owner reports the validation workflow now succeeds after the audience fix. The follow-on `feature/dashboard-data-refresh` PR adds aggregate refresh and publication. The manual validation workflow is not the refresh pipeline. Verify the PR head, credential-free test workflow, exact-SHA preview, publication approval gate, and first successful refresh before describing the dashboard as live.
