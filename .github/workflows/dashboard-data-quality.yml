@@ -1,0 +1,33 @@
+name: Dashboard Data Quality
+
+on:
+  pull_request:
+    paths:
+      - "scripts/dashboard_refresh.py"
+      - "tests/test_dashboard_refresh.py"
+      - "dashboard-data.json"
+      - ".github/workflows/refresh-public-dashboard.yml"
+      - ".github/workflows/dashboard-data-quality.yml"
+  push:
+    branches: [master]
+    paths:
+      - "scripts/dashboard_refresh.py"
+      - "tests/test_dashboard_refresh.py"
+      - "dashboard-data.json"
+      - ".github/workflows/refresh-public-dashboard.yml"
+      - ".github/workflows/dashboard-data-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run privacy and schema tests without Google credentials
+        run: python -m unittest tests.test_dashboard_refresh -v
