@@ -206,6 +206,13 @@ def fetch_and_build() -> dict[str, Any]:
                 "search_ctr": float(row.get("ctr", 0)),
                 "average_position": float(row.get("position", 0))
             }
+        else:
+            # A successful API call with an empty aggregate response is not an API failure.
+            # Keep the public schema unchanged and emit only a safe, non-sensitive diagnostic.
+            print(
+                "Search Console API call succeeded but returned no aggregate rows "
+                "for the configured site and completed reporting window."
+            )
     except Exception as exc:
         raise RefreshFailure("search_console_api", safe_api_category(exc)) from None
 
