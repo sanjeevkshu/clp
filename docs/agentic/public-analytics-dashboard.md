@@ -49,3 +49,9 @@ This is an engineering baseline, not legal advice or certification. Review the a
 - Google Analytics safeguards / PII: https://support.google.com/analytics/answer/6004245
 - Google Cloud authentication: https://cloud.google.com/docs/authentication
 - MeitY DPDP Rules, 2025: https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa
+
+
+## Implementation status and source of truth (2026-10-29)
+The current feature branch/PR #21 contains the static dashboard shell, baseline noindex/sitemap/navigation checks, this privacy contract, the portable skill, and a manual-only GitHub OIDC/WIF access-validation workflow. The PR is unmerged. The workflow has not yet demonstrated actual Google API access, and the scheduled/manual data refresh, public JSON schema validator, synthetic privacy tests, atomic publication and last-known-good fallback are still planned. Never describe the dashboard as live until each stage has evidence.
+
+Use the [technical design](../WEBMASTER-DASHBOARD-DATA-PLAN.md) and [functional inventory](public-analytics-dashboard-functional-inventory.md) as the feature-specific operational source of truth. Update both, this contract, the skill, the handbook index and decision log when behavior changes.
