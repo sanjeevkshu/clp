@@ -133,9 +133,13 @@ html[data-theme="light"] .dashboard-kpi-label,html[data-theme="light"] .dashboar
       if (data.schema_version !== 1 || !data.sources || !data.metrics) throw new Error("dataset_invalid");
       Object.keys(data.metrics).forEach(key => show(key, data.metrics[key]));
       const available = Object.values(data.sources).some(source => source && source.status === "available");
-      if (status) status.textContent = available ? "Connection status: Validated aggregate data available." : "Connection status: No publishable aggregate data available yet.";
+      const generated = data.generated_at_utc ? Date.parse(data.generated_at_utc) : NaN;
+      const stale = !Number.isFinite(generated) || (Date.now() - generated) > 10 * 24 * 60 * 60 * 1000;
+      if (status) status.textContent = stale && available
+        ? "Connection status: Showing last-known-good aggregate data; refresh is stale."
+        : (available ? "Connection status: Validated aggregate data available." : "Connection status: No publishable aggregate data available yet.");
       if (period && data.reporting_period && data.reporting_period.start_date && data.reporting_period.end_date) {
-        period.textContent = "Reporting period: " + data.reporting_period.start_date + " to " + data.reporting_period.end_date + ". Data is aggregate-only and may be delayed.";
+        period.textContent = "Reporting period: " + data.reporting_period.start_date + " to " + data.reporting_period.end_date + ". Last refresh: " + (data.generated_at_utc || "unknown") + ". Data is aggregate-only and may be delayed.";
       }
       document.querySelectorAll(".dashboard-card").forEach(card => {
         const metric = card.querySelector("[data-metric]");
