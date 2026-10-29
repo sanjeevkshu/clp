@@ -1,6 +1,6 @@
 # CLP Public Webmaster Dashboard — Technical Design
 
-**Status:** Design approved; implementation in progress on PR #21. The static dashboard shell and a manual Google federation/access-validation workflow are committed on the feature branch. The production refresh/publish pipeline is **not implemented or validated yet**.
+**Status (2026-10-29):** The static dashboard shell and manual Google federation/access-validation workflow are merged to `master`. The owner reports the federation validation workflow now succeeds. This feature branch adds the first refresh/publish implementation for review; scheduled publication, real metric output, and production rendering remain unverified until the PR is reviewed, merged, and the refresh workflow succeeds.
 **Owner intent:** Public, transparent, aggregate-only website health reporting.
 **Canonical route:** `/dashboard/`
 **Primary sources:** GA4 Data API, Google Search Console API; PageSpeed Insights / CrUX is a later optional source. CI/deployment health comes from GitHub Actions, not Google APIs.
@@ -42,6 +42,7 @@ GitHub Pages is static; browser JavaScript must never authenticate to Google or 
 Preferred auth is short-lived GitHub OIDC → Google Cloud Workload Identity Federation, not a long-lived service-account JSON key.
 
 Repository variables (identifiers, not secrets):
+- `DASHBOARD_PUBLISH_APPROVED`: exact string `true` only after owner review of metrics, suppression, consent/GTM behavior and public release; leave unset/false until approved.
 - `GCP_PROJECT_ID`: Google Cloud project ID.
 - `GCP_WIF_PROVIDER`: full provider resource `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/github-clp/providers/clp-repository`.
 - `GCP_SERVICE_ACCOUNT`: dedicated service-account email.
@@ -99,10 +100,10 @@ Use an explicit allowlisted, versioned schema (e.g. `schema_version`, `generated
 - No merge or production changes without explicit owner approval.
 
 ## 9. Current implementation and next sequence
-1. **Implemented on PR #21, unmerged:** static shell; noindex/sitemap/navigation guardrails; privacy contract and portable skill; bounded whitespace-only remediation; manual WIF/GA4/GSC access-validation workflow.
-2. **Not yet verified:** latest exact-SHA preview and Google API authentication. PR checks passing do not prove Google auth.
-3. **Next:** owner merges PR #21 after review; ensure five repository variables are present; manually run “Validate Google Analytics Federation” on `master`; diagnose auth/property permissions based on result.
-4. **Then implement:** typed internal data model, public JSON schema, synthetic privacy tests, aggregate refresh workflow, safe publication/fallback, dashboard rendering from dataset, methodology/freshness UI.
+1. **Merged to master:** static shell; noindex/sitemap/navigation guardrails; privacy contract and portable skill; manual WIF/GA4/GSC access-validation workflow.
+2. **Owner-reported validation:** the manual federation workflow now succeeds after the audience configuration fix. The connected GitHub interface could not independently retrieve the run record during this session.
+3. **In this PR:** typed aggregate dataset builder, allowlisted schema checks, low-volume GA4 suppression, synthetic tests, trusted scheduled/manual refresh workflow, safe candidate validation, and dashboard rendering from the public dataset.
+4. **Still to verify:** exact-SHA preview; PR checks; a successful refresh run on `master`; actual dashboard data publication and UI rendering; protected-branch push compatibility.
 5. **Before live data:** review metrics and suppression rules; confirm consent/GTM state and Google property settings; validate generated public file and exact production release with owner approval.
 
 ## Related source of truth

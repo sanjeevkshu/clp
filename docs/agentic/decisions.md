@@ -62,3 +62,11 @@ Record durable decisions here. Add new entries in reverse chronological order. E
 - **AI features:** Is any public-facing AI functionality planned? Current AI-assisted development does not imply an AI runtime on the site.
 - **Content ownership:** Who approves factual, brand, legal, and accessibility-sensitive content changes?
 - **Structured data:** Which page types warrant additional schema after review of rendered output and current search guidance?
+
+
+## 2026-10-29 — Public dashboard data refresh rollout
+- **Decision:** Implement aggregate-only GA4 and Search Console refresh through a scheduled/manual GitHub Actions workflow using GitHub OIDC/WIF. Keep the dashboard public but publish only a versioned allowlisted JSON dataset; no page/query dimensions or user-level data are fetched.
+- **Safety controls:** Suppress GA4 metrics when active users are fewer than 10; validate schema, date freshness, numeric ranges and unknown fields; preserve the last-known-good dataset by preventing the publish job from running unless the read-only refresh job fully succeeds. The UI labels datasets older than 10 days as stale.
+- **Approval gate:** The refresh workflow must not access Google APIs or publish until repository variable `DASHBOARD_PUBLISH_APPROVED=true` is explicitly set after owner review of the metric set, consent/GTM behavior, suppression policy, privacy/methodology disclosure and production preview.
+- **Permissions:** Separate the OIDC read job (`contents: read`, `id-token: write`) from the write-enabled publish job (`contents: write` only). The publish job receives only the sanitized candidate artifact.
+- **Status:** Implemented on `feature/dashboard-data-refresh` for PR review. Do not enable the approval variable or claim live metrics until tests, exact-SHA preview and release checks pass.

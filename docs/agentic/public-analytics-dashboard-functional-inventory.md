@@ -1,7 +1,8 @@
 # Public Webmaster Dashboard — Functional Inventory and Acceptance Matrix
 
-**Status snapshot:** 2026-10-29. This inventory describes the intended feature and explicitly distinguishes what exists on PR #21 from what is still future work. Recheck the PR head and workflow evidence before relying on status labels.
-**PR:** https://github.com/sanjeevkshu/clp/pull/21
+**Status snapshot:** 2026-10-29. The static dashboard and manual federation validation are merged to master. The follow-on `feature/dashboard-data-refresh` PR adds a refresh/publish implementation; do not treat it as production until merged, approved and successfully run.
+**Foundation PR:** https://github.com/sanjeevkshu/clp/pull/21
+**Refresh implementation branch:** `feature/dashboard-data-refresh` (PR to be opened)
 **Route:** `/dashboard/`
 **Technical design:** [Webmaster Dashboard Data Plan](../WEBMASTER-DASHBOARD-DATA-PLAN.md)
 
@@ -19,9 +20,9 @@
 | DASH-002 | Discoverability controls | `noindex,follow`; excluded from sitemap; absent from header nav; linked in footer Resources. CI guards these invariants. | Implemented / unmerged; verify latest exact-SHA preview |
 | DASH-003 | Honest empty state | Do not imply data is live before integration; missing metrics show unavailable/awaiting-source states. | Implemented / unmerged |
 | DASH-004 | KPI overview | Aggregate acquisition, engagement, organic search and performance metrics with definitions. | UI shell exists; live values planned |
-| DASH-005 | Acquisition trends | GA4 aggregate sessions/users/engaged sessions, approved broad channel and landing-page groups. | Planned |
-| DASH-006 | Engagement trends | Engagement rate/time and approved aggregate content/CTA events. | Planned; event collection governed by consent docs |
-| DASH-007 | Search visibility | Search Console clicks, impressions, CTR and average position; sensitive query dimensions excluded unless reviewed. | Planned |
+| DASH-005 | Acquisition trends | GA4 aggregate active users, sessions and approved aggregate metrics. | Implemented in refresh PR; not yet production-verified |
+| DASH-006 | Engagement trends | GA4 engagement rate and average engagement time. | Implemented in refresh PR; event-level content/CTA dimensions remain out of scope |
+| DASH-007 | Search visibility | Aggregate Search Console clicks, impressions, CTR and average position; no query/page dimensions. | Implemented in refresh PR; not yet production-verified |
 | DASH-008 | Performance signals | Field Core Web Vitals where available; label lab tests separately; show sample/coverage caveats. | Planned; optional PSI/CrUX source |
 | DASH-009 | Website engineering health | Display verified CI/deployment/SEO/sitemap health, with run timestamp and source. | Planned integration; existing CI checks are separate |
 | DASH-010 | Period comparisons | Compare equivalent, clearly labeled periods; avoid asserting causality from correlation. | Planned |
@@ -32,20 +33,20 @@
 | AUTH-003 | Least privilege | Service account read-only to intended GA4 property and Search Console property. | Configured per owner report; verify by successful API test |
 | AUTH-004 | Configuration | Repository variables `GCP_PROJECT_ID`, `GCP_WIF_PROVIDER`, `GCP_SERVICE_ACCOUNT`, `GA4_PROPERTY_ID`, `GSC_SITE_URL`. | Owner reports Step 7 complete; values inaccessible to this review |
 | PIPE-001 | Manual access test | On trusted master, verify OIDC auth and minimal aggregate reads from both APIs; logs contain status/row counts only. | Implemented /unrun |
-| PIPE-002 | Scheduled refresh | Weekly Monday 03:30 UTC (09:00 IST), plus manual dispatch. | Planned |
-| PIPE-003 | Minimal data fetch | Request only approved fields and date windows; avoid raw/user-level exports. | Planned |
-| PIPE-004 | Normalize and allowlist | Convert source responses to typed internal model and strict versioned public schema; unknown keys fail closed. | Planned |
-| PIPE-005 | Privacy suppression | Proposed initial threshold <10 per segment plus rare-category and differencing-risk review. | Planned |
+| PIPE-002 | Scheduled refresh | Weekly Monday 03:30 UTC (09:00 IST), plus manual dispatch; gated by `DASHBOARD_PUBLISH_APPROVED=true`. | Implemented in refresh PR; not yet production-verified |
+| PIPE-003 | Minimal data fetch | Request only aggregate GA4 metrics and aggregate Search Console totals, with no dimensions. | Implemented in refresh PR; not yet production-verified |
+| PIPE-004 | Normalize and allowlist | Convert source responses to a versioned allowlisted public schema; unknown keys fail closed. | Implemented in refresh PR; not yet production-verified |
+| PIPE-005 | Privacy suppression | Suppress all GA4 metric values when active users are fewer than 10; no high-cardinality dimensions are fetched. | Implemented in refresh PR; owner must approve public release |
 | PIPE-006 | Forbidden-field detection | Reject PII, identifiers, form text, raw events, raw provider payloads, secrets, full query URLs, stack traces and unknown fields. | Planned |
-| PIPE-007 | Atomic publish | Publish only complete validated candidate; no partial update. | Planned |
-| PIPE-008 | Last-known-good fallback | On API, schema, privacy or freshness failure, retain prior dataset and expose safe stale/error state. | Planned |
-| PIPE-009 | Synthetic negative tests | Test PII-like fields, small cohorts, rare dimensions, malformed/stale data, missing source and partial failures. | Planned |
+| PIPE-007 | Atomic publish | Candidate is generated and validated before a separate write-enabled job replaces the single dataset file. | Implemented in refresh PR; not yet production-verified |
+| PIPE-008 | Last-known-good fallback | Failed refresh leaves prior dataset unchanged; UI labels data older than 10 days as stale. | Implemented in refresh PR; not yet production-verified |
+| PIPE-009 | Synthetic negative tests | Test small cohorts, unknown fields, malformed/stale periods and invalid metric ranges in credential-free CI. | Implemented in refresh PR; broader rare-dimension/partial-source cases remain to add |
 | PIPE-010 | Logs and artifacts | Never publish raw API responses, credentials, identifiers, metric values in validation logs, or sensitive artifacts. | Validation workflow avoids metric values; refresh guardrails planned |
 | PRIV-001 | Consent consistency | Keep GA4/GTM collection behind approved consent behavior; consent is not permission to publish unsafe fields. | Existing consent contract documented; production configuration/release state must be rechecked |
 | PRIV-002 | Public disclosure | Public output is safe for anyone; noindex is not access control. Provide methodology/privacy context. | Contract documented; dashboard UI additions planned |
 | QA-001 | Build and static guardrails | Jekyll build, SEO/sitemap tests, dashboard placement checks. | CI present; verify current run |
 | QA-002 | Preview exact revision | Confirm preview deployment matches current PR head SHA and inspect mobile/desktop. | Older preview exists; latest SHA verification pending |
-| QA-003 | Failure safety | Demonstrate failed refresh cannot replace good dataset. | Planned |
+| QA-003 | Failure safety | Candidate validation runs before write-enabled publication; failed refresh job prevents publish job from running. | Implemented in refresh PR; verify with workflow test after merge |
 | REL-001 | Owner release gate | No merge or production changes without explicit owner approval. | Mandatory policy |
 | KB-001 | Model-neutral knowledge | Keep technical design, functional inventory, security contract, skill, handbook links, decision log and workflow instructions synchronized in PR. | This inventory added in PR; sync remainder underway |
 
@@ -89,3 +90,7 @@ Metric definitions, source API fields, units, date ranges, null behavior and com
 
 ## Change control
 Any new metric, dimension, API, GTM tag, event parameter, threshold, refresh frequency, public field, credential scope or publication behavior requires owner approval and updates to this inventory, technical design, security contract, portable skill, and decision log in the same PR.
+
+
+## Release gate added in refresh implementation
+The scheduled/manual refresh workflow requires repository variable `DASHBOARD_PUBLISH_APPROVED=true`. Keep it unset until the owner reviews the public metric set, GA4 consent/GTM behavior, suppression policy, privacy notice/methodology and production preview. The credential-bearing job has `contents: read` plus `id-token: write`; a separate publish job receives only the validated aggregate JSON and has `contents: write`. No public metric values should be published until the approval gate is intentionally enabled.

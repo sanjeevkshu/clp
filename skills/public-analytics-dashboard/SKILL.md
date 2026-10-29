@@ -9,7 +9,7 @@ description: Securely implement and operate CLP's public aggregate analytics das
 Read `AGENTS.md`, `docs/WEBMASTER-DASHBOARD-DATA-PLAN.md`, `docs/agentic/public-analytics-dashboard-functional-inventory.md`, `docs/agentic/public-analytics-dashboard.md`, `docs/agentic/analytics-measurement.md`, and `docs/agentic/decisions.md`.
 
 ## Current implementation boundary
-The static `/dashboard/` shell and the manual-only `Validate Google Analytics Federation` workflow are present on PR #21's feature branch. The validation workflow is restricted to `master`, checks repository variables, authenticates using GitHub OIDC/WIF, and performs minimal read-only GA4 and Search Console requests. It is not the refresh/publish pipeline. Do not claim real Google access until the workflow has run successfully on `master`; do not claim live dashboard metrics until the separate refresh pipeline, schema validation, privacy tests, publication and UI integration are implemented and verified.
+The static `/dashboard/` shell and manual-only `Validate Google Analytics Federation` workflow are merged to `master`. The owner reports that the validation workflow now succeeds after the provider-audience fix; independently confirm run evidence when available. The `feature/dashboard-data-refresh` PR adds a trusted scheduled/manual refresh, allowlisted aggregate JSON, low-volume suppression, schema tests and static UI integration. Do not claim live dashboard metrics until the PR is reviewed/merged and the first refresh is successful with safe data published.
 
 ## Before changing the pipeline
 1. Record data source, purpose, metrics, dimensions, reporting period, refresh cadence and audience.
