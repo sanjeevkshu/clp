@@ -47,9 +47,8 @@ class DashboardDatasetTests(unittest.TestCase):
             validate_dataset(data, today=date(2026, 10, 29))
 
     def test_stale_period_fails(self):
-        data = build_dataset(None, None, date(2026, 9, 1), date(2026, 9, 2), self.now)
         with self.assertRaisesRegex(ValueError, "stale_reporting_period"):
-            validate_dataset(data, today=date(2026, 10, 29))
+            build_dataset(None, None, date(2026, 9, 1), date(2026, 9, 2), self.now)
 
 
 if __name__ == "__main__":
