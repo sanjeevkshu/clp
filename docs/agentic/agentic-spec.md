@@ -86,6 +86,7 @@ Use only the skills relevant to the task, but combine them for cross-cutting wor
 - New page/article/FAQ: Content Patterns + Design Language + Digital Assets + QA + AI Readiness.
 - Image/logo work: Digital Assets + Design Language + QA.
 - Metadata/schema/answerability: AI Readiness + Content Patterns + QA.
+- Any feature/enhancement/integration: Feature Development + the relevant domain skill(s); its mandatory documentation synchronization phase is performed by the feature author/agent, not enforced as a GitHub Actions documentation gate.
 - Any push/PR/deploy: Release Engineering + QA.
 - Cross-cutting component: Architecture + the component-specific skill + QA + Release Engineering.
 
@@ -166,7 +167,11 @@ Both shared header and footer MUST use the approved `clp-vriksha-logo-dark.png` 
 Both shared header and footer MUST use the approved `clp-vriksha-logo-dark.png` and `clp-vriksha-logo-light.png` repository assets. Variant selection follows the active root theme set by `assets/js/main.js`; do not infer theme from viewport or page type. Preserve asset files unchanged and do not apply color-altering filters. Keep layout sizing separate from theme selection and validate both themes at desktop and mobile sizes.
 
 
-## 10. Public analytics dashboard integration contract
+## 10. Feature development and documentation readiness
+
+Every feature MUST use [Feature Development Skill](../../skills/feature-development/SKILL.md) from framing through handover. The feature is not ready until its author/agent has performed the self-inclusive documentation review using [Documentation Synchronization Skill](../../skills/documentation-sync/SKILL.md). This is a contextual development responsibility, not a GitHub Actions documentation gate. Automated checks may validate links/builds but cannot replace the review. The PR must record which documentation was updated, linked as authoritative, or intentionally unchanged with rationale.
+
+## 11. Public analytics dashboard integration contract
 
 For any work on the public webmaster dashboard or Google reporting integration, the agent MUST read:
 - [Technical design](../WEBMASTER-DASHBOARD-DATA-PLAN.md)
