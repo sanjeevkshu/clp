@@ -127,7 +127,7 @@ def fetch_and_build() -> dict[str, Any]:
     ga4_values = None
     if ga4_response.rows:
         row = ga4_response.rows[0]
-        values = [float(x) for x in row.metric_values]
+        values = [float(x.value) for x in row.metric_values]
         ga4_values = {
             "active_users": values[0], "sessions": values[1],
             "engagement_rate": values[2], "average_engagement_time_seconds": values[3]
