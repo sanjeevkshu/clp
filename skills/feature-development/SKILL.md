@@ -38,7 +38,7 @@ For cross-cutting work, identify the authoritative source of truth and avoid dup
 5. Update operational instructions when implementation changes how the feature is configured, tested, deployed, supported or recovered.
 
 ### 4. Self-inclusive documentation review — mandatory before feature is ready
-The feature author/agent MUST run the [Documentation Synchronization Skill](documentation-sync/SKILL.md) as a named step in the feature workflow. Treat it as a review of the feature being developed, not as a separate later cleanup task.
+The feature author/agent MUST run the [Documentation Synchronization Skill](../documentation-sync/SKILL.md) as a named step in the feature workflow. Treat it as a review of the feature being developed, not as a separate later cleanup task.
 
 Review these targets and update only those relevant to the feature:
 - `README.md`: user-facing project capabilities, setup, or status if affected.
@@ -90,6 +90,6 @@ Feature readiness means documentation and implementation agree; it does not itse
 
 ## Relationship to other skills
 
-- Always use [Documentation Synchronization Skill](documentation-sync/SKILL.md) as the mandatory documentation-review phase.
+- Always use [Documentation Synchronization Skill](../documentation-sync/SKILL.md) as the mandatory documentation-review phase.
 - Combine with architecture, design-language, content-patterns, digital-assets, QA/accessibility, release-engineering, AI-readiness, analytics or domain-specific skills as appropriate.
 - This skill is a model-neutral process guide, not a permission grant. `AGENTS.md` and explicit owner approvals take precedence.
