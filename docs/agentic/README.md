@@ -17,6 +17,7 @@
 ## Portable skills
 Skills are plain Markdown with a small YAML front matter header. They contain task-specific checklists and acceptance criteria and do not depend on a model API or a proprietary agent framework.
 
+- [Feature development skill](../../skills/feature-development/SKILL.md) — required for every feature; includes self-inclusive documentation review as part of development, not a GitHub Actions gate.
 - [Architecture skill](../../skills/architecture/SKILL.md)
 - [Design language skill](../../skills/design-language/SKILL.md)
 - [Content patterns skill](../../skills/content-patterns/SKILL.md)
@@ -56,3 +57,11 @@ Every implementation PR must use the [documentation synchronization skill](../..
 
 ### Theme-aware logo assets
 The shared header and footer use the approved dark/light Vriksha PNG pair and swap according to the active theme. See the design-language and digital-assets documents for the implementation contract and validation requirements.
+
+
+## Public webmaster dashboard and analytics integration
+- [Technical design](../WEBMASTER-DASHBOARD-DATA-PLAN.md) — architecture, trust boundaries, WIF identity, data contract, publication safety and rollout sequence.
+- [Functional inventory and acceptance matrix](public-analytics-dashboard-functional-inventory.md) — capability-by-capability current/planned status and release gates.
+- [Privacy/security contract](public-analytics-dashboard.md) and [portable implementation skill](../../skills/public-analytics-dashboard/SKILL.md).
+
+Treat the dashboard shell and federation validation workflow on PR #21 as unmerged until verified otherwise. The manual validation workflow is not the scheduled refresh pipeline. Check PR head, latest Actions run, and exact-SHA preview before stating status.

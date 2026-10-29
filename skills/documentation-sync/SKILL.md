@@ -5,9 +5,11 @@ description: Keep project documentation and model-neutral agentic guidance synch
 
 # Documentation synchronization skill
 
-## Trigger
+## Trigger and relationship to feature development
 
-Run this skill for every PR that changes website behavior, content, architecture, routes, design, digital assets, integrations, CI/CD, analytics, SEO/AI readiness, security, or release procedures. It is mandatory for website changes, not an optional cleanup task.
+The [Feature Development Skill](../feature-development/SKILL.md) MUST invoke this skill as a self-inclusive documentation-review phase for every feature, enhancement, integration, or meaningful behavior change. Run this skill while the feature is being developed and before handover/review—not as a separate post-implementation cleanup.
+
+This is an author/agent responsibility and contextual review, not a GitHub Actions documentation gate. Do not create or depend on a workflow that mechanically decides which documents must change. Automated checks can validate links/builds, but they cannot replace this review.
 
 ## Procedure
 
