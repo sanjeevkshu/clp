@@ -42,6 +42,7 @@ GitHub Pages is static; browser JavaScript must never authenticate to Google or 
 Preferred auth is short-lived GitHub OIDC → Google Cloud Workload Identity Federation, not a long-lived service-account JSON key.
 
 Repository variables (identifiers, not secrets):
+- `DASHBOARD_PUBLISH_APPROVED`: exact string `true` only after owner review of metrics, suppression, consent/GTM behavior and public release; leave unset/false until approved.
 - `GCP_PROJECT_ID`: Google Cloud project ID.
 - `GCP_WIF_PROVIDER`: full provider resource `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/github-clp/providers/clp-repository`.
 - `GCP_SERVICE_ACCOUNT`: dedicated service-account email.
