@@ -79,3 +79,11 @@ Use `assets/images/clp-vriksha-logo-dark.png` and `assets/images/clp-vriksha-log
 - Hero image/overlay behavior must be intentional: keep text readable without hiding the image or creating a harsh rectangular patch. If a page has no hero image, use a coherent theme-aware surface rather than image-overlay rules.
 - Theme-specific component surfaces must key off `html[data-theme]`, not the operating system preference. Validate theme switching without reloading, plus mobile portrait, mobile landscape/short viewport, tablet and desktop.
 - Before marking a page ready, record both light- and dark-theme hero verification. A successful build alone is not visual verification.
+
+
+## Mobile navigation theme contract (mandatory)
+- The compact hamburger menu is a shared component. Keep Home, Learn, and the nested CLP Perspective link readable and visually aligned in both explicit themes.
+- On mobile/tablet navigation, use a clearly bounded menu surface with theme-specific foreground/background/border colors; do not inherit hero text colors or transparent desktop-navigation treatments.
+- Maintain a consistent minimum 44px row target, visible hover/focus feedback, and a clear nested indent for CLP Perspective under Learn.
+- Theme state must follow `html[data-theme="light"]` / `html[data-theme="dark"]`; do not substitute operating-system preference media queries.
+- When changing shared navigation styles, bump the corresponding stylesheet cache token in `_layouts/default.html` and validate both themes at mobile portrait, mobile landscape, tablet, and desktop. Confirm keyboard focus and menu open/close behavior remain functional.
