@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import sys
@@ -41,7 +42,9 @@ def validate_dataset(data: Any, *, today: date | None = None) -> None:
         end = date.fromisoformat(data["reporting_period"]["end_date"])
     except (AttributeError, KeyError, TypeError, ValueError):
         raise ValueError("date_format") from None
-    if generated.tzinfo is None or end < start:
+    if set(data["reporting_period"]) != {"start_date", "end_date"}:
+        raise ValueError("reporting_period_schema")
+    if generated.tzinfo is None or end < start or end > (today or date.today()):
         raise ValueError("date_order")
     if (today or date.today()) - end > timedelta(days=14):
         raise ValueError("stale_reporting_period")
@@ -59,7 +62,7 @@ def validate_dataset(data: Any, *, today: date | None = None) -> None:
     for key, value in data["metrics"].items():
         if FORBIDDEN_KEY.search(key) or isinstance(value, bool) or not isinstance(value, (int, float)):
             raise ValueError("metric_type")
-        if value < 0 or (key in {"engagement_rate", "search_ctr"} and value > 1):
+        if not math.isfinite(value) or value < 0 or (key in {"engagement_rate", "search_ctr"} and value > 1):
             raise ValueError("metric_range")
     if not isinstance(data["limitations"], list) or any(not isinstance(x, str) or len(x) > 240 for x in data["limitations"]):
         raise ValueError("limitations_schema")
