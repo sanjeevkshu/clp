@@ -3,11 +3,12 @@
 This file is the entry point for any AI model, coding agent, human contributor, or future automation working on CLP — Continuous Learning & Progressive Evolution.
 
 ## Before making a change
-1. Read [the agentic project handbook](docs/agentic/README.md) and the relevant skill(s) under `skills/`.
-2. Inspect the current branch, working tree/PR, repository structure, and actual implementation before assuming prior notes are still current.
-3. Treat repository source, merged decisions, and current automated checks as stronger evidence than conversational recollection. Use the decision log to understand why constraints exist.
-4. Identify scope, affected routes/components/assets, acceptance criteria, regression risks, and verification steps before editing.
-5. Preserve user-visible behavior unless the request explicitly changes it.
+1. For every feature, enhancement, integration, or meaningful behavior change, follow [Feature Development Skill](skills/feature-development/SKILL.md). Its self-inclusive documentation review is a required development step performed by the author/agent, not a GitHub Actions documentation gate.
+2. Read [the agentic project handbook](docs/agentic/README.md) and the relevant skill(s) under `skills/`.
+3. Inspect the current branch, working tree/PR, repository structure, and actual implementation before assuming prior notes are still current.
+4. Treat repository source, merged decisions, and current automated checks as stronger evidence than conversational recollection. Use the decision log to understand why constraints exist.
+5. Identify scope, affected routes/components/assets, acceptance criteria, regression risks, and verification steps before editing.
+6. Preserve user-visible behavior unless the request explicitly changes it.
 
 ## Non-negotiable project rules
 - **Production safety:** production is GitHub Pages built from `master` (confirm the current default branch/workflow). Never merge or change production settings without explicit user approval. A successful build is not the same as a successful deployment or visual verification.
@@ -21,13 +22,14 @@ This file is the entry point for any AI model, coding agent, human contributor, 
 - **No unsupported claims:** report exactly what was changed, which checks ran, their outcomes, the tested revision, and what remains unverified.
 
 ## Change workflow
-1. Read relevant docs and skills.
+1. Read relevant docs and skills, including Feature Development for feature work.
 2. Make the smallest coherent change with a clear purpose.
 3. Run available local checks and/or repository Actions; add regression checks for repeated failure modes.
-4. Review the diff for unrelated changes, hardcoded page-specific assets in CSS, duplicate components, broken base paths, stale cache keys, and accidental production impact.
-5. Push to a feature branch and open/update a PR. Keep production untouched until approval.
-6. Verify the PR head SHA, successful build, successful preview deployment, and the actual preview route. Review the page in mobile and desktop layouts.
-7. Report summary, changed files, checks with exact status, preview link, Actions link, PR link, risks/limitations, and approval needed.
+4. Run the Documentation Synchronization Skill as part of development and record docs updated/linked/unchanged in the PR; do not rely on a GitHub Actions gate for this judgment.
+5. Review the diff for unrelated changes, hardcoded page-specific assets in CSS, duplicate components, broken base paths, stale cache keys, and accidental production impact.
+6. Push to a feature branch and open/update a PR. Keep production untouched until approval.
+7. Verify the PR head SHA, successful build, successful preview deployment, and the actual preview route. Review the page in mobile and desktop layouts.
+8. Report summary, changed files, checks with exact status, preview link, Actions link, PR link, risks/limitations, and approval needed.
 
 ## Knowledge preservation
 - Put durable decisions and constraints in `docs/agentic/`, not only in chat.
