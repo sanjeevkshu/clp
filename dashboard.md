@@ -82,6 +82,7 @@ sitemap: false
 .dashboard-hero .dashboard-status{max-width:100%;color:inherit}
 html[data-theme="light"] .dashboard-hero{background:linear-gradient(135deg,#f5faff 0%,#eaf5fb 68%,#e2f0f8 100%);color:#10243e}
 html[data-theme="light"] .dashboard-hero .eyebrow{color:#075b70}
+html[data-theme="light"] .dashboard-content .section-heading .eyebrow{color:#075b70}
 html[data-theme="light"] .dashboard-hero h1,
 html[data-theme="light"] .dashboard-hero h1 span{color:#10243e}
 html[data-theme="light"] .dashboard-hero h1 span{background:linear-gradient(90deg,#00647b,#5140a8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
