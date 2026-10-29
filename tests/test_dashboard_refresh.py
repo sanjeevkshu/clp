@@ -1,7 +1,27 @@
 import unittest
 from datetime import date, datetime, timezone
 
-from scripts.dashboard_refresh import build_dataset, validate_dataset
+from scripts.dashboard_refresh import build_dataset, safe_api_category, validate_dataset
+
+
+class DashboardDiagnosticTests(unittest.TestCase):
+    def test_api_statuses_map_to_safe_categories(self):
+        class FakeApiError(Exception):
+            def __init__(self, code):
+                self.code = code
+        self.assertEqual(safe_api_category(FakeApiError(400)), "bad_request_or_invalid_property")
+        self.assertEqual(safe_api_category(FakeApiError(401)), "unauthenticated")
+        self.assertEqual(safe_api_category(FakeApiError(403)), "permission_denied_or_api_disabled")
+        self.assertEqual(safe_api_category(FakeApiError(404)), "property_or_resource_not_found")
+        self.assertEqual(safe_api_category(FakeApiError(429)), "quota_exceeded")
+        self.assertEqual(safe_api_category(FakeApiError(503)), "provider_unavailable")
+
+    def test_unknown_api_error_does_not_expose_exception_text(self):
+        class FakeApiError(Exception):
+            pass
+        error = FakeApiError("contains private provider response")
+        self.assertEqual(safe_api_category(error), "api_error")
+        self.assertNotIn("private", safe_api_category(error))
 
 
 class DashboardDatasetTests(unittest.TestCase):
