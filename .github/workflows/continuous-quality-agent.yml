@@ -108,9 +108,17 @@ jobs:
             code="$(curl --silent --show-error --location --output /tmp/clp-response --write-out '%{http_code}' "$SITE_URL$path")"
             echo "$code $path"
             if [ "$code" -lt 200 ] || [ "$code" -ge 400 ] || [ ! -s /tmp/clp-response ]; then echo "Unexpected response for $path"; exit 1; fi
+            case "$path" in
+              /robots.txt)
+                grep -q '^Sitemap: https://clpvriksha.com/sitemap.xml' /tmp/clp-response || { echo "robots.txt is missing the expected Sitemap directive"; exit 1; }
+                ;;
+              /sitemap.xml)
+                grep -q '<urlset\b' /tmp/clp-response || { echo "sitemap.xml is not an XML urlset document"; exit 1; }
+                ! grep -q 'https://clpvriksha.com/dashboard/' /tmp/clp-response || { echo "Dashboard must remain excluded from the production sitemap"; exit 1; }
+                ;;
+            esac
           done
           grep -q 'noindex' <(curl --silent --show-error --location "$SITE_URL/dashboard/")
-          ! grep -q 'https://clpvriksha.com/dashboard/' <(curl --silent --show-error --location "$SITE_URL/sitemap.xml")
       - name: Publish audit summary
         if: always()
         run: |
