@@ -27,6 +27,46 @@ DEFAULT_LIMITATIONS = [
 ]
 
 
+class RefreshFailure(RuntimeError):
+    """A sanitized diagnostic suitable for public workflow logs."""
+
+    def __init__(self, stage: str, category: str):
+        self.stage = stage
+        self.category = category
+        super().__init__(f"{stage}_{category}")
+
+
+def safe_api_category(exc: Exception) -> str:
+    """Classify common API failures without logging exception text or response bodies."""
+    status = getattr(exc, "code", None)
+    if not isinstance(status, int):
+        response = getattr(exc, "resp", None)
+        status = getattr(response, "status", None)
+    if not isinstance(status, int):
+        response = getattr(exc, "response", None)
+        status = getattr(response, "status_code", None)
+    if status == 400:
+        return "bad_request_or_invalid_property"
+    if status == 401:
+        return "unauthenticated"
+    if status == 403:
+        return "permission_denied_or_api_disabled"
+    if status == 404:
+        return "property_or_resource_not_found"
+    if status == 429:
+        return "quota_exceeded"
+    if isinstance(status, int) and status >= 500:
+        return "provider_unavailable"
+    class_name = type(exc).__name__.lower()
+    if "credential" in class_name or "auth" in class_name:
+        return "authentication_error"
+    if "timeout" in class_name:
+        return "timeout"
+    if "connection" in class_name:
+        return "connection_error"
+    return "api_error"
+
+
 def utc_now() -> datetime:
     return datetime.now(timezone.utc).replace(microsecond=0)
 
@@ -104,54 +144,74 @@ def build_dataset(ga4_values: dict[str, float] | None, gsc_values: dict[str, flo
 
 
 def fetch_and_build() -> dict[str, Any]:
-    import google.auth
-    from google.analytics.data_v1beta import BetaAnalyticsDataClient
-    from google.analytics.data_v1beta.types import DateRange, Metric, RunReportRequest
-    from googleapiclient.discovery import build
+    try:
+        import google.auth
+        from google.analytics.data_v1beta import BetaAnalyticsDataClient
+        from google.analytics.data_v1beta.types import DateRange, Metric, RunReportRequest
+        from googleapiclient.discovery import build
+    except Exception as exc:
+        raise RefreshFailure("client_setup", safe_api_category(exc)) from None
 
     # Use the same completed 28-day window for both providers; Search Console has a longer delay.
     end = date.today() - timedelta(days=3)
     start = end - timedelta(days=27)
-    credentials, _ = google.auth.default(scopes=[
-        "https://www.googleapis.com/auth/analytics.readonly",
-        "https://www.googleapis.com/auth/webmasters.readonly"
-    ])
-    ga4_client = BetaAnalyticsDataClient(credentials=credentials)
-    ga4_response = ga4_client.run_report(RunReportRequest(
-        property=f"properties/{os.environ['GA4_PROPERTY_ID']}",
-        date_ranges=[DateRange(start_date=start.isoformat(), end_date=end.isoformat())],
-        metrics=[Metric(name="activeUsers"), Metric(name="sessions"),
-                 Metric(name="engagementRate"), Metric(name="averageEngagementTime")],
-        limit=1
-    ))
-    ga4_values = None
-    if ga4_response.rows:
-        row = ga4_response.rows[0]
-        values = [float(x.value) for x in row.metric_values]
-        ga4_values = {
-            "active_users": values[0], "sessions": values[1],
-            "engagement_rate": values[2], "average_engagement_time_seconds": values[3]
-        }
+
+    try:
+        credentials, _ = google.auth.default(scopes=[
+            "https://www.googleapis.com/auth/analytics.readonly",
+            "https://www.googleapis.com/auth/webmasters.readonly"
+        ])
+    except Exception as exc:
+        raise RefreshFailure("google_auth", safe_api_category(exc)) from None
+
+    try:
+        ga4_client = BetaAnalyticsDataClient(credentials=credentials)
+        ga4_response = ga4_client.run_report(RunReportRequest(
+            property=f"properties/{os.environ['GA4_PROPERTY_ID']}",
+            date_ranges=[DateRange(start_date=start.isoformat(), end_date=end.isoformat())],
+            metrics=[Metric(name="activeUsers"), Metric(name="sessions"),
+                     Metric(name="engagementRate"), Metric(name="averageEngagementTime")],
+            limit=1
+        ))
+        ga4_values = None
+        if ga4_response.rows:
+            row = ga4_response.rows[0]
+            values = [float(x.value) for x in row.metric_values]
+            ga4_values = {
+                "active_users": values[0], "sessions": values[1],
+                "engagement_rate": values[2], "average_engagement_time_seconds": values[3]
+            }
+    except Exception as exc:
+        raise RefreshFailure("ga4_api", safe_api_category(exc)) from None
+
     # Search Console is queried only for aggregate totals; no query/page dimensions.
-    gsc_end = end
-    gsc_start = start
-    gsc = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
-    response = gsc.searchanalytics().query(
-        siteUrl=os.environ["GSC_SITE_URL"],
-        body={"startDate": gsc_start.isoformat(), "endDate": gsc_end.isoformat(), "rowLimit": 1}
-    ).execute()
-    gsc_values = None
-    rows = response.get("rows", [])
-    if rows:
-        row = rows[0]
-        gsc_values = {
-            "organic_clicks": float(row.get("clicks", 0)),
-            "search_impressions": float(row.get("impressions", 0)),
-            "search_ctr": float(row.get("ctr", 0)),
-            "average_position": float(row.get("position", 0))
-        }
-    # Use the older of the two source windows for clear, comparable period metadata.
-    return build_dataset(ga4_values, gsc_values, gsc_start, gsc_end)
+    try:
+        gsc = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
+        response = gsc.searchanalytics().query(
+            siteUrl=os.environ["GSC_SITE_URL"],
+            body={"startDate": start.isoformat(), "endDate": end.isoformat(), "rowLimit": 1}
+        ).execute()
+        gsc_values = None
+        rows = response.get("rows", [])
+        if rows:
+            row = rows[0]
+            gsc_values = {
+                "organic_clicks": float(row.get("clicks", 0)),
+                "search_impressions": float(row.get("impressions", 0)),
+                "search_ctr": float(row.get("ctr", 0)),
+                "average_position": float(row.get("position", 0))
+            }
+    except Exception as exc:
+        raise RefreshFailure("search_console_api", safe_api_category(exc)) from None
+
+    try:
+        return build_dataset(ga4_values, gsc_values, start, end)
+    except Exception as exc:
+        if isinstance(exc, ValueError) and re.fullmatch(r"[a-z_]+", str(exc)):
+            category = str(exc)
+        else:
+            category = "dataset_build_error"
+        raise RefreshFailure("dataset_validation", category) from None
 
 
 def main() -> int:
@@ -161,12 +221,12 @@ def main() -> int:
         output.write_text(json.dumps(data, indent=2, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
         print("Dashboard candidate validated; public metric values are not logged.")
         return 0
+    except RefreshFailure as exc:
+        print(f"::error::Dashboard refresh failed at stage: {exc.stage}; category: {exc.category}", file=sys.stderr)
+        return 1
     except Exception as exc:
-        # Fail with a stable category only. Never emit provider payloads or exception text.
-        category = "configuration_or_api_failure"
-        if isinstance(exc, ValueError):
-            category = str(exc) if re.fullmatch(r"[a-z_]+", str(exc)) else "schema_validation"
-        print(f"::error::Dashboard refresh failed at stage: {category}", file=sys.stderr)
+        category = "configuration_error" if isinstance(exc, (KeyError, ValueError)) else safe_api_category(exc)
+        print(f"::error::Dashboard refresh failed at stage: orchestration; category: {category}", file=sys.stderr)
         return 1
 
 
