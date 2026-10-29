@@ -159,4 +159,3 @@ jobs:
             - Contains aggregate totals only; no user-level records or Search Console query/page dimensions.
             - Requires normal repository branch protection and required checks; this workflow does not merge it.
           draft: false
-          labels: dashboard-data,automated
