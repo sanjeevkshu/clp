@@ -5,26 +5,34 @@ on:
   schedule:
     - cron: "30 3 * * 1"
 
-permissions:
-  contents: write
-  id-token: write
-
 concurrency:
   group: clp-public-dashboard-refresh
   cancel-in-progress: false
 
 jobs:
   refresh:
-    name: Fetch, validate and publish safe aggregates
+    name: Fetch and validate safe aggregates
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout trusted production code
         uses: actions/checkout@v4
         with:
           ref: master
-          persist-credentials: true
+
+      - name: Require explicit public-data release approval
+        env:
+          DASHBOARD_PUBLISH_APPROVED: ${{ vars.DASHBOARD_PUBLISH_APPROVED }}
+        run: |
+          set -euo pipefail
+          if [ "${DASHBOARD_PUBLISH_APPROVED:-}" != "true" ]; then
+            echo "::error::Public dashboard publication is gated. Review the metric catalog/privacy controls, then set repository variable DASHBOARD_PUBLISH_APPROVED=true to enable refresh."
+            exit 1
+          fi
 
       - name: Check required repository variables
         env:
@@ -67,11 +75,10 @@ jobs:
           DASHBOARD_OUTPUT: /tmp/dashboard-data.json
         run: python scripts/dashboard_refresh.py
 
-      - name: Validate candidate again before publication
+      - name: Validate candidate again before transfer
         run: |
           python - <<'PY'
           import json
-          from datetime import date
           from scripts.dashboard_refresh import validate_dataset
           with open("/tmp/dashboard-data.json", encoding="utf-8") as source:
               candidate = json.load(source)
@@ -79,10 +86,50 @@ jobs:
           print("Candidate passed public-schema and privacy checks.")
           PY
 
-      - name: Publish validated aggregate dataset
+      - name: Transfer sanitized candidate to publish job
+        uses: actions/upload-artifact@v4
+        with:
+          name: validated-public-dashboard
+          path: /tmp/dashboard-data.json
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    name: Publish validated dataset
+    needs: refresh
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout trusted production code
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Download sanitized candidate
+        uses: actions/download-artifact@v4
+        with:
+          name: validated-public-dashboard
+          path: /tmp/dashboard-candidate
+
+      - name: Revalidate candidate in write-enabled job
         run: |
           set -euo pipefail
-          install -m 0644 /tmp/dashboard-data.json dashboard-data.json
+          python - <<'PY'
+          import json
+          from scripts.dashboard_refresh import validate_dataset
+          with open("/tmp/dashboard-candidate/dashboard-data.json", encoding="utf-8") as source:
+              candidate = json.load(source)
+          validate_dataset(candidate)
+          print("Candidate passed final validation.")
+          PY
+
+      - name: Publish complete validated dataset
+        run: |
+          set -euo pipefail
+          install -m 0644 /tmp/dashboard-candidate/dashboard-data.json dashboard-data.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add dashboard-data.json
