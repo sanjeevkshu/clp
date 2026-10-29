@@ -50,6 +50,18 @@ class DashboardDatasetTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "stale_reporting_period"):
             build_dataset(None, None, date(2026, 9, 1), date(2026, 9, 2), self.now)
 
+    def test_non_finite_metric_fails(self):
+        data = build_dataset(None, None, self.start, self.end, self.now)
+        data["metrics"]["sessions"] = float("nan")
+        with self.assertRaisesRegex(ValueError, "metric_range"):
+            validate_dataset(data, today=date(2026, 10, 29))
+
+    def test_extra_reporting_period_field_fails(self):
+        data = build_dataset(None, None, self.start, self.end, self.now)
+        data["reporting_period"]["extra"] = "no"
+        with self.assertRaisesRegex(ValueError, "reporting_period_schema"):
+            validate_dataset(data, today=date(2026, 10, 29))
+
 
 if __name__ == "__main__":
     unittest.main()
