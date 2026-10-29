@@ -1,0 +1,95 @@
+name: Refresh Public Dashboard Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 3 * * 1"
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: clp-public-dashboard-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Fetch, validate and publish safe aggregates
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout trusted production code
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          persist-credentials: true
+
+      - name: Check required repository variables
+        env:
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          GCP_WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER }}
+          GCP_SERVICE_ACCOUNT: ${{ vars.GCP_SERVICE_ACCOUNT }}
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+        run: |
+          set -euo pipefail
+          for name in GCP_PROJECT_ID GCP_WIF_PROVIDER GCP_SERVICE_ACCOUNT GA4_PROPERTY_ID GSC_SITE_URL; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::Missing repository variable: $name"
+              exit 1
+            fi
+          done
+
+      - name: Authenticate using GitHub OIDC
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install minimal Google API clients
+        run: python -m pip install --disable-pip-version-check google-analytics-data google-api-python-client google-auth
+
+      - name: Run synthetic privacy and schema tests
+        run: python -m unittest tests.test_dashboard_refresh -v
+
+      - name: Generate candidate dataset
+        env:
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+          DASHBOARD_OUTPUT: /tmp/dashboard-data.json
+        run: python scripts/dashboard_refresh.py
+
+      - name: Validate candidate again before publication
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import date
+          from scripts.dashboard_refresh import validate_dataset
+          with open("/tmp/dashboard-data.json", encoding="utf-8") as source:
+              candidate = json.load(source)
+          validate_dataset(candidate)
+          print("Candidate passed public-schema and privacy checks.")
+          PY
+
+      - name: Publish validated aggregate dataset
+        run: |
+          set -euo pipefail
+          install -m 0644 /tmp/dashboard-data.json dashboard-data.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboard-data.json
+          if git diff --cached --quiet; then
+            echo "Validated dataset is unchanged; no commit required."
+          else
+            git commit -m "chore(dashboard): publish validated aggregate metrics [skip ci]"
+            git push origin HEAD:master
+            echo "Published a complete validated dataset to master."
+          fi
