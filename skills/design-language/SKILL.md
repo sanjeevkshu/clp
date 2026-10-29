@@ -15,8 +15,9 @@ Creating or modifying page layouts, components, typography, colors, spacing, int
 4. Keep page content and asset selection separate from presentation.
 5. Preserve the CLP tone: clear, practical, calm, trustworthy, and learner-centered.
 6. Validate contrast, visible keyboard focus, semantic HTML, touch targets, reduced motion, and light/dark themes. For every inner-page hero, explicitly inspect kicker, headline/gradient text, supporting copy, status/badges, overlay and surface colors in both themes; use `html[data-theme]` rather than `prefers-color-scheme` when theme toggle state exists.
-7. Test mobile portrait, mobile landscape/short viewport, intermediate width, and desktop.
-8. Update the design language doc when a new token, component contract, or global rule is introduced.
+7. For the hamburger menu, verify explicit light/dark foreground, surface, border, hover/focus and nested-link hierarchy; confirm Home, Learn and CLP Perspective remain readable and aligned.
+8. Test mobile portrait, mobile landscape/short viewport, intermediate width, and desktop.
+9. Update the design language doc when a new token, component contract, or global rule is introduced.
 
 ## Acceptance criteria
 - Existing design language is coherent; no unexplained one-off colors or inline styles.
