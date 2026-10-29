@@ -456,3 +456,93 @@ body.home-page > .site-footer {
 @media (prefers-reduced-motion: reduce) {
   .hamburger-icon > span { transition: none !important; }
 }
+
+
+/* Shared mobile navigation contrast contract: explicit theme tokens, clear hierarchy,
+   and a stable readable surface for Home / Learn / CLP Perspective. */
+@media (max-width: 900px) {
+  html[data-theme="light"] .site-header > .site-nav,
+  html[data-theme="light"] .site-header > #site-nav {
+    color: #10243e !important;
+    background: #f5faff !important;
+    border: 1px solid #d9e8f4 !important;
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(6, 19, 41, .12);
+    padding: 12px !important;
+    gap: 4px !important;
+  }
+  html[data-theme="dark"] .site-header > .site-nav,
+  html[data-theme="dark"] .site-header > #site-nav {
+    color: #f2fbff !important;
+    background: #071b34 !important;
+    border: 1px solid #294765 !important;
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .28);
+    padding: 12px !important;
+    gap: 4px !important;
+  }
+  .site-header > .site-nav > a:not(.button),
+  .site-header > .site-nav .nav-group > a {
+    display: flex !important;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px !important;
+    border-radius: 10px;
+    font-size: 1rem !important;
+    font-weight: 650;
+    line-height: 1.35;
+    text-decoration: none;
+    text-shadow: none !important;
+  }
+  .site-header > .site-nav .nav-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    width: 100%;
+    padding: 0;
+    border-radius: 12px;
+  }
+  .site-header > .site-nav .nav-group > a:first-child {
+    font-weight: 750;
+  }
+  .site-header > .site-nav .nav-group > .nav-subitem {
+    margin: 0 0 2px 12px;
+    width: calc(100% - 12px);
+    padding-left: 22px !important;
+    border-left: 3px solid #078b9e;
+    border-radius: 0 9px 9px 0;
+    font-size: .94rem !important;
+    font-weight: 550;
+  }
+  html[data-theme="light"] .site-header > .site-nav > a:not(.button),
+  html[data-theme="light"] .site-header > .site-nav .nav-group > a {
+    color: #10243e !important;
+  }
+  html[data-theme="dark"] .site-header > .site-nav > a:not(.button),
+  html[data-theme="dark"] .site-header > .site-nav .nav-group > a {
+    color: #f2fbff !important;
+  }
+  html[data-theme="light"] .site-header > .site-nav > a:not(.button):hover,
+  html[data-theme="light"] .site-header > .site-nav > a:not(.button):focus-visible,
+  html[data-theme="light"] .site-header > .site-nav .nav-group > a:hover,
+  html[data-theme="light"] .site-header > .site-nav .nav-group > a:focus-visible {
+    color: #064e63 !important;
+    background: #dff7fb !important;
+    outline-color: #087f8c;
+  }
+  html[data-theme="dark"] .site-header > .site-nav > a:not(.button):hover,
+  html[data-theme="dark"] .site-header > .site-nav > a:not(.button):focus-visible,
+  html[data-theme="dark"] .site-header > .site-nav .nav-group > a:hover,
+  html[data-theme="dark"] .site-header > .site-nav .nav-group > a:focus-visible {
+    color: #ffffff !important;
+    background: #123a58 !important;
+    outline-color: #65e8f5;
+  }
+  .site-header > .site-nav > a:focus-visible,
+  .site-header > .site-nav .nav-group > a:focus-visible {
+    outline: 2px solid #087f8c;
+    outline-offset: 1px;
+  }
+}
