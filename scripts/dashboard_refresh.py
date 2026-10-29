@@ -158,7 +158,7 @@ def main() -> int:
     output = Path(os.environ.get("DASHBOARD_OUTPUT", "dashboard-data.json"))
     try:
         data = fetch_and_build()
-        output.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        output.write_text(json.dumps(data, indent=2, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
         print("Dashboard candidate validated; public metric values are not logged.")
         return 0
     except Exception as exc:
