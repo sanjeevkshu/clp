@@ -1,20 +1,29 @@
 {
-  "generated_at_utc": null,
+  "generated_at_utc": "2026-11-02T11:36:05Z",
   "limitations": [
-    "No successful automated refresh has published data yet.",
-    "Only aggregate totals are intended for publication; no user-level records or query-level search terms are exposed."
+    "Only aggregate totals are published; no user-level records or query-level search terms are exposed.",
+    "Search Console data may be delayed. Reporting periods use completed dates.",
+    "Low-volume GA4 totals are suppressed when active users are fewer than 10."
   ],
-  "metrics": {},
-  "reporting_period": null,
+  "metrics": {
+    "average_position": 0.0,
+    "organic_clicks": 0.0,
+    "search_ctr": 0.0,
+    "search_impressions": 0.0
+  },
+  "reporting_period": {
+    "end_date": "2026-10-30",
+    "start_date": "2026-10-03"
+  },
   "schema_version": 1,
   "sources": {
     "ga4": {
       "label": "Google Analytics 4",
-      "status": "unavailable"
+      "status": "suppressed"
     },
     "search_console": {
       "label": "Google Search Console",
-      "status": "unavailable"
+      "status": "available"
     }
   }
 }
