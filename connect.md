@@ -1,6 +1,6 @@
 ---
 title: "Connect with CLP | Learn. Apply. Evolve."
-description: "Discover CLP learning resources, practical ideas, perspectives and videos. Choose your next step in continuous learning."
+description: "Follow CLP on YouTube and LinkedIn, explore learning resources, and stay connected with continuous learning and progressive evolution."
 permalink: /connect/
 image: "/assets/images/clp-connect-launch-card.svg"
 image_alt: "CLP launch campaign graphic: The world evolves. So should we. Learn. Apply. Evolve."
@@ -56,9 +56,10 @@ image_alt: "CLP launch campaign graphic: The world evolves. So should we. Learn.
   <div class="content-card">
     <p class="eyebrow">STAY CONNECTED</p>
     <h2 id="connect-follow-title">Keep curiosity in motion.</h2>
-    <p>Explore the CLP learning library and watch the launch film. As CLP grows, this page will remain a simple starting point for finding our latest learning resources and official channels.</p>
+    <p>Follow CLP's active channels for new learning ideas, practical resources and perspectives. Additional social channels will be introduced when their official destinations are ready.</p>
     <div class="clp-connect-actions">
-      <a class="learn-card-button" href="https://youtube.com/@clplearnapplyevolve" rel="noopener noreferrer">Visit CLP on YouTube <span aria-hidden="true">↗</span></a>
+      <a class="learn-card-button" href="https://youtube.com/@clplearnapplyevolve" target="_blank" rel="noopener noreferrer">Visit CLP on YouTube <span aria-hidden="true">↗</span></a>
+      <a class="learn-card-button" href="https://www.linkedin.com/in/clpvriksha/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a>
       <a class="learn-card-button" href="{{ '/community/' | relative_url }}">Join the CLP community <span aria-hidden="true">→</span></a>
     </div>
   </div>
