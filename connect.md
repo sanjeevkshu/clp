@@ -1,6 +1,6 @@
 ---
 title: "Connect with CLP"
-description: "Stay connected with CLP Vriksha on LinkedIn and YouTube."
+description: "Stay connected with CLP Vriksha on LinkedIn, YouTube, X and Instagram."
 permalink: /connect/
 ---
 
@@ -34,6 +34,22 @@ permalink: /connect/
           <svg class="social-brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.12C19.55 3.57 12 3.57 12 3.57s-7.55 0-9.4.51A3 3 0 0 0 .5 6.2C0 8.06 0 12 0 12s0 3.94.5 5.8a3 3 0 0 0 2.1 2.12c1.85.51 9.4.51 9.4.51s7.55 0 9.4-.51a3 3 0 0 0 2.1-2.12C24 15.94 24 12 24 12s0-3.94-.5-5.8ZM9.55 15.57V8.43L15.82 12l-6.27 3.57Z"/></svg>
           <span>YouTube</span><span aria-hidden="true">↗</span>
         </a>
+      </div>
+    </article>
+    <article class="connect-social-card connect-social-card-placeholder" aria-label="X profile coming soon">
+      <div class="connect-social-card-content">
+        <p class="eyebrow">UPDATES &amp; IDEAS</p>
+        <h3>X</h3>
+        <p>Short updates and ideas from the CLP learning journey.</p>
+        <span class="connect-social-cta connect-social-status" role="status">Coming soon</span>
+      </div>
+    </article>
+    <article class="connect-social-card connect-social-card-placeholder" aria-label="Instagram profile coming soon">
+      <div class="connect-social-card-content">
+        <p class="eyebrow">VISUAL STORIES</p>
+        <h3>Instagram</h3>
+        <p>Visual stories and moments from our community of learners.</p>
+        <span class="connect-social-cta connect-social-status" role="status">Coming soon</span>
       </div>
     </article>
   </div>
