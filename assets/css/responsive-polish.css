@@ -893,3 +893,23 @@ html[data-theme="light"] .site-footer .footer-column > a {
     gap: 9px !important;
   }
 }
+
+
+/* Ensure the future-platform cards remain visible; placeholder is a status
+   treatment, not a hidden/disabled-card state. */
+.connect-page .connect-social-card-placeholder {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+}
+.connect-page .connect-social-card-placeholder .connect-social-card-content,
+.connect-page .connect-social-card-placeholder .connect-social-status {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.connect-page .connect-social-card-placeholder .connect-social-status {
+  align-self: flex-start;
+  cursor: default;
+}
