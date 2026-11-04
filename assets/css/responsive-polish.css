@@ -546,3 +546,147 @@ body.home-page > .site-footer {
     outline-offset: 1px;
   }
 }
+
+
+/* Connect page: explicit card layout and spacing, independent of inherited
+   learning-card styles which can introduce mismatched padding/overflow. */
+.connect-page .connect-intro { max-width: 68ch; margin: 0 0 1.5rem; }
+.connect-page .connect-social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(18px, 2.4vw, 30px);
+  width: 100%;
+  margin: 0;
+}
+.connect-page .connect-social-card {
+  box-sizing: border-box;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid var(--border-color, rgba(128,160,190,.28));
+  border-radius: 20px;
+  overflow: hidden;
+}
+.connect-page .connect-social-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+  gap: 12px;
+}
+.connect-page .connect-social-card-content > * { max-width: 100%; margin: 0; }
+.connect-page .connect-social-card-content .eyebrow {
+  font-size: .75rem;
+  line-height: 1.5;
+  letter-spacing: .1em;
+  overflow-wrap: anywhere;
+}
+.connect-page .connect-social-card-content h3 { line-height: 1.2; }
+.connect-page .connect-social-card-content > p:not(.eyebrow) {
+  line-height: 1.7;
+  flex: 1 0 auto;
+}
+.connect-page .connect-social-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 100%;
+  min-height: 46px;
+  margin-top: 8px;
+  padding: 11px 16px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 750;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.connect-page .connect-social-cta .social-brand-icon {
+  display: block;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+}
+.connect-page .connect-social-cta:hover { text-decoration: none; }
+.connect-page .connect-social-cta:focus-visible,
+.footer-social-icon:focus-visible {
+  outline: 2px solid #ffbf47;
+  outline-offset: 3px;
+}
+.connect-more { margin-top: clamp(28px, 4vw, 48px); }
+@media (max-width: 640px) {
+  .connect-page .connect-social-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .connect-page .connect-social-card { padding: 22px; border-radius: 16px; }
+  .connect-page .connect-social-card-content { gap: 10px; }
+  .connect-page .connect-social-cta { margin-top: 6px; }
+}
+
+/* Footer hierarchy: three quick-link columns plus a distinct icon-only social
+   engagement block; privacy belongs with the quick links, not the social links. */
+.site-footer .footer-navigation {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(18px, 2.5vw, 34px);
+  min-width: 0;
+}
+.site-footer .footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 11px;
+  min-width: 0;
+}
+.site-footer .footer-column-title {
+  margin: 0 0 5px;
+  color: #c6d9e9 !important;
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+html[data-theme="light"] .site-footer .footer-column-title { color: #334d64 !important; }
+.site-footer .footer-social {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(139,223,255,.2);
+  border-radius: 16px;
+  background: rgba(139,223,255,.055);
+}
+html[data-theme="light"] .site-footer .footer-social {
+  border-color: #c8dbe8;
+  background: rgba(7,95,135,.045);
+}
+.site-footer .footer-social-icons { display: flex; align-items: center; gap: 12px; }
+.site-footer .footer-social-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(139,223,255,.3);
+  border-radius: 12px;
+  background: rgba(139,223,255,.08);
+  color: #8bdfff !important;
+}
+.site-footer .footer-social-icon svg { display: block; width: 21px; height: 21px; }
+.site-footer .footer-social-icon:hover {
+  background: rgba(32,215,244,.18);
+  border-color: #20d7f4;
+}
+@media (max-width: 900px) {
+  .site-footer .footer-navigation { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .site-footer .footer-social { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .site-footer .footer-navigation { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
+  .site-footer .footer-quick-links { grid-column: 1 / -1; }
+  .site-footer .footer-social { grid-column: auto; }
+}
