@@ -833,3 +833,63 @@ html[data-theme="light"] .site-footer .footer-column > a {
     grid-column: 1 / -1 !important;
   }
 }
+
+
+/* Connect page spacing pass: tighten inherited section rhythm and make the
+   vertical cadence fluid at mobile, tablet, landscape, and desktop widths. */
+.connect-page.section {
+  padding-block: clamp(28px, 3.6vw, 48px) !important;
+}
+.connect-page .connect-intro {
+  margin-bottom: clamp(18px, 2.2vw, 26px) !important;
+}
+.connect-page .connect-social-grid {
+  gap: clamp(14px, 1.8vw, 24px) !important;
+}
+.connect-page .connect-social-card {
+  padding: clamp(18px, 2.2vw, 26px) !important;
+}
+.connect-more {
+  margin-top: clamp(18px, 2.6vw, 32px) !important;
+  padding-top: clamp(20px, 2.8vw, 36px) !important;
+  padding-bottom: clamp(28px, 3.6vw, 48px) !important;
+}
+@media (max-width: 900px) {
+  .connect-page.section {
+    padding-block: 28px !important;
+  }
+  .connect-page .connect-social-card {
+    padding: 20px !important;
+  }
+  .connect-more {
+    margin-top: 18px !important;
+    padding-top: 20px !important;
+  }
+}
+@media (max-width: 640px) {
+  .connect-page.section {
+    padding-block: 22px !important;
+  }
+  .connect-page .connect-intro {
+    margin-bottom: 16px !important;
+  }
+  .connect-page .connect-social-grid {
+    gap: 12px !important;
+  }
+  .connect-page .connect-social-card {
+    padding: 18px !important;
+  }
+  .connect-more {
+    margin-top: 14px !important;
+    padding-top: 16px !important;
+    padding-bottom: 28px !important;
+  }
+}
+@media (max-width: 380px) {
+  .connect-page .connect-social-card {
+    padding: 16px !important;
+  }
+  .connect-page .connect-social-card-content {
+    gap: 9px !important;
+  }
+}
