@@ -1570,3 +1570,32 @@ body:has(.home-hero) .site-header .brand {
   padding: 0 !important;
   box-shadow: none !important;
 }
+
+
+/* Global CTA contrast repair: keep every shared button readable when dark theme is active. */
+html[data-theme="dark"] :is(.button,.learn-card-button,.content-button){
+  background:#8ceeff;
+  color:#061329;
+  border-color:#8ceeff;
+  text-shadow:none;
+}
+html[data-theme="dark"] :is(.button,.learn-card-button,.content-button):is(:hover,:focus-visible){
+  background:#c1f7ff;
+  color:#061329;
+  border-color:#c1f7ff;
+  transform:translateY(-2px);
+}
+html[data-theme="dark"] :is(.button,.learn-card-button,.content-button):focus-visible{
+  outline:3px solid #f3fbff;
+  outline-offset:3px;
+}
+html[data-theme="dark"] .content-button-secondary{
+  background:#102a45;
+  color:#eaf8ff;
+  border-color:#7eaccb;
+}
+html[data-theme="dark"] .content-button-secondary:is(:hover,:focus-visible){
+  background:#1b4264;
+  color:#fff;
+  border-color:#a9dfff;
+}
