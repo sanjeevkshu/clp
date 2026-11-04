@@ -1,6 +1,6 @@
 ---
 title: "Connect with CLP"
-description: "Stay connected with CLP Vriksha on LinkedIn, YouTube, X and Instagram."
+description: "Stay connected with CLP Vriksha on LinkedIn and YouTube."
 permalink: /connect/
 ---
 
@@ -36,26 +36,5 @@ permalink: /connect/
         </a>
       </div>
     </article>
-    <article class="connect-social-card connect-social-card-placeholder" aria-label="X profile coming soon">
-      <div class="connect-social-card-content">
-        <p class="eyebrow">UPDATES &amp; IDEAS</p>
-        <h3>X</h3>
-        <p>Short updates and ideas from the CLP learning journey.</p>
-        <span class="connect-social-cta connect-social-status" role="status">Coming soon</span>
-      </div>
-    </article>
-    <article class="connect-social-card connect-social-card-placeholder" aria-label="Instagram profile coming soon">
-      <div class="connect-social-card-content">
-        <p class="eyebrow">VISUAL STORIES</p>
-        <h3>Instagram</h3>
-        <p>Visual stories and moments from our community of learners.</p>
-        <span class="connect-social-cta connect-social-status" role="status">Coming soon</span>
-      </div>
-    </article>
   </div>
-</section>
-
-<section class="section editorial-article-body connect-more" aria-labelledby="connect-next-heading">
-  <h2 id="connect-next-heading">More ways to connect</h2>
-  <p>Follow our active channels above. X and Instagram are coming soon; we’ll add links once CLP’s official profiles are verified.</p>
 </section>
