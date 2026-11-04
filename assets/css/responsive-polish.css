@@ -766,3 +766,70 @@ html[data-theme="light"] .site-footer .footer-social-icon:hover { color: #063a59
   .site-footer .footer-navigation { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .site-footer .footer-quick-links { grid-column: 1 / -1; }
 }
+
+
+/* Footer fix: keep three navigation groups in a real three-column grid,
+   with Connect with Us as an independent, unboxed row beneath navigation. */
+.site-footer {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-auto-flow: row !important;
+  gap: 26px !important;
+}
+.site-footer > .footer-brand,
+.site-footer > .footer-navigation,
+.site-footer > .footer-social,
+.site-footer > small {
+  grid-column: 1 !important;
+  grid-row: auto !important;
+  width: 100%;
+  min-width: 0;
+}
+.site-footer > .footer-navigation {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: start;
+  gap: clamp(16px, 2.5vw, 34px) !important;
+}
+.site-footer > .footer-social {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-self: start;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.site-footer > .footer-social .footer-column-title {
+  margin: 0 0 12px !important;
+}
+.site-footer .footer-column-title {
+  color: #f2fbff !important;
+  font-weight: 850 !important;
+  letter-spacing: .08em;
+}
+.site-footer .footer-column > a {
+  color: #a9c5d9 !important;
+  font-weight: 550 !important;
+}
+html[data-theme="light"] .site-footer .footer-column-title {
+  color: #15334d !important;
+}
+html[data-theme="light"] .site-footer .footer-column > a {
+  color: #46647d !important;
+}
+.site-footer > small {
+  margin-top: 0 !important;
+}
+@media (max-width: 560px) {
+  .site-footer > .footer-navigation {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 22px 18px !important;
+  }
+  .site-footer .footer-quick-links {
+    grid-column: 1 / -1 !important;
+  }
+}
