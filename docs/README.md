@@ -7,6 +7,7 @@ This index is the front door to CLP's repository knowledge. Follow the audience 
 - **Operating contract:** [AGENTS.md](../AGENTS.md)
 - **Model/tool-neutral agentic specification:** [Agentic Specification](agentic/agentic-spec.md)
 - **Feature specification template:** [Feature Spec Template](templates/feature-spec-template.md)
+- **Social profile and launch kit:** [X and Instagram launch pack](social-launch-pack.md)
 - **Skill execution guide:** [Skills README](../skills/README.md)
 
 ## Audience paths
