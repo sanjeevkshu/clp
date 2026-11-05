@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const subject = encodeURIComponent('Join the CLP learning community');
     const body = encodeURIComponent('Hello CLP,\n\nI would like to join the CLP learning community and receive occasional updates.\n\nMy email address: ' + email + '\n\nI consent to CLP receiving this email as my request to join.\n');
     const statusEl = document.querySelector('#join-status');
-    if (statusEl) statusEl.textContent = 'Opening your email app with your request addressed to clpvriksha@gmail.com. Please review and send it there.';
-    window.location.href = 'mailto:clpvriksha@gmail.com?subject=' + subject + '&body=' + body;
+    if (statusEl) statusEl.textContent = 'Opening your email app with your request addressed to info@clpvriksha.com. Please review and send it there.';
+    window.location.href = 'mailto:info@clpvriksha.com?subject=' + subject + '&body=' + body;
   });
   // Shared responsive navigation: one source of truth for the button and menu state.
   const toggle = document.querySelector('.nav-toggle');
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const body = encodeURIComponent('Hello CLP,\n\nI would like CLP to explore:\n' + topic + '\n\nMy learning interest: ' + interest + '\n');
       const statusEl = document.querySelector('#form-status');
       if (statusEl) statusEl.textContent = 'Your email app will open with the suggestion prepared. No data is sent to CLP by this page.';
-      window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+      window.location.href = 'mailto:info@clpvriksha.com?subject=' + subject + '&body=' + body;
     });
   }
 
