@@ -36,20 +36,20 @@ permalink: /connect/
         </a>
       </div>
     </article>
-    <article class="connect-social-card connect-social-card-placeholder" aria-label="X profile coming soon">
+    <article class="connect-social-card">
       <div class="connect-social-card-content">
         <p class="eyebrow">UPDATES &amp; IDEAS</p>
         <h3>X</h3>
         <p>Short updates and ideas from the CLP learning journey.</p>
-        <span class="connect-social-cta connect-social-status" role="status">Coming soon</span>
+        <a class="connect-social-cta" href="https://x.com/clpvriksha" target="_blank" rel="noopener noreferrer" aria-label="X — follow CLP Vriksha @clpvriksha"><svg class="social-brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.6 5.6 22H2.4l7.3-8.4L1.1 2h6.5l4.5 6.8L18.9 2Zm-1.1 18h1.7L6.6 3.9H4.8L17.8 20Z"/></svg><span>Follow on X</span><span aria-hidden="true">↗</span></a>
       </div>
     </article>
-    <article class="connect-social-card connect-social-card-placeholder" aria-label="Instagram profile coming soon">
+    <article class="connect-social-card">
       <div class="connect-social-card-content">
         <p class="eyebrow">VISUAL STORIES</p>
         <h3>Instagram</h3>
         <p>Visual stories and moments from our community of learners.</p>
-        <span class="connect-social-cta connect-social-status" role="status">Coming soon</span>
+        <a class="connect-social-cta" href="https://www.instagram.com/clpvriksha" target="_blank" rel="noopener noreferrer" aria-label="Instagram — follow CLP Vriksha"><svg class="social-brand-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg><span>Follow on Instagram</span><span aria-hidden="true">↗</span></a>
       </div>
     </article>
   </div>
